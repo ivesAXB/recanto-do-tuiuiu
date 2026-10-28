@@ -6,6 +6,7 @@ import Hero from './sections/Hero'
 import DayAtRecanto from './sections/DayAtRecanto'
 import Packages from './sections/Packages'
 import Fishing from './sections/Fishing'
+import Reserve from './sections/Reserve'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -40,6 +41,7 @@ export default function App() {
       </section>
       <Fishing />
       <Packages />
+      <Reserve />
     </main>
   )
 }
