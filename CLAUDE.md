@@ -102,6 +102,7 @@ Toda alteração no banco vira um arquivo SQL em `supabase/migrations/` (version
 - Antes de decisões grandes (trocar stack, mudar banco, mexer em segurança), **perguntar**.
 - Explicar o que foi feito de forma curta, pois o desenvolvedor quer aprender o porquê.
 - Não instalar dependências pesadas sem justificar o impacto no desempenho.
+- Responder ao desenvolvedor sempre em português do Brasil.
 
 ## 10. Pendências
 

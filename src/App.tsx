@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import Hero from './sections/Hero'
 import DayAtRecanto from './sections/DayAtRecanto'
+import Packages from './sections/Packages'
+import Fishing from './sections/Fishing'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -36,6 +38,8 @@ export default function App() {
           As próximas seções entram aqui: um dia no Recanto, a pesca, os pacotes e o pedido de reserva.
         </p>
       </section>
+      <Fishing />
+      <Packages />
     </main>
   )
 }
