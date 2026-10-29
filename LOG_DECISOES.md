@@ -2,6 +2,14 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — P3: Mensagem de limite de envios
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| O erro de limite é reconhecido pelo **início da mensagem** do banco ("Muitos pedidos em pouco tempo"). | Pausar e criar uma migração com um `errcode` próprio. | A função já distingue o erro pelo texto, que é controlado pelo projeto (o `errcode` é o padrão `P0001`, igual ao erro de data no passado). Sem migração, a tarefa não precisou pausar. O risco é alguém mudar esse texto no banco; ficou um comentário no código avisando. |
+| A mensagem de limite usa o texto pedido e omite "ou fale pelo WhatsApp" se `VITE_WHATSAPP_NUMBER` não estiver configurado. | Mostrar sempre a frase completa. | Sem número, o botão do WhatsApp não aparece; a frase ficaria incoerente. |
+| Teste com a resposta do Supabase simulada no navegador (interceptando só `create_reservation_request`). | Enviar 3 pedidos reais para estourar o limite. | Não cria pedidos de teste no banco real. |
+
 ## 2026-10-29 — P2: Keep-alive do Supabase
 
 | Decisão | Alternativa descartada | Motivo |

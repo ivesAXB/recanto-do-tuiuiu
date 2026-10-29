@@ -130,6 +130,11 @@ function buildWhatsAppText(form: Form, experiences: Experience[], requestId: str
 
 const whatsAppHref = (text: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
 
+// The rate limit in create_reservation_request (migration 20261028210000) raises this message with the
+// default errcode P0001, the same code as other checks, so the message prefix is what tells them apart.
+const RATE_LIMIT_PREFIX = 'Muitos pedidos em pouco tempo'
+const isRateLimitError = (error: { message?: string }) => (error.message ?? '').startsWith(RATE_LIMIT_PREFIX)
+
 const inputClass =
   'mt-2 block min-h-12 w-full rounded-xl border border-sand-100/25 bg-forest-950 px-4 text-base text-sand-100 [color-scheme:dark] placeholder:text-sand-300/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 aria-[invalid=true]:border-tuiuiu-500'
 
@@ -185,6 +190,7 @@ export default function Reserve() {
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [requestId, setRequestId] = useState<string | null>(null)
+  const [rateLimited, setRateLimited] = useState(false)
   // Bumped only on step change or when sending ends (success/error), never on 'sending'
   const [reveal, setReveal] = useState(0)
   const [form, setForm] = useState<Form>({
@@ -297,6 +303,7 @@ export default function Reserve() {
     if (error) {
       console.error('Erro ao enviar pedido:', error)
       sendingLock.current = false
+      setRateLimited(isRateLimitError(error))
       setStatus('error')
       return
     }
@@ -387,10 +394,18 @@ export default function Reserve() {
                 )}
                 {status === 'error' && (
                   <div className="rounded-2xl bg-tuiuiu-500/20 p-5">
-                    <p className="font-bold">Não conseguimos registrar seu pedido agora.</p>
-                    <p className="mt-1 text-sand-300">
-                      Tente de novo em instantes{WHATSAPP_NUMBER ? ' ou envie o mesmo pedido direto pelo WhatsApp.' : '.'}
-                    </p>
+                    {rateLimited ? (
+                      <p className="font-bold">
+                        Recebemos muitos pedidos agora. Tente em alguns minutos{WHATSAPP_NUMBER ? ' ou fale pelo WhatsApp.' : '.'}
+                      </p>
+                    ) : (
+                      <>
+                        <p className="font-bold">Não conseguimos registrar seu pedido agora.</p>
+                        <p className="mt-1 text-sand-300">
+                          Tente de novo em instantes{WHATSAPP_NUMBER ? ' ou envie o mesmo pedido direto pelo WhatsApp.' : '.'}
+                        </p>
+                      </>
+                    )}
                     <div className="mt-4">
                       <WhatsAppButton text={waText} />
                     </div>

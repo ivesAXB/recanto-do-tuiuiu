@@ -20,6 +20,27 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## P3 — Mensagem de limite de envios no formulário público
+
+- **Resultado:** pronto.
+- **Arquivos alterados:**
+  - `src/sections/Reserve.tsx`: reconhece o erro de limite e mostra "Recebemos muitos pedidos agora. Tente em alguns minutos ou fale pelo WhatsApp.", com o botão do WhatsApp. O erro genérico continua igual.
+  - `TAREFAS.md`: P3 marcada como `[x]`.
+- **Banco:** nenhuma migração. A função `create_reservation_request` (migração `20261028210000`) já distingue o limite pelo texto da mensagem. O `errcode` é o padrão `P0001`, igual ao do erro de data no passado.
+- **Decisões:** o limite é reconhecido pelo início da mensagem. Detalhes em `LOG_DECISOES.md`.
+- **Verificação:**
+  - `npm run build` e `npm run lint` passam.
+  - A regra foi testada com quatro mensagens: só a de limite é reconhecida.
+  - No navegador (servidor local), a resposta do Supabase foi **simulada**, sem criar pedido real. O limite mostrou a mensagem nova com o botão do WhatsApp, e um erro genérico mostrou a mensagem antiga. As 2 chamadas foram interceptadas e nada chegou ao banco.
+  - **Não testado:** estourar o limite de verdade no banco (3 pedidos do mesmo WhatsApp em 1 hora).
+- **Commit local:** `feat: friendly message when reservation rate limit is hit` (sem push).
+- **Precisa do Ives:**
+  - Nada obrigatório.
+  - Se um dia mudar o texto "Muitos pedidos em pouco tempo" na função do banco, o site volta a mostrar a mensagem genérica. Se quiser blindar isso, dá para criar uma migração com um código de erro próprio.
+- **Próxima tarefa:** P4 — Captcha (Cloudflare Turnstile), **somente planejar** (tarefa de segurança: o agente para depois de entregar o plano).
+
+---
+
 ## P2 — Keep-alive do Supabase
 
 - **Resultado:** pronto. **Fila pausada** (a P2 manda parar: sem push).
@@ -38,8 +59,9 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
   - O script foi conferido com `bash -n`.
   - **Não testado:** a execução real no GitHub, que depende do push. Depois do push, dá para testar em *Actions → Supabase keep-alive → Run workflow*.
 - **Commit local:** `ci: add daily Supabase keep-alive workflow` (sem push).
+- **Atualização (2026-10-29):** o Ives autorizou; o push foi feito (`140069f`) e o deploy daquele commit terminou com sucesso. O keep-alive roda pela primeira vez no próximo horário agendado (08:00 de Cuiabá), ou antes, se o Ives rodar manualmente.
 - **Precisa do Ives:**
-  1. Autorizar o push. Não é preciso criar nada no GitHub: as variáveis da P1 já servem.
+  1. ~~Autorizar o push.~~ Feito.
   2. Depois do push, rodar o workflow uma vez manualmente e conferir se ficou verde.
   3. Ficar atento ao e-mail do GitHub se o repositório passar 60 dias sem push: os workflows agendados são desativados e é só reativar.
 - **Próxima tarefa:** P3 — Mensagem de limite de envios no formulário público.

@@ -66,7 +66,7 @@ Requisitos: cron diário que faz uma leitura leve e pública (ex.: select de 1 l
 experiences via REST com a chave publishable), usando secrets do GitHub. Sem chave secreta.
 Pronto quando: yaml válido e documentado. PAUSA: sem push; Ives cria os secrets.
 
-### [ ] P3 — Mensagem de limite de envios no formulário público
+### [x] P3 — Mensagem de limite de envios no formulário público
 Escopo: src/sections/Reserve.tsx e tratamento de erro do rpc create_reservation_request.
 Requisitos: identificar o erro de limite do banco (ver migração 20261028210000, mensagem/errcode) e
 mostrar texto amigável: "Recebemos muitos pedidos agora. Tente em alguns minutos ou fale pelo
