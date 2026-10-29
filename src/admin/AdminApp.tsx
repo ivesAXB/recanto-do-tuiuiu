@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 import LoginForm from './LoginForm'
+import ReservationList from './ReservationList'
 
 // IMPORTANT: this panel only hides screens. Real protection is RLS in the database
 // (only profiles.role = 'admin' can read reservations), so never rely on this code for security.
@@ -88,7 +89,7 @@ export default function AdminApp() {
         </Link>
       </header>
 
-      <main className="flex flex-1 items-center justify-center py-12">
+      <main className={`flex flex-1 justify-center py-12 ${status === 'admin' ? 'items-start' : 'items-center'}`}>
         {(status === 'loading' || status === 'checking') && (
           <p role="status" className="text-sand-300">
             {status === 'loading' ? 'Carregando…' : 'Verificando acesso…'}
@@ -124,23 +125,28 @@ export default function AdminApp() {
   )
 }
 
-// Placeholder: reservation lists come in step B
 function Dashboard({ email }: { email: string }) {
   const heading = useRef<HTMLHeadingElement>(null)
   useEffect(() => heading.current?.focus(), [])
 
   return (
-    <section className="w-full max-w-md rounded-3xl bg-forest-800 p-6 md:p-10">
-      <h1 ref={heading} tabIndex={-1} className="font-display text-4xl focus:outline-none">
-        Painel
-      </h1>
-      <p className="mt-3 text-sand-300">
-        Conectado como <b className="text-sand-100">{email}</b>
-      </p>
-      <p className="mt-6 text-sand-300">Os pedidos de reserva aparecem aqui na próxima etapa.</p>
-      <button type="button" onClick={() => void signOut()} className={`${buttonClass} mt-8 w-full border border-sand-100/40`}>
-        Sair
-      </button>
+    <section className="w-full max-w-6xl">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 ref={heading} tabIndex={-1} className="font-display text-4xl focus:outline-none md:text-5xl">
+            Pedidos de reserva
+          </h1>
+          <p className="mt-2 text-sand-300">
+            Conectado como <b className="text-sand-100">{email}</b>
+          </p>
+        </div>
+        <button type="button" onClick={() => void signOut()} className={`${buttonClass} border border-sand-100/40`}>
+          Sair
+        </button>
+      </div>
+      <div className="mt-8">
+        <ReservationList />
+      </div>
     </section>
   )
 }

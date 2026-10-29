@@ -145,7 +145,7 @@ export default function Hero() {
             Pedir reserva
           </a>
           <a
-            href="#pousada"
+            href="#dia"
             className="rounded-full border border-sand-100/70 px-8 py-4 font-medium transition hover:bg-sand-100/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sand-100"
           >
             Conhecer a pousada
