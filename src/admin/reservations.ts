@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase'
 import { addDays, toBR } from '../lib/dates'
+import { StaleError } from './errors'
 
 export type Status = 'interesse' | 'confirmada' | 'concluida' | 'cancelada'
 
@@ -84,10 +85,14 @@ export async function loadCapacity(): Promise<number> {
 
 type Patch = Partial<Pick<Reservation, 'status' | 'deposit_paid' | 'admin_notes'>>
 
-export async function updateReservation(id: string, patch: Patch): Promise<Reservation> {
-  // .select().single() makes a silent RLS refusal (0 rows changed) surface as an error
-  const { data, error } = await supabase.from('reservation_requests').update(patch).eq('id', id).select(SELECT).single()
+// expectedStatus: only apply if the status in the database is still the one on screen.
+// Zero rows changed (stale status or silent RLS refusal) throws StaleError.
+export async function updateReservation(id: string, patch: Patch, expectedStatus?: Status): Promise<Reservation> {
+  let query = supabase.from('reservation_requests').update(patch).eq('id', id)
+  if (expectedStatus) query = query.eq('status', expectedStatus)
+  const { data, error } = await query.select(SELECT).maybeSingle()
   if (error) throw error
+  if (!data) throw new StaleError()
   return fromRow(data as unknown as Row)
 }
 
@@ -134,14 +139,3 @@ const createdFormat = new Intl.DateTimeFormat('pt-BR', {
   timeStyle: 'short',
 })
 export const formatCreatedAt = (iso: string) => createdFormat.format(new Date(iso))
-
-// Friendly pt-BR messages only; technical details go to the console
-export function friendlyError(err: unknown, fallback = 'Não foi possível salvar. Tente de novo.') {
-  console.error(err)
-  const e = (err ?? {}) as { code?: string; message?: string; status?: number }
-  if (navigator.onLine === false || /failed to fetch|network/i.test(e.message ?? '')) return 'Sem conexão. Verifique a internet e tente de novo.'
-  if (e.code === 'PGRST301' || e.status === 401 || /jwt/i.test(e.message ?? '')) return 'Sua sessão expirou. Saia e entre de novo.'
-  if (e.code === 'P0001') return 'Essa mudança de status não é permitida. Atualize a lista e tente de novo.'
-  if (e.code === 'PGRST116') return 'Não foi possível salvar: pedido não encontrado ou sem permissão.'
-  return fallback
-}

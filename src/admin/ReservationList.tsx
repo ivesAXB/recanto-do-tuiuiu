@@ -4,7 +4,6 @@ import {
   STATUSES,
   STATUS_LABEL,
   formatCreatedAt,
-  friendlyError,
   loadCapacity,
   loadCounts,
   loadReservations,
@@ -13,10 +12,11 @@ import {
 } from './reservations'
 import ReservationDetail from './ReservationDetail'
 import StatusBadge from './StatusBadge'
+import { STALE_MESSAGE, friendlyError } from './errors'
 
 type Filter = Status | 'todos'
 
-type ListResult = { key: string; items: Reservation[]; error: string | null }
+type ListResult = { key: string; filter: Filter; items: Reservation[]; error: string | null }
 
 const nightsText = (r: Reservation) => {
   const n = nightsBetween(r.check_in, r.check_out)
@@ -43,6 +43,7 @@ export default function ReservationList() {
   const [capacity, setCapacity] = useState(18)
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [listNotice, setListNotice] = useState<string | null>(null)
   const opener = useRef<HTMLElement | null>(null)
 
   const key = `${filter}:${reloadKey}`
@@ -50,8 +51,11 @@ export default function ReservationList() {
   useEffect(() => {
     let cancelled = false
     loadReservations(filter)
-      .then((items) => !cancelled && setResult({ key, items, error: null }))
-      .catch((err) => !cancelled && setResult({ key, items: [], error: friendlyError(err, 'Não foi possível carregar os pedidos.') }))
+      .then((items) => !cancelled && setResult({ key, filter, items, error: null }))
+      .catch(
+        (err) =>
+          !cancelled && setResult({ key, filter, items: [], error: friendlyError(err, 'Não foi possível carregar os pedidos.') }),
+      )
     return () => {
       cancelled = true
     }
@@ -68,13 +72,28 @@ export default function ReservationList() {
   }, [])
 
   const loading = result?.key !== key
-  const items = loading ? [] : result.items
+  // While reloading the same filter, keep showing the previous items instead of an empty list
+  const items = result && (!loading || result.filter === filter) ? result.items : []
   const visible = items.filter((r) => matches(r, query))
   const selected = items.find((r) => r.id === selectedId) ?? null
 
   function open(id: string, el: HTMLElement) {
     opener.current = el
+    setListNotice(null)
     setSelectedId(id)
+  }
+
+  function reload() {
+    setListNotice(null)
+    setReloadKey((k) => k + 1)
+  }
+
+  // The request changed on the server: close the detail, warn and reload (it may have left this filter)
+  function handleStale() {
+    setSelectedId(null)
+    setListNotice(STALE_MESSAGE)
+    setReloadKey((k) => k + 1)
+    requestAnimationFrame(() => document.getElementById('reservation-list-status')?.focus())
   }
 
   function close() {
@@ -127,7 +146,7 @@ export default function ReservationList() {
         </div>
         <button
           type="button"
-          onClick={() => setReloadKey((k) => k + 1)}
+          onClick={reload}
           disabled={loading}
           className={`${controlClass} min-h-12 border border-sand-100/40 px-6 disabled:opacity-50`}
         >
@@ -135,7 +154,8 @@ export default function ReservationList() {
         </button>
       </div>
 
-      <div aria-live="polite" className="mt-6">
+      <div id="reservation-list-status" tabIndex={-1} aria-live="polite" className="mt-6 space-y-3 focus:outline-none">
+        {listNotice && <p className="rounded-2xl border border-gold-400/60 p-4 font-bold">{listNotice}</p>}
         {loading && <p className="text-sand-300">Carregando pedidos…</p>}
         {!loading && result.error && <p className="rounded-2xl bg-tuiuiu-500/20 p-4 font-bold">{result.error}</p>}
         {!loading && !result.error && (
@@ -224,7 +244,15 @@ export default function ReservationList() {
         </div>
       )}
 
-      {selected && <ReservationDetail reservation={selected} capacity={capacity} onClose={close} onUpdated={handleUpdated} />}
+      {selected && (
+        <ReservationDetail
+          reservation={selected}
+          capacity={capacity}
+          onClose={close}
+          onUpdated={handleUpdated}
+          onStale={handleStale}
+        />
+      )}
     </div>
   )
 }

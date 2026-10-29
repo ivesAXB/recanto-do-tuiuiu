@@ -4,7 +4,6 @@ import {
   STATUS_LABEL,
   TRANSITIONS,
   formatCreatedAt,
-  friendlyError,
   guestWhatsAppHref,
   loadOverlaps,
   nightsOverCapacity,
@@ -14,12 +13,14 @@ import {
   type Status,
 } from './reservations'
 import StatusBadge from './StatusBadge'
+import { StaleError, friendlyError } from './errors'
 
 type Props = {
   reservation: Reservation
   capacity: number
   onClose: () => void
   onUpdated: (r: Reservation) => void
+  onStale: () => void
 }
 
 type OverlapResult = { key: string; items: Overlap[]; error: boolean }
@@ -28,7 +29,7 @@ const buttonClass =
   'min-h-12 rounded-full px-6 font-bold transition disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-sand-100 focus-visible:ring-offset-2 focus-visible:ring-offset-forest-900'
 
 // All guest-provided text is rendered as plain React text (escaped). Never use dangerouslySetInnerHTML here.
-export default function ReservationDetail({ reservation: r, capacity, onClose, onUpdated }: Props) {
+export default function ReservationDetail({ reservation: r, capacity, onClose, onUpdated, onStale }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const discardBox = useRef<HTMLDivElement>(null)
@@ -85,12 +86,19 @@ export default function ReservationDetail({ reservation: r, capacity, onClose, o
     setError(null)
     setNotice(null)
     try {
-      const updated = await updateReservation(r.id, patch)
+      // Status changes only apply if the database still has the status shown on screen
+      const updated = await updateReservation(r.id, patch, kind === 'status' ? r.status : undefined)
       onUpdated(updated)
       if (kind === 'notes') setNotes(updated.admin_notes ?? '')
       setNotice(done)
     } catch (err) {
-      setError(friendlyError(err))
+      if (err instanceof StaleError && kind === 'status') {
+        onStale()
+        return
+      }
+      setError(
+        err instanceof StaleError ? 'Não foi possível salvar: pedido não encontrado ou sem permissão.' : friendlyError(err),
+      )
     } finally {
       setSaving(null)
     }
