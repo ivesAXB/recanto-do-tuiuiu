@@ -177,7 +177,6 @@ export default function Reserve() {
   const panel = useRef<HTMLDivElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const sendingLock = useRef(false)
-  const navigated = useRef(false)
 
   const [today] = useState(todayISO)
   const [data, setData] = useState<ReserveData | null>(null)
@@ -186,6 +185,8 @@ export default function Reserve() {
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [requestId, setRequestId] = useState<string | null>(null)
+  // Bumped only on step change or when sending ends (success/error), never on 'sending'
+  const [reveal, setReveal] = useState(0)
   const [form, setForm] = useState<Form>({
     checkIn: '',
     checkOut: '',
@@ -211,7 +212,7 @@ export default function Reserve() {
 
   // On step change: move focus to the new heading and fade the panel in
   useEffect(() => {
-    if (!navigated.current) return
+    if (reveal === 0) return
     heading.current?.focus({ preventScroll: true })
     root.current?.scrollIntoView({ block: 'start', behavior: 'auto' })
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -219,7 +220,7 @@ export default function Reserve() {
     return () => {
       tween.kill()
     }
-  }, [step, status])
+  }, [reveal])
 
   const set = <K extends keyof Form>(key: K, value: Form[K]) => {
     setForm((f) => ({ ...f, [key]: value }))
@@ -231,7 +232,8 @@ export default function Reserve() {
   const periods = data?.periods ?? []
   const defeso = datesReady ? periods.find((p) => touchesDefeso(p, form.checkIn, form.checkOut)) : undefined
   const block = datesReady ? periods.find((p) => touchesBlock(p, form.checkIn, form.checkOut)) : undefined
-  const estimate = data?.lodgingCents && nights ? nights * form.guests * data.lodgingCents : null
+  const guestsValid = Number.isInteger(form.guests) && form.guests >= 1 && form.guests <= MAX_GUESTS
+  const estimate = data?.lodgingCents && nights && guestsValid ? nights * form.guests * data.lodgingCents : null
   const experiences = data?.experiences ?? []
   const waText = form.checkIn && form.checkOut ? buildWhatsAppText(form, experiences, requestId) : ''
 
@@ -264,7 +266,7 @@ export default function Reserve() {
   }
 
   function goTo(next: number) {
-    navigated.current = true
+    setReveal((r) => r + 1)
     setErrors({})
     setStep(next)
   }
@@ -273,7 +275,7 @@ export default function Reserve() {
     if (sendingLock.current || status === 'success') return
     // A bot filled the hidden field: pretend it worked and send nothing
     if (form.website) {
-      navigated.current = true
+      setReveal((r) => r + 1)
       setStatus('success')
       return
     }
@@ -291,7 +293,7 @@ export default function Reserve() {
       p_experience_ids: form.experienceIds,
     })
 
-    navigated.current = true
+    setReveal((r) => r + 1)
     if (error) {
       console.error('Erro ao enviar pedido:', error)
       sendingLock.current = false

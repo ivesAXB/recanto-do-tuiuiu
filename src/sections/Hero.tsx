@@ -15,10 +15,8 @@ const HEADLINE = ['O', 'Pantanal', 'começa', 'quando', 'o', 'tuiuiú', 'chega.'
 const EMPHASIS_INDEX = 5 // "tuiuiú"
 
 const NAV = [
-  { href: '#pousada', label: 'A pousada' },
   { href: '#pesca', label: 'Pesca' },
   { href: '#epocas', label: 'Épocas' },
-  { href: '#como-chegar', label: 'Como chegar' },
 ]
 
 function Header() {
