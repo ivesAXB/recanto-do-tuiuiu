@@ -1,9 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 import LoginForm from './LoginForm'
 import ReservationList from './ReservationList'
+import PeriodsPanel from './PeriodsPanel'
+import ValuesPanel from './ValuesPanel'
+
+const TABS = [
+  { to: '/admin', label: 'Pedidos', end: true },
+  { to: '/admin/periodos', label: 'Períodos', end: false },
+  { to: '/admin/valores', label: 'Valores', end: false },
+]
 
 // IMPORTANT: this panel only hides screens. Real protection is RLS in the database
 // (only profiles.role = 'admin' can read reservations), so never rely on this code for security.
@@ -134,7 +142,7 @@ function Dashboard({ email }: { email: string }) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 ref={heading} tabIndex={-1} className="font-display text-4xl focus:outline-none md:text-5xl">
-            Pedidos de reserva
+            Painel
           </h1>
           <p className="mt-2 text-sand-300">
             Conectado como <b className="text-sand-100">{email}</b>
@@ -144,8 +152,33 @@ function Dashboard({ email }: { email: string }) {
           Sair
         </button>
       </div>
+      <nav aria-label="Seções do painel" className="-mx-6 mt-8 overflow-x-auto px-6 md:mx-0 md:px-0">
+        <ul className="flex min-w-max gap-2 border-b border-sand-100/15 pb-3">
+          {TABS.map((t) => (
+            <li key={t.to}>
+              <NavLink
+                to={t.to}
+                end={t.end}
+                className={({ isActive }) =>
+                  `inline-flex min-h-11 items-center rounded-full px-5 font-bold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 ${
+                    isActive ? 'bg-gold-400 text-forest-900' : 'bg-sand-100/10 hover:bg-sand-100/15'
+                  }`
+                }
+              >
+                {t.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <div className="mt-8">
-        <ReservationList />
+        {/* Nested under "/admin/*" in App.tsx */}
+        <Routes>
+          <Route index element={<ReservationList />} />
+          <Route path="periodos" element={<PeriodsPanel />} />
+          <Route path="valores" element={<ValuesPanel />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
+        </Routes>
       </div>
     </section>
   )
