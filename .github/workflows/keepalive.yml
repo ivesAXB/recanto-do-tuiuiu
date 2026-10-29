@@ -1,0 +1,32 @@
+# Keeps the free Supabase project from pausing (it pauses after ~1 week without requests).
+# Once a day it reads 1 public row (experiences) through the REST API with the public key.
+# Uses the same repository Variable/Secret as deploy.yml. Never the service_role/secret key.
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # every day at 12:00 UTC (08:00 in Cuiabá)
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read one public row
+        env:
+          SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ]; then
+            echo "::error::Faltam VITE_SUPABASE_URL (Variable) ou VITE_SUPABASE_ANON_KEY (Secret). Ver README."
+            exit 1
+          fi
+          # Only the apikey header: works with both the legacy anon key and the new publishable key
+          status=$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 10 \
+            -H "apikey: $SUPABASE_KEY" \
+            "$SUPABASE_URL/rest/v1/experiences?select=id&limit=1")
+          echo "Supabase respondeu HTTP $status"
+          [ "$status" = "200" ] || { echo "::error::Resposta inesperada do Supabase (HTTP $status)"; exit 1; }

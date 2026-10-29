@@ -49,6 +49,17 @@ O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) roda a c
   3. Conferir o DNS (registro CNAME de `www` apontando para `ivesaxb.github.io`).
   4. Rodar o workflow de novo: o `base` passa a ser `/` automaticamente.
 
+## Keep-alive do Supabase
+
+No plano gratuito, o Supabase **pausa o projeto depois de cerca de 1 semana sem uso** (o site para de carregar preços e de receber pedidos). O workflow [.github/workflows/keepalive.yml](.github/workflows/keepalive.yml) evita isso:
+
+- Roda **todo dia às 08:00 (Cuiabá)** e também manualmente (*Actions → Supabase keep-alive → Run workflow*).
+- Faz uma leitura leve e pública (1 linha da tabela `experiences`) com a chave pública.
+- Usa as **mesmas** variáveis da publicação: `VITE_SUPABASE_URL` (Repository variable) e `VITE_SUPABASE_ANON_KEY` (Repository secret). Não é preciso criar nada novo.
+- Se falhar, o GitHub envia e-mail e a execução aparece em vermelho na aba Actions.
+
+**Atenção:** em repositório público, o GitHub **desativa workflows agendados depois de 60 dias sem atividade no repositório** (sem push). Ele avisa por e-mail antes; basta clicar em *Enable workflow* na aba Actions ou fazer qualquer push.
+
 ## Banco de dados
 
 Migrações em [supabase/migrations](supabase/migrations), executadas manualmente no SQL Editor do Supabase. Controle do que já foi aplicado em [supabase/MIGRACOES.md](supabase/MIGRACOES.md).

@@ -4,6 +4,32 @@ Relatórios da fila (TAREFAS.md). Mais recentes no topo.
 
 ---
 
+## P2 — Keep-alive do Supabase
+
+- **Resultado:** pronto. **Fila pausada** (a P2 manda parar: sem push).
+- **Arquivos criados:**
+  - `.github/workflows/keepalive.yml`: cron diário às 08:00 de Cuiabá, mais acionamento manual. Faz um GET em `/rest/v1/experiences?select=id&limit=1` com a chave pública e falha se a resposta não for 200.
+- **Arquivos alterados:**
+  - `README.md`: nova seção "Keep-alive do Supabase", com o aviso dos 60 dias sem atividade.
+  - `TAREFAS.md`: P2 marcada como `[x]`.
+- **Decisões:**
+  - Reaproveita as variáveis da P1, sem secrets novos. **Isso é um desvio** da tarefa.
+  - Usa só o cabeçalho `apikey`, com `permissions: {}`.
+  - Detalhes em `LOG_DECISOES.md`.
+- **Verificação:**
+  - `npm run build` e `npm run lint` passam.
+  - O YAML passou na checagem estrutural (sem tabs, indentação consistente, campos presentes, nenhuma menção a chave secreta).
+  - O script foi conferido com `bash -n`.
+  - **Não testado:** a execução real no GitHub, que depende do push. Depois do push, dá para testar em *Actions → Supabase keep-alive → Run workflow*.
+- **Commit local:** `ci: add daily Supabase keep-alive workflow` (sem push).
+- **Precisa do Ives:**
+  1. Autorizar o push. Não é preciso criar nada no GitHub: as variáveis da P1 já servem.
+  2. Depois do push, rodar o workflow uma vez manualmente e conferir se ficou verde.
+  3. Ficar atento ao e-mail do GitHub se o repositório passar 60 dias sem push: os workflows agendados são desativados e é só reativar.
+- **Próxima tarefa:** P3 — Mensagem de limite de envios no formulário público.
+
+---
+
 ## P1 — Deploy no GitHub Pages (workflow preparado, sem publicar)
 
 - **Resultado:** pronto. **Fila pausada** (a P1 manda parar: o Ives revisa e ativa o Pages).

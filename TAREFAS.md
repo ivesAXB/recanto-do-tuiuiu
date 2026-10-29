@@ -60,7 +60,7 @@ Requisitos:
 Pronto quando: workflow válido (yaml correto), build local passa, README descreve o passo a passo.
 PAUSA: NÃO fazer push. Ives revisa e ativa o Pages no GitHub. Parar ao final.
 
-### [ ] P2 — Keep-alive do Supabase (plano gratuito pausa após 1 semana sem uso)
+### [x] P2 — Keep-alive do Supabase (plano gratuito pausa após 1 semana sem uso)
 Escopo: .github/workflows/keepalive.yml.
 Requisitos: cron diário que faz uma leitura leve e pública (ex.: select de 1 linha em
 experiences via REST com a chave publishable), usando secrets do GitHub. Sem chave secreta.

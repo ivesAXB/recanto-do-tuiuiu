@@ -2,6 +2,16 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — P2: Keep-alive do Supabase
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| **Desvio:** reaproveita a Variable `VITE_SUPABASE_URL` e o Secret `VITE_SUPABASE_ANON_KEY` da P1. | Criar secrets novos só para o keep-alive (a tarefa previa "Ives cria os secrets"). | Os valores já existem no repositório; duplicar só aumentaria o que precisa ser mantido. |
+| Envia só o cabeçalho `apikey`. | `apikey` + `Authorization: Bearer`. | Funciona tanto com a chave anon antiga quanto com a nova publishable (que não é um JWT). |
+| Horário: todo dia às 12:00 UTC (08:00 em Cuiabá), com acionamento manual. | Várias vezes por dia. | Uma requisição por dia basta para a pausa de 1 semana, e o horário da manhã facilita ver o resultado. |
+| O job falha (vermelho, com e-mail do GitHub) se a resposta não for HTTP 200, com 3 tentativas. | Ignorar erros. | Avisa cedo se o projeto pausou ou se a chave mudou. |
+| `permissions: {}` no workflow. | Permissões padrão. | Ele não precisa acessar o repositório. |
+
 ## 2026-10-29 — P1: Deploy no GitHub Pages (preparado, sem publicar)
 
 | Decisão | Alternativa descartada | Motivo |
