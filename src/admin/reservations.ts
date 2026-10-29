@@ -52,10 +52,20 @@ type Row = Omit<Reservation, 'experiences'> & {
   reservation_experiences: { experiences: { name: string } | null }[] | null
 }
 
+// Unique names: scheduled tours add one row per day for the same experience
 const fromRow = ({ reservation_experiences, ...rest }: Row): Reservation => ({
   ...rest,
-  experiences: (reservation_experiences ?? []).map((re) => re.experiences?.name).filter((n): n is string => !!n),
+  experiences: [
+    ...new Set((reservation_experiences ?? []).map((re) => re.experiences?.name).filter((n): n is string => !!n)),
+  ],
 })
+
+export async function loadReservation(id: string): Promise<Reservation> {
+  const { data, error } = await supabase.from('reservation_requests').select(SELECT).eq('id', id).maybeSingle()
+  if (error) throw error
+  if (!data) throw new StaleError()
+  return fromRow(data as unknown as Row)
+}
 
 export async function loadReservations(filter: Status | 'todos'): Promise<Reservation[]> {
   let query = supabase.from('reservation_requests').select(SELECT).order('created_at', { ascending: false }).limit(200)

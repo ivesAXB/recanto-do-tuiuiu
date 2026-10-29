@@ -6,9 +6,11 @@ import LoginForm from './LoginForm'
 import ReservationList from './ReservationList'
 import PeriodsPanel from './PeriodsPanel'
 import ValuesPanel from './ValuesPanel'
+import CalendarPanel from './CalendarPanel'
 
 const TABS = [
   { to: '/admin', label: 'Pedidos', end: true },
+  { to: '/admin/calendario', label: 'Calendário', end: false },
   { to: '/admin/periodos', label: 'Períodos', end: false },
   { to: '/admin/valores', label: 'Valores', end: false },
 ]
@@ -175,6 +177,7 @@ function Dashboard({ email }: { email: string }) {
         {/* Nested under "/admin/*" in App.tsx */}
         <Routes>
           <Route index element={<ReservationList />} />
+          <Route path="calendario" element={<CalendarPanel />} />
           <Route path="periodos" element={<PeriodsPanel />} />
           <Route path="valores" element={<ValuesPanel />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />

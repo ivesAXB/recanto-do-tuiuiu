@@ -6,6 +6,7 @@ import {
   formatCreatedAt,
   guestWhatsAppHref,
   loadOverlaps,
+  loadReservation,
   nightsOverCapacity,
   updateReservation,
   type Overlap,
@@ -13,6 +14,7 @@ import {
   type Status,
 } from './reservations'
 import StatusBadge from './StatusBadge'
+import ReservationTours from './ReservationTours'
 import { StaleError, friendlyError } from './errors'
 
 type Props = {
@@ -274,6 +276,11 @@ export default function ReservationDetail({ reservation: r, capacity, onClose, o
             <span>Sinal pago</span>
           </label>
         </section>
+
+        {(r.status === 'confirmada' || r.status === 'concluida') && (
+          // Refresh the list item so its experience names follow the tours
+          <ReservationTours reservation={r} onChanged={() => loadReservation(r.id).then(onUpdated).catch(console.error)} />
+        )}
 
         <section className="mt-8">
           <h3 className="font-display text-2xl">
