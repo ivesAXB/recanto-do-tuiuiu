@@ -4,6 +4,22 @@ Relatórios da fila (TAREFAS.md). Mais recentes no topo.
 
 ---
 
+## Manutenção do Ives (lista fixa, sempre atualizada)
+
+O que o Ives precisa fazer para o projeto continuar estável depois do lançamento. Cada tarefa da fila acrescenta aqui o que criar de rotina nova.
+
+| Quando | O que fazer | Por quê | Origem |
+|---|---|---|---|
+| Se chegar e-mail do GitHub sobre workflow desativado (só acontece após **60 dias seguidos sem push**) | GitHub → aba **Actions** → *Supabase keep-alive* → **Enable workflow**. Qualquer push também resolve. | Sem o keep-alive, o Supabase gratuito pausa e o site para de carregar preços e receber pedidos. | P2 |
+| Se chegar e-mail do GitHub com o keep-alive **falhando** (vermelho) | Abrir o Supabase: se o projeto estiver pausado, clicar em *Restore*. Se a chave pública tiver mudado, atualizar o Secret `VITE_SUPABASE_ANON_KEY` no GitHub e o `.env`. | O site depende do banco ativo. | P2 |
+| Se o deploy falhar (e-mail do GitHub, *Deploy to GitHub Pages* vermelho) | Ver o erro na aba Actions. Se for "Falta …", conferir as Variables/Secret do repositório. | Sem o deploy, as mudanças não chegam ao site. | P1 |
+| Uma vez por ano, quando saírem as datas oficiais | Cadastrar o defeso do ano no painel (aba **Períodos**). | O site avisa o defeso a partir do banco; as datas mudam todo ano. | C1 |
+| Quando os preços mudarem | Atualizar diária, sinal e experiências no painel (aba **Valores**). | Os preços do site vêm do banco. | C1 |
+| Quando a pousada fechar ou lotar | Cadastrar um **bloqueio** no painel (aba **Períodos**). | O formulário impede pedidos nas noites bloqueadas. | C1 |
+| Opcional (melhoria futura) | Pedir ao agente um workflow que faça um commit pequeno por mês. | Elimina o risco do item dos 60 dias. | P2 |
+
+---
+
 ## P2 — Keep-alive do Supabase
 
 - **Resultado:** pronto. **Fila pausada** (a P2 manda parar: sem push).
