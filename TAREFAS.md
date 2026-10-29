@@ -48,7 +48,7 @@ Fim da tarefa: PARE para o Ives olhar no navegador (marco visual).
 
 ## Fase 4 — Publicação
 
-### [ ] P1 — Deploy no GitHub Pages (workflow preparado, sem publicar)
+### [x] P1 — Deploy no GitHub Pages (workflow preparado, sem publicar)
 Escopo: .github/workflows/deploy.yml, vite.config.ts (base), documentação.
 Requisitos:
 - Workflow que roda em push na main: npm ci, lint, build e publica dist no GitHub Pages

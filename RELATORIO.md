@@ -4,6 +4,40 @@ Relatórios da fila (TAREFAS.md). Mais recentes no topo.
 
 ---
 
+## P1 — Deploy no GitHub Pages (workflow preparado, sem publicar)
+
+- **Resultado:** pronto. **Fila pausada** (a P1 manda parar: o Ives revisa e ativa o Pages).
+- **Arquivos criados:**
+  - `.github/workflows/deploy.yml`: roda em push na `main` e manualmente; executa `npm ci`, lint, checagem das variáveis e build, e publica com `configure-pages`, `upload-pages-artifact` e `deploy-pages`.
+- **Arquivos alterados:**
+  - `vite.config.ts`: `base` vem de `VITE_BASE`, com `/` como padrão.
+  - `README.md`: README do projeto, com o passo a passo de publicação e da troca de domínio.
+  - `TAREFAS.md`: P1 marcada como `[x]`.
+- **Decisões:**
+  - Mantido o nome `VITE_SUPABASE_ANON_KEY`. **Isso é um desvio** do nome citado na tarefa.
+  - O workflow também exige `VITE_WHATSAPP_NUMBER`.
+  - A chave fica como Secret; a URL e o WhatsApp ficam como Variables.
+  - O `base` é automático.
+  - Não há `CNAME` nem `404.html`.
+  - Detalhes em `LOG_DECISOES.md`.
+- **Verificação:**
+  - `npm run build` e `npm run lint` passam.
+  - Build de teste com `VITE_BASE=/recanto-do-tuiuiu/`: o favicon, o JS, o CSS, os vídeos do Hero e o pacote do painel saem com o caminho do repositório.
+  - O YAML foi conferido por leitura e por uma checagem estrutural (sem tabs, indentação consistente, actions oficiais presentes). Não há validador de YAML instalado no projeto, e o agente não baixou nenhum.
+  - **Não testado:** a execução real no GitHub, que depende do push e das variáveis.
+- **Commit local:** `ci: add GitHub Pages deploy workflow` (sem push).
+- **Precisa do Ives:**
+  1. **O repositório é público ou privado?** Pages em repositório privado exige plano pago do GitHub.
+  2. Criar no GitHub (*Settings → Secrets and variables → Actions*):
+     - Variables: `VITE_SUPABASE_URL` e `VITE_WHATSAPP_NUMBER`;
+     - Secret: `VITE_SUPABASE_ANON_KEY` (a chave pública).
+  3. Ativar *Settings → Pages → Source: GitHub Actions*.
+  4. Autorizar o push. **Atenção:** o primeiro push na `main` depois disso já publica no endereço de teste `https://ivesaxb.github.io/recanto-do-tuiuiu/`. Se o Pages ainda não estiver ativado, o workflow falha sem publicar nada.
+  5. A troca para o domínio `recantodotuiuiu.com.br` fica para o fim da fase 4. O passo a passo está no README.
+- **Próxima tarefa:** P2 — Keep-alive do Supabase.
+
+---
+
 ## C2 — Calendário e passeios por hospedagem
 
 - **Resultado:** pronto. **Fila pausada** (marco visual: o Ives precisa olhar no navegador).
@@ -32,6 +66,6 @@ Relatórios da fila (TAREFAS.md). Mais recentes no topo.
      - aba Calendário, inclusive no celular;
      - agendar, editar e remover um passeio numa reserva confirmada;
      - tentar uma data fora da estadia, que deve ser recusada com mensagem.
-  2. Decidir se quer uma migração para o banco também recusar passeio fora das datas. Hoje essa regra vale só no painel.
-  3. Autorizar a próxima tarefa (P1).
+  2. ~~Decidir se quer uma migração para o banco também recusar passeio fora das datas.~~ **Ives decidiu (2026-10-29): não precisa.** A regra fica só no painel.
+  3. ~~Autorizar a próxima tarefa (P1).~~ Autorizada.
 - **Próxima tarefa:** P1 — Deploy no GitHub Pages (workflow preparado, sem publicar).

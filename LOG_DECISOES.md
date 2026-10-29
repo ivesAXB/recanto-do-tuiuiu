@@ -2,6 +2,20 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — P1: Deploy no GitHub Pages (preparado, sem publicar)
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| **Desvio:** a chave se chama `VITE_SUPABASE_ANON_KEY`, como no código e no `.env` atual. | `VITE_SUPABASE_PUBLISHABLE_KEY` (nome citado no TAREFAS.md). | Trocar o nome quebraria o `.env` local, que o agente não pode ler nem editar. Dá para renomear depois, junto com o `.env`. |
+| **Desvio:** o workflow também exige `VITE_WHATSAPP_NUMBER`. | Só as duas variáveis do Supabase. | Sem ele, o botão de WhatsApp da reserva some do site publicado. |
+| A chave fica como **Secret**; a URL e o WhatsApp ficam como **Variables**. | Tudo como Variables. | A chave é pública (vai no site), mas como Secret não aparece nos logs. A URL e o WhatsApp não são sensíveis. |
+| O `base` do Vite vem de `actions/configure-pages` (`base_path`): `/recanto-do-tuiuiu/` no github.io e `/` com domínio próprio. Localmente fica `/`. | Fixar `/` ou o caminho do repositório. | Funciona no endereço de teste e, depois, no domínio, sem precisar editar código. |
+| **Sem arquivo `CNAME`** por enquanto. | Criar `CNAME` com `www.recantodotuiuiu.com.br`. | O domínio aponta para o site antigo; ativar o Pages com CNAME aqui disputaria o domínio. A troca de domínio é decisão do Ives (DECISOES.md, seção 3). |
+| **Sem `404.html`.** | Truque do `404.html` para SPA. | Com `HashRouter`, o Pages sempre entrega o `index.html`. |
+| O README do template Vite foi substituído pelo README do projeto, com o passo a passo de publicação. | Acrescentar uma seção ao README do template. | O conteúdo do template não servia para o projeto. |
+| Node 24 no workflow, com cache do npm. | Node 20 ou 22. | É a mesma versão usada localmente (v24.21). |
+| Workflow em dois jobs (build e deploy), com `concurrency: pages` e `cancel-in-progress: false`. | Um job só. | Segue o modelo oficial do GitHub e não interrompe um deploy em andamento. |
+
 ## 2026-10-29 — C2: Calendário e passeios por hospedagem
 
 | Decisão | Alternativa descartada | Motivo |
