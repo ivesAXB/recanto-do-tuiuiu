@@ -34,6 +34,14 @@ Relatórios da fila (TAREFAS.md). Mais recentes no topo.
   3. Ativar *Settings → Pages → Source: GitHub Actions*.
   4. Autorizar o push. **Atenção:** o primeiro push na `main` depois disso já publica no endereço de teste `https://ivesaxb.github.io/recanto-do-tuiuiu/`. Se o Pages ainda não estiver ativado, o workflow falha sem publicar nada.
   5. A troca para o domínio `recantodotuiuiu.com.br` fica para o fim da fase 4. O passo a passo está no README.
+- **Atualização (2026-10-29):**
+  - O Ives confirmou que o repositório é público, criou as variáveis como Repository, ativou o Pages (Source: GitHub Actions) e autorizou o push.
+  - O primeiro deploy (run 40972696157, commit `431b16d`) terminou com sucesso.
+  - No site publicado, `https://ivesaxb.github.io/recanto-do-tuiuiu/`:
+    - o vídeo carrega;
+    - os preços vêm do Supabase;
+    - não há recursos com 404 nem erros no console;
+    - `#/admin` abre o login, com `noindex`, e o pacote do painel carrega (200).
 - **Próxima tarefa:** P2 — Keep-alive do Supabase.
 
 ---
