@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "media:images": "node scripts/optimize-images.mjs",
+    "media:videos": "node scripts/optimize-videos.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",

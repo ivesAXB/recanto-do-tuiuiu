@@ -27,6 +27,42 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F4 — Mídia em alta qualidade (scripts)
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives). A fila não para aqui.
+- **Situação encontrada:** os dois scripts já existiam desde o começo do projeto (640/1280, manifest simples). Foram ampliados em vez de recriados.
+- **Arquivos alterados:**
+  - `scripts/optimize-images.mjs`:
+    - gera também a largura **1920**;
+    - aceita WebP, TIFF e AVIF;
+    - lê por padrão `originais/fotos`;
+    - o **tema** vem da subpasta;
+    - o `manifest.json` ganhou `width`, `height`, `tema`, `legenda` e `credito`, e **preserva o que foi escrito à mão** ao rodar de novo;
+    - avisa quando dois arquivos ficariam com o mesmo nome, quando a foto é menor que 1920 px e quando a pasta não existe;
+    - respeita fotos de celular giradas (EXIF).
+  - `scripts/optimize-videos.mjs`:
+    - lê por padrão `originais/videos`;
+    - aceita MKV e WebM;
+    - verifica se o ffmpeg está instalado;
+    - **avisa os vídeos acima de ~8 MB**, com sugestões.
+  - `package.json`: comandos `npm run media:images` e `npm run media:videos`.
+  - `README.md`: nova seção "Fotos e vídeos (otimização)" com a estrutura de pastas e o uso.
+  - `TAREFAS.md`: F4 marcada como `[x]`.
+- **Já estava pronto:** `originais/` no `.gitignore`, vídeos sem áudio até 1920 px com poster e `faststart`.
+- **Verificação:**
+  - Lint e build passam.
+  - Teste numa pasta temporária (fora do projeto):
+    - uma foto 2400×1600 numa subpasta `pousada` gerou 640, 1280 e 1920, com tema "pousada";
+    - uma PNG de 900 px gerou 640 e 900, com aviso;
+    - legenda e crédito escritos à mão continuaram no manifest depois de rodar de novo;
+    - um vídeo MOV 2560×1440 com som virou MP4 1920×1080 só com vídeo, mais o poster;
+    - uma pasta inexistente gerou uma mensagem clara e código de saída 1.
+- **Nenhuma mídia do site foi alterada.** O `manifest.json` atual continua no formato antigo e passa para o novo na primeira vez que o Ives rodar o script com as fotos originais.
+- **Observação:** `video-pescaria-no-rio.mp4` tem 7,5 MB, perto do orçamento.
+- **Pendência do Ives:** colocar as fotos em `originais/fotos/<tema>/` e os vídeos em `originais/videos/`, rodar os dois comandos e preencher legenda e crédito no manifest. As tarefas F5 a F8 seguem com placeholders enquanto isso.
+
+---
+
 ## F3 — Profundidade e movimento com rolagem e cursor
 
 - **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver no navegador.** Há commits locais aguardando push (F2 e F3).

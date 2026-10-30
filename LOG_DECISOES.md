@@ -2,6 +2,16 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F4: Scripts de mídia
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Ampliar os scripts existentes. | Reescrever do zero. | Já funcionavam e geraram as mídias atuais; os nomes dos arquivos continuam compatíveis com o site. |
+| Tema = primeira subpasta dentro de `originais/fotos`. | Tema digitado à mão para cada foto. | Organizar em pastas é natural; dá para corrigir no manifest. |
+| O manifest mescla os dados: legenda, crédito e tema escritos à mão nunca são apagados. | Sobrescrever o manifest a cada execução. | O Ives vai preencher legendas à mão. |
+| Vídeo acima do orçamento só gera aviso. | Recomprimir sozinho com mais perda. | A escolha entre cortar e perder qualidade é do Ives. |
+| Os componentes atuais continuam com o `srcset` 640/1280. | Acrescentar a versão 1920 neles agora. | Os arquivos 1920 ainda não existem para as fotos atuais (os originais tinham 1280 px); as seções novas (F5+) já podem usar a de 1920. |
+
 ## 2026-10-30 — F3: Profundidade e cursor
 
 | Decisão | Alternativa descartada | Motivo |

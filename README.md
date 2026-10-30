@@ -74,6 +74,39 @@ No plano gratuito, o Supabase **pausa o projeto depois de cerca de 1 semana sem 
 
 **Atenção:** em repositório público, o GitHub **desativa workflows agendados depois de 60 dias sem atividade no repositório** (sem push). Ele avisa por e-mail antes; basta clicar em *Enable workflow* na aba Actions ou fazer qualquer push.
 
+## Fotos e vídeos (otimização)
+
+Os originais em alta qualidade ficam **fora do Git**, na pasta `originais/` (já está no `.gitignore`). Só os arquivos otimizados vão para `public/media/`.
+
+```
+originais/
+  fotos/
+    pousada/      <- a subpasta vira o "tema" no manifest (ex.: pousada, animais, pesca)
+    animais/
+  videos/
+```
+
+**Fotos** (JPG, PNG, WebP, TIFF ou AVIF):
+
+```bash
+npm run media:images
+```
+
+- Gera `nome-640.webp`, `nome-1280.webp` e `nome-1920.webp` em `public/media/img`. Nunca amplia: uma foto menor que 1920 px fica sem a versão maior (o script avisa).
+- O nome do arquivo vira um nome simples: "Pôr do Sol 2.JPG" vira `por-do-sol-2`.
+- Atualiza `public/media/img/manifest.json` com largura, altura, tema, `legenda` e `credito`. **Legenda e crédito são preenchidos à mão** no manifest; rodar o script de novo não apaga o que foi escrito.
+
+**Vídeos** (MP4, MOV, M4V, MKV ou WebM), que exigem o [ffmpeg](https://ffmpeg.org) (`winget install Gyan.FFmpeg`):
+
+```bash
+npm run media:videos
+```
+
+- Gera `nome.mp4` (H.264, sem áudio, até 1920 px, começa a tocar antes de baixar tudo) e `nome-poster.jpg` em `public/media/video`.
+- Avisa se algum vídeo passar de ~8 MB; nesse caso, corte o vídeo ou aumente o CRF no script.
+
+Outras pastas: `node scripts/optimize-images.mjs <origem> [destino]` (o mesmo vale para vídeos).
+
 ## Banco de dados
 
 Migrações em [supabase/migrations](supabase/migrations), executadas manualmente no SQL Editor do Supabase. Controle do que já foi aplicado em [supabase/MIGRACOES.md](supabase/MIGRACOES.md).

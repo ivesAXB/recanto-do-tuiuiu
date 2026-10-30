@@ -166,7 +166,7 @@ Requisitos:
 Pronto quando: build/lint passam; 60 fps percebidos em notebook comum; reduced-motion respeitado.
 Fim: PARE para o Ives ver (marco visual).
 
-### [ ] F4 — Mídia em alta qualidade (scripts)
+### [x] F4 — Mídia em alta qualidade (scripts)
 Escopo: scripts/optimize-images.mjs e optimize-videos.mjs.
 Requisitos: aceitar originais em HD; gerar imagens webp em larguras 640/1280/1920 (srcset) e
 manifest.json com largura, altura, tema e legenda/crédito; vídeos mp4 sem áudio até 1920px

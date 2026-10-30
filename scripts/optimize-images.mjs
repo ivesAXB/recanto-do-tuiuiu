@@ -1,24 +1,24 @@
-// Uso: node scripts/optimize-images.mjs <pasta-origem> [pasta-destino]
-// Gera versões WebP leves (640 e 1280 px) sem NUNCA ampliar a imagem original.
+// Uso: npm run media:images            (lê originais/fotos e grava em public/media/img)
+//      node scripts/optimize-images.mjs <pasta-origem> [pasta-destino]
+//
+// Gera versões WebP (640, 1280 e 1920 px) sem NUNCA ampliar a foto original.
+// O tema vem da subpasta: originais/fotos/pousada/quarto.jpg -> tema "pousada".
+// manifest.json: legenda, crédito e tema escritos à mão são mantidos ao rodar de novo.
 import sharp from 'sharp'
-import { readdir, mkdir, writeFile } from 'node:fs/promises'
+import { readdir, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const [src, dest = 'public/media/img'] = process.argv.slice(2)
-if (!src) {
-  console.error('Uso: node scripts/optimize-images.mjs <pasta-origem> [pasta-destino]')
-  process.exit(1)
-}
+const [src = 'originais/fotos', dest = 'public/media/img'] = process.argv.slice(2)
 
-const WIDTHS = [640, 1280] // larguras geradas
+const WIDTHS = [640, 1280, 1920] // larguras geradas (para o srcset)
 const QUALITY = 80
-const EXT = /\.(jpe?g|png)$/i
+const EXT = /\.(jpe?g|png|webp|tiff?|avif)$/i
 
 // "Pôr do Sol 2.JPG" -> "por-do-sol-2"
 const slug = (s) =>
   s
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
@@ -33,14 +33,43 @@ async function walk(dir) {
   return found
 }
 
-await mkdir(dest, { recursive: true })
-const manifest = {}
+let sources
+try {
+  sources = await walk(src)
+} catch {
+  console.error(`Pasta "${src}" não encontrada. Coloque as fotos originais lá (ela não vai para o Git).`)
+  process.exit(1)
+}
 
-for (const file of await walk(src)) {
+await mkdir(dest, { recursive: true })
+const manifestPath = path.join(dest, 'manifest.json')
+let manifest = {}
+try {
+  manifest = JSON.parse(await readFile(manifestPath, 'utf8'))
+} catch {
+  // first run: no manifest yet
+}
+
+const seen = new Map()
+for (const file of sources) {
   const name = slug(path.parse(file).name)
-  const meta = await sharp(file).metadata()
-  // Nunca gera um tamanho maior que o original
-  const widths = [...new Set(WIDTHS.map((w) => Math.min(w, meta.width)))]
+  if (seen.has(name)) {
+    console.warn(`Aviso: "${file}" tem o mesmo nome final que "${seen.get(name)}" (${name}). Renomeie um deles.`)
+    continue
+  }
+  seen.set(name, file)
+
+  // First folder below the source folder is the theme
+  const folder = path.relative(src, path.dirname(file)).split(path.sep)[0]
+  const theme = folder && folder !== '.' ? slug(folder) : ''
+
+  const meta = await sharp(file).rotate().metadata()
+  // EXIF orientation 5-8 means the photo is stored sideways
+  const rotated = (meta.orientation ?? 1) >= 5
+  const width = rotated ? meta.height : meta.width
+  const height = rotated ? meta.width : meta.height
+  // Never generate a size larger than the original
+  const widths = [...new Set(WIDTHS.map((w) => Math.min(w, width)))]
   const files = []
 
   for (const w of widths) {
@@ -53,9 +82,20 @@ for (const file of await walk(src)) {
     files.push({ file: out, width: info.width, height: info.height, kb: Math.round(info.size / 1024) })
   }
 
-  manifest[name] = { original: { width: meta.width, height: meta.height }, files }
+  const previous = manifest[name] ?? {}
+  const largest = files[files.length - 1]
+  manifest[name] = {
+    width: largest.width,
+    height: largest.height,
+    tema: previous.tema || theme,
+    legenda: previous.legenda ?? '',
+    credito: previous.credito ?? '',
+    original: { width, height },
+    files,
+  }
+  if (width < 1920) console.warn(`Aviso: ${name} tem só ${width}px de largura; a versão 1920 não foi gerada.`)
   console.log(name, '->', files.map((f) => `${f.width}px ${f.kb}KB`).join(' | '))
 }
 
-await writeFile(path.join(dest, 'manifest.json'), JSON.stringify(manifest, null, 2))
-console.log(`\nPronto: ${Object.keys(manifest).length} imagens em ${dest}`)
+await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
+console.log(`\nPronto: ${seen.size} imagens em ${dest}. Legenda e crédito: preencher em ${manifestPath}.`)
