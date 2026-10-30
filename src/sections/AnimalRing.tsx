@@ -4,27 +4,28 @@ import { animals, type Animal } from '../data/animals'
 import { imageSources } from '../lib/media'
 import { prefersReducedMotion } from '../lib/motion'
 
-// Ring size and radius follow the screen width (phone) up to a maximum (desktop)
-const RING = 'min(86vw, 560px)'
-const RADIUS = 'min(32vw, 208px)'
+// Ring size and radius follow the screen width (phone) up to a maximum (desktop).
+// With 6 photos, a diameter equal to the radius makes neighbouring circles touch (ring = 3 × radius).
+const RING = 'min(90vw, 630px)'
+const RADIUS = 'min(30vw, 210px)'
 
 function Thumb({ animal }: { animal: Animal }) {
   const sources = animal.foto ? imageSources(animal.foto) : null
   return (
-    <span className="block aspect-square overflow-hidden rounded-full border-2 border-sand-100/30 bg-sage-200 transition group-hover:border-gold-400 group-focus-visible:border-gold-400">
+    <span className="block aspect-square overflow-hidden rounded-full border-2 border-forest-900 bg-sage-200 transition group-hover:scale-105 group-hover:border-gold-400 group-focus-visible:border-gold-400 motion-reduce:transition-none">
       {sources ? (
         <img
           src={sources.src}
           srcSet={sources.srcSet}
-          sizes="140px"
+          sizes="(min-width: 768px) 210px, 30vw"
           alt=""
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover"
         />
       ) : (
-        // Placeholder: the name below already says which animal it is
-        <span className="flex h-full items-center justify-center text-[10px] font-bold tracking-wider text-forest-900 uppercase">
+        // Placeholder: the link label says which animal it is
+        <span className="flex h-full items-center justify-center text-[10px] font-bold tracking-wider text-forest-900 uppercase md:text-xs">
           ilustrativo
         </span>
       )}
@@ -32,14 +33,16 @@ function Thumb({ animal }: { animal: Animal }) {
   )
 }
 
+// No visible name (the catalog shows it); the link is still named for screen readers and on hover
 function AnimalLink({ animal }: { animal: Animal }) {
   return (
     <Link
       to={`/animais/${animal.slug}`}
-      className="group block rounded-2xl text-center outline-none focus-visible:ring-2 focus-visible:ring-sand-100"
+      aria-label={animal.nome}
+      title={animal.nome}
+      className="group block rounded-full outline-none focus-visible:ring-2 focus-visible:ring-sand-100 focus-visible:ring-offset-2 focus-visible:ring-offset-forest-900"
     >
       <Thumb animal={animal} />
-      <span className="mt-2 block text-sm font-medium">{animal.nome}</span>
     </Link>
   )
 }
@@ -56,7 +59,7 @@ export default function AnimalRing() {
 
       {reduced ? (
         // Less motion: a still grid instead of the spinning ring
-        <ul className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-6 md:grid-cols-6">
+        <ul className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4">
           {animals.map((a) => (
             <li key={a.slug}>
               <AnimalLink animal={a} />
@@ -71,7 +74,7 @@ export default function AnimalRing() {
               return (
                 <li
                   key={a.slug}
-                  className="absolute top-1/2 left-1/2 w-[22%]"
+                  className="absolute top-1/2 left-1/2 w-1/3"
                   style={{
                     transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(calc(-1 * ${RADIUS})) rotate(${-angle}deg)`,
                   }}

@@ -122,7 +122,10 @@ function DayPinned() {
       // A escala inicial maior que 1 deixa margem para o deslocamento sem mostrar a borda.
       const total = tl.duration()
       tl.fromTo(images, { scale: 1.08, yPercent: 3 }, { scale: 1.16, yPercent: -3, duration: total }, 0)
-      tl.fromTo('[data-day-copy]', { y: 40 }, { y: -40, duration: total }, 0)
+      // Text drift only side by side (desktop): on phones the text sits right under the photo and would touch it
+      if (window.matchMedia('(min-width: 768px)').matches) {
+        tl.fromTo('[data-day-copy]', { y: 40 }, { y: -40, duration: total }, 0)
+      }
 
       if (root.current) stopPointer = pointerParallax(root.current, 12)
     }, root)

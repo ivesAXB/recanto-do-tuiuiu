@@ -28,6 +28,16 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F6 (ajustes pedidos pelo Ives)
+
+- **Anel:** as fotos ficaram maiores, em círculos que se encostam (com 6 animais, o diâmetro é igual ao raio do anel). Cada círculo tem até 210 px no desktop (antes eram cerca de 120 px) e cerca de 30% da largura no celular.
+- **Sem nome visível** em cada animal, porque o catálogo já mostra. O nome continua no link para leitores de tela e aparece ao parar o mouse em cima (`title`).
+- Ao passar o mouse, o círculo aumenta um pouco e ganha a borda dourada.
+- **"Um dia no Recanto" no celular:** a subida do texto (F3) agora só acontece no desktop, onde foto e texto ficam lado a lado. No celular, o texto fica embaixo da foto e encostava nela no fim da rolagem. Medido no fim da cena "Pantanal vivo" em 375 px: 32 px de distância entre a foto e o texto.
+- **Verificação:** lint e build passam; conferido no desktop e no celular (375 px), sem rolagem lateral.
+
+---
+
 ## F6 — Catálogo de animais (anel + página de cards que viram)
 
 - **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver no navegador.** Há commits locais aguardando push (F6).
