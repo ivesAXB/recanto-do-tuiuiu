@@ -46,7 +46,12 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
     - nenhum pedido foi criado.
   - **Não testado:** a Edge Function de verdade, porque não há Deno nem a Supabase CLI neste computador. Ela será testada depois que o Ives publicar, com um pedido real pelo site.
 - **Manutenção:** três linhas novas na tabela "Manutenção do Ives".
-- **Precisa do Ives:** veja a sequência na resposta do agente. Resumo: criar o widget no Cloudflare, cadastrar o secret e publicar a função no Supabase, criar a variável no GitHub, testar e, por último, rodar a migração.
+- **Precisa do Ives:**
+  1. ~~Criar o widget Turnstile no Cloudflare.~~ Feito (2026-10-29).
+  2. ~~Cadastrar `TURNSTILE_SECRET_KEY` e publicar `submit-reservation` sem verificação de JWT.~~ Feito (2026-10-29).
+  3. ~~Criar `VITE_TURNSTILE_SITE_KEY` no GitHub e no `.env`.~~ Feito (2026-10-29).
+  4. Fazer um pedido de teste real pelo site publicado.
+  5. Só depois, rodar a migração `20261029180000_reservation_via_edge_function.sql`.
 
 ---
 
