@@ -6,6 +6,8 @@ import Lenis from 'lenis'
 import Cursor from '../components/Cursor'
 import Footer from '../components/Footer'
 import Loader from '../components/Loader'
+import PhotoBand from '../components/PhotoBand'
+import { bands } from '../data/bands'
 import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
 import AnimalRing from '../sections/AnimalRing'
 import Closing from '../sections/Closing'
@@ -110,11 +112,14 @@ export default function Home() {
         <Hero />
         <DayAtRecanto />
         <Pousada />
+        <PhotoBand band={bands.araras} />
         <AnimalRing />
         <Fishing />
+        <PhotoBand band={bands.onca} />
         <Packages />
         <Trophies />
         <KidsCall />
+        <PhotoBand band={bands.entardecer} />
         <Reserve />
         <Closing />
       </main>

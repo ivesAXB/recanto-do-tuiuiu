@@ -358,5 +358,1679 @@
         "kb": 153
       }
     ]
+  },
+  "anta-2": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2213,
+      "height": 3320
+    },
+    "files": [
+      {
+        "file": "anta-2-640.webp",
+        "width": 640,
+        "height": 961,
+        "kb": 79
+      },
+      {
+        "file": "anta-2-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 228
+      },
+      {
+        "file": "anta-2-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 437
+      }
+    ]
+  },
+  "anta-3": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2265,
+      "height": 1510
+    },
+    "files": [
+      {
+        "file": "anta-3-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 46
+      },
+      {
+        "file": "anta-3-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 144
+      },
+      {
+        "file": "anta-3-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 289
+      }
+    ]
+  },
+  "anta": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2395,
+      "height": 1597
+    },
+    "files": [
+      {
+        "file": "anta-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 45
+      },
+      {
+        "file": "anta-1280.webp",
+        "width": 1280,
+        "height": 854,
+        "kb": 131
+      },
+      {
+        "file": "anta-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 236
+      }
+    ]
+  },
+  "ariranha-2": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2014,
+      "height": 3021
+    },
+    "files": [
+      {
+        "file": "ariranha-2-640.webp",
+        "width": 640,
+        "height": 960,
+        "kb": 54
+      },
+      {
+        "file": "ariranha-2-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 130
+      },
+      {
+        "file": "ariranha-2-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 219
+      }
+    ]
+  },
+  "ariranha-grupo": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4806,
+      "height": 3204
+    },
+    "files": [
+      {
+        "file": "ariranha-grupo-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 55
+      },
+      {
+        "file": "ariranha-grupo-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 138
+      },
+      {
+        "file": "ariranha-grupo-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 236
+      }
+    ]
+  },
+  "ariranha": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4199,
+      "height": 2799
+    },
+    "files": [
+      {
+        "file": "ariranha-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 32
+      },
+      {
+        "file": "ariranha-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 78
+      },
+      {
+        "file": "ariranha-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 129
+      }
+    ]
+  },
+  "ave-arara-azul-grande-2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-arara-azul-grande-2-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 82
+      },
+      {
+        "file": "ave-arara-azul-grande-2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 220
+      },
+      {
+        "file": "ave-arara-azul-grande-2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 386
+      }
+    ]
+  },
+  "ave-arara-azul-grande-3": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5659,
+      "height": 3773
+    },
+    "files": [
+      {
+        "file": "ave-arara-azul-grande-3-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 12
+      },
+      {
+        "file": "ave-arara-azul-grande-3-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 32
+      },
+      {
+        "file": "ave-arara-azul-grande-3-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 55
+      }
+    ]
+  },
+  "ave-arara-azul-grande": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5073,
+      "height": 3383
+    },
+    "files": [
+      {
+        "file": "ave-arara-azul-grande-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 79
+      },
+      {
+        "file": "ave-arara-azul-grande-1280.webp",
+        "width": 1280,
+        "height": 854,
+        "kb": 221
+      },
+      {
+        "file": "ave-arara-azul-grande-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 395
+      }
+    ]
+  },
+  "ave-ema": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2658,
+      "height": 3987
+    },
+    "files": [
+      {
+        "file": "ave-ema-640.webp",
+        "width": 640,
+        "height": 960,
+        "kb": 60
+      },
+      {
+        "file": "ave-ema-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 174
+      },
+      {
+        "file": "ave-ema-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 329
+      }
+    ]
+  },
+  "ave-garca-azul": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4449,
+      "height": 2966
+    },
+    "files": [
+      {
+        "file": "ave-garca-azul-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 39
+      },
+      {
+        "file": "ave-garca-azul-1280.webp",
+        "width": 1280,
+        "height": 854,
+        "kb": 99
+      },
+      {
+        "file": "ave-garca-azul-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 169
+      }
+    ]
+  },
+  "ave-garca-real": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2366,
+      "height": 3549
+    },
+    "files": [
+      {
+        "file": "ave-garca-real-640.webp",
+        "width": 640,
+        "height": 960,
+        "kb": 36
+      },
+      {
+        "file": "ave-garca-real-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 85
+      },
+      {
+        "file": "ave-garca-real-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 143
+      }
+    ]
+  },
+  "ave-gaviao-belo": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4051,
+      "height": 2701
+    },
+    "files": [
+      {
+        "file": "ave-gaviao-belo-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 30
+      },
+      {
+        "file": "ave-gaviao-belo-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 74
+      },
+      {
+        "file": "ave-gaviao-belo-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 124
+      }
+    ]
+  },
+  "ave-martim-pescador-grande-2": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 3115,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-martim-pescador-grande-2-640.webp",
+        "width": 640,
+        "height": 960,
+        "kb": 28
+      },
+      {
+        "file": "ave-martim-pescador-grande-2-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 81
+      },
+      {
+        "file": "ave-martim-pescador-grande-2-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 149
+      }
+    ]
+  },
+  "ave-martim-pescador-grande": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 3224,
+      "height": 2149
+    },
+    "files": [
+      {
+        "file": "ave-martim-pescador-grande-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 43
+      },
+      {
+        "file": "ave-martim-pescador-grande-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 112
+      },
+      {
+        "file": "ave-martim-pescador-grande-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 184
+      }
+    ]
+  },
+  "ave-martim-pescador-pequeno": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-martim-pescador-pequeno-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 38
+      },
+      {
+        "file": "ave-martim-pescador-pequeno-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 86
+      },
+      {
+        "file": "ave-martim-pescador-pequeno-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 141
+      }
+    ]
+  },
+  "ave-martim-pescador-verde": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2653,
+      "height": 1769
+    },
+    "files": [
+      {
+        "file": "ave-martim-pescador-verde-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 7
+      },
+      {
+        "file": "ave-martim-pescador-verde-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 16
+      },
+      {
+        "file": "ave-martim-pescador-verde-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 28
+      }
+    ]
+  },
+  "ave-soco-boi": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4966,
+      "height": 3311
+    },
+    "files": [
+      {
+        "file": "ave-soco-boi-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 20
+      },
+      {
+        "file": "ave-soco-boi-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 50
+      },
+      {
+        "file": "ave-soco-boi-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 84
+      }
+    ]
+  },
+  "ave-soco-dorminhoco": {
+    "width": 1815,
+    "height": 2723,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 1815,
+      "height": 2723
+    },
+    "files": [
+      {
+        "file": "ave-soco-dorminhoco-640.webp",
+        "width": 640,
+        "height": 960,
+        "kb": 75
+      },
+      {
+        "file": "ave-soco-dorminhoco-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 172
+      },
+      {
+        "file": "ave-soco-dorminhoco-1815.webp",
+        "width": 1815,
+        "height": 2723,
+        "kb": 266
+      }
+    ]
+  },
+  "ave-tucano-2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4690,
+      "height": 3127
+    },
+    "files": [
+      {
+        "file": "ave-tucano-2-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 49
+      },
+      {
+        "file": "ave-tucano-2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 127
+      },
+      {
+        "file": "ave-tucano-2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 220
+      }
+    ]
+  },
+  "ave-tucano-3": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-tucano-3-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 57
+      },
+      {
+        "file": "ave-tucano-3-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 151
+      },
+      {
+        "file": "ave-tucano-3-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 266
+      }
+    ]
+  },
+  "ave-tucano-4": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2904,
+      "height": 1936
+    },
+    "files": [
+      {
+        "file": "ave-tucano-4-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 38
+      },
+      {
+        "file": "ave-tucano-4-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 88
+      },
+      {
+        "file": "ave-tucano-4-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 142
+      }
+    ]
+  },
+  "ave-urubu": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4268,
+      "height": 2845
+    },
+    "files": [
+      {
+        "file": "ave-urubu-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 29
+      },
+      {
+        "file": "ave-urubu-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 75
+      },
+      {
+        "file": "ave-urubu-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 130
+      }
+    ]
+  },
+  "aves-garca-branca-e-colheiro": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5109,
+      "height": 3406
+    },
+    "files": [
+      {
+        "file": "aves-garca-branca-e-colheiro-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 49
+      },
+      {
+        "file": "aves-garca-branca-e-colheiro-1280.webp",
+        "width": 1280,
+        "height": 854,
+        "kb": 125
+      },
+      {
+        "file": "aves-garca-branca-e-colheiro-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 206
+      }
+    ]
+  },
+  "bugio-preto-familia": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 3377,
+      "height": 2251
+    },
+    "files": [
+      {
+        "file": "bugio-preto-familia-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 72
+      },
+      {
+        "file": "bugio-preto-familia-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 212
+      },
+      {
+        "file": "bugio-preto-familia-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 364
+      }
+    ]
+  },
+  "bugio-preto-femea-com-folhote": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2439,
+      "height": 3658
+    },
+    "files": [
+      {
+        "file": "bugio-preto-femea-com-folhote-640.webp",
+        "width": 640,
+        "height": 960,
+        "kb": 114
+      },
+      {
+        "file": "bugio-preto-femea-com-folhote-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 282
+      },
+      {
+        "file": "bugio-preto-femea-com-folhote-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 458
+      }
+    ]
+  },
+  "bugio-preto-femea": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 3469,
+      "height": 2313
+    },
+    "files": [
+      {
+        "file": "bugio-preto-femea-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 53
+      },
+      {
+        "file": "bugio-preto-femea-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 142
+      },
+      {
+        "file": "bugio-preto-femea-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 241
+      }
+    ]
+  },
+  "bugio-preto-macho": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2729,
+      "height": 4094
+    },
+    "files": [
+      {
+        "file": "bugio-preto-macho-640.webp",
+        "width": 640,
+        "height": 960,
+        "kb": 164
+      },
+      {
+        "file": "bugio-preto-macho-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 450
+      },
+      {
+        "file": "bugio-preto-macho-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 749
+      }
+    ]
+  },
+  "capivara": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5801,
+      "height": 3867
+    },
+    "files": [
+      {
+        "file": "capivara-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 64
+      },
+      {
+        "file": "capivara-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 232
+      },
+      {
+        "file": "capivara-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 446
+      }
+    ]
+  },
+  "casal-de-tuiuiu-voando-no-por-do-sol": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 6704,
+      "height": 4469
+    },
+    "files": [
+      {
+        "file": "casal-de-tuiuiu-voando-no-por-do-sol-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 10
+      },
+      {
+        "file": "casal-de-tuiuiu-voando-no-por-do-sol-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 25
+      },
+      {
+        "file": "casal-de-tuiuiu-voando-no-por-do-sol-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 42
+      }
+    ]
+  },
+  "cervo-do-pantanal": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5688,
+      "height": 3792
+    },
+    "files": [
+      {
+        "file": "cervo-do-pantanal-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 67
+      },
+      {
+        "file": "cervo-do-pantanal-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 215
+      },
+      {
+        "file": "cervo-do-pantanal-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 400
+      }
+    ]
+  },
+  "foto-linda-jacare-e-capivara": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5791,
+      "height": 3861
+    },
+    "files": [
+      {
+        "file": "foto-linda-jacare-e-capivara-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 31
+      },
+      {
+        "file": "foto-linda-jacare-e-capivara-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 78
+      },
+      {
+        "file": "foto-linda-jacare-e-capivara-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 129
+      }
+    ]
+  },
+  "foto-linda-tuiuiu-em-pe": {
+    "width": 1920,
+    "height": 2880,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2429,
+      "height": 3644
+    },
+    "files": [
+      {
+        "file": "foto-linda-tuiuiu-em-pe-640.webp",
+        "width": 640,
+        "height": 961,
+        "kb": 113
+      },
+      {
+        "file": "foto-linda-tuiuiu-em-pe-1280.webp",
+        "width": 1280,
+        "height": 1920,
+        "kb": 275
+      },
+      {
+        "file": "foto-linda-tuiuiu-em-pe-1920.webp",
+        "width": 1920,
+        "height": 2880,
+        "kb": 443
+      }
+    ]
+  },
+  "jacare-2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2954,
+      "height": 1969
+    },
+    "files": [
+      {
+        "file": "jacare-2-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 32
+      },
+      {
+        "file": "jacare-2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 83
+      },
+      {
+        "file": "jacare-2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 140
+      }
+    ]
+  },
+  "jacare-3": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 3114,
+      "height": 2076
+    },
+    "files": [
+      {
+        "file": "jacare-3-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 31
+      },
+      {
+        "file": "jacare-3-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 81
+      },
+      {
+        "file": "jacare-3-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 139
+      }
+    ]
+  },
+  "jacare-em-grupo": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5735,
+      "height": 3823
+    },
+    "files": [
+      {
+        "file": "jacare-em-grupo-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 68
+      },
+      {
+        "file": "jacare-em-grupo-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 235
+      },
+      {
+        "file": "jacare-em-grupo-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 455
+      }
+    ]
+  },
+  "jacare-jovem": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "jacare-jovem-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 18
+      },
+      {
+        "file": "jacare-jovem-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 44
+      },
+      {
+        "file": "jacare-jovem-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 74
+      }
+    ]
+  },
+  "jacare": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 6622,
+      "height": 4414
+    },
+    "files": [
+      {
+        "file": "jacare-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 24
+      },
+      {
+        "file": "jacare-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 64
+      },
+      {
+        "file": "jacare-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 111
+      }
+    ]
+  },
+  "onca-pintada-1": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "onca-pintada-1-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 78
+      },
+      {
+        "file": "onca-pintada-1-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 237
+      },
+      {
+        "file": "onca-pintada-1-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 444
+      }
+    ]
+  },
+  "onca-pintada-10": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5992,
+      "height": 3995
+    },
+    "files": [
+      {
+        "file": "onca-pintada-10-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 67
+      },
+      {
+        "file": "onca-pintada-10-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 192
+      },
+      {
+        "file": "onca-pintada-10-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 326
+      }
+    ]
+  },
+  "onca-pintada-2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "onca-pintada-2-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 61
+      },
+      {
+        "file": "onca-pintada-2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 184
+      },
+      {
+        "file": "onca-pintada-2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 345
+      }
+    ]
+  },
+  "onca-pintada-3": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "onca-pintada-3-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 35
+      },
+      {
+        "file": "onca-pintada-3-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 91
+      },
+      {
+        "file": "onca-pintada-3-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 167
+      }
+    ]
+  },
+  "onca-pintada-4": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7005,
+      "height": 4670
+    },
+    "files": [
+      {
+        "file": "onca-pintada-4-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 70
+      },
+      {
+        "file": "onca-pintada-4-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 214
+      },
+      {
+        "file": "onca-pintada-4-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 425
+      }
+    ]
+  },
+  "onca-pintada-5": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5415,
+      "height": 3610
+    },
+    "files": [
+      {
+        "file": "onca-pintada-5-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 58
+      },
+      {
+        "file": "onca-pintada-5-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 157
+      },
+      {
+        "file": "onca-pintada-5-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 350
+      }
+    ]
+  },
+  "onca-pintada-6": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "onca-pintada-6-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 46
+      },
+      {
+        "file": "onca-pintada-6-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 119
+      },
+      {
+        "file": "onca-pintada-6-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 211
+      }
+    ]
+  },
+  "onca-pintada-7": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 6020,
+      "height": 4013
+    },
+    "files": [
+      {
+        "file": "onca-pintada-7-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 49
+      },
+      {
+        "file": "onca-pintada-7-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 174
+      },
+      {
+        "file": "onca-pintada-7-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 329
+      }
+    ]
+  },
+  "onca-pintada-8": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 6550,
+      "height": 4367
+    },
+    "files": [
+      {
+        "file": "onca-pintada-8-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 84
+      },
+      {
+        "file": "onca-pintada-8-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 281
+      },
+      {
+        "file": "onca-pintada-8-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 572
+      }
+    ]
+  },
+  "por-do-sol-com-lago": {
+    "width": 1920,
+    "height": 1440,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4032,
+      "height": 3024
+    },
+    "files": [
+      {
+        "file": "por-do-sol-com-lago-640.webp",
+        "width": 640,
+        "height": 480,
+        "kb": 12
+      },
+      {
+        "file": "por-do-sol-com-lago-1280.webp",
+        "width": 1280,
+        "height": 960,
+        "kb": 43
+      },
+      {
+        "file": "por-do-sol-com-lago-1920.webp",
+        "width": 1920,
+        "height": 1440,
+        "kb": 89
+      }
+    ]
+  },
+  "por-do-sol": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "por-do-sol-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 19
+      },
+      {
+        "file": "por-do-sol-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 55
+      },
+      {
+        "file": "por-do-sol-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 103
+      }
+    ]
+  },
+  "quati": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 5542,
+      "height": 3695
+    },
+    "files": [
+      {
+        "file": "quati-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 84
+      },
+      {
+        "file": "quati-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 262
+      },
+      {
+        "file": "quati-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 478
+      }
+    ]
+  },
+  "tuiuiu-com-asa-aberta": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4124,
+      "height": 2749
+    },
+    "files": [
+      {
+        "file": "tuiuiu-com-asa-aberta-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 62
+      },
+      {
+        "file": "tuiuiu-com-asa-aberta-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 169
+      },
+      {
+        "file": "tuiuiu-com-asa-aberta-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 298
+      }
+    ]
+  },
+  "tuiuiu-no-ninho": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "tuiuiu-no-ninho-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 18
+      },
+      {
+        "file": "tuiuiu-no-ninho-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 59
+      },
+      {
+        "file": "tuiuiu-no-ninho-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 109
+      }
+    ]
+  },
+  "pousada-externa-com-cavalos": {
+    "width": 1920,
+    "height": 2560,
+    "tema": "pousada",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4284,
+      "height": 5712
+    },
+    "files": [
+      {
+        "file": "pousada-externa-com-cavalos-640.webp",
+        "width": 640,
+        "height": 853,
+        "kb": 90
+      },
+      {
+        "file": "pousada-externa-com-cavalos-1280.webp",
+        "width": 1280,
+        "height": 1707,
+        "kb": 389
+      },
+      {
+        "file": "pousada-externa-com-cavalos-1920.webp",
+        "width": 1920,
+        "height": 2560,
+        "kb": 875
+      }
+    ]
+  },
+  "pousada-externa": {
+    "width": 1920,
+    "height": 2560,
+    "tema": "pousada",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4284,
+      "height": 5712
+    },
+    "files": [
+      {
+        "file": "pousada-externa-640.webp",
+        "width": 640,
+        "height": 853,
+        "kb": 79
+      },
+      {
+        "file": "pousada-externa-1280.webp",
+        "width": 1280,
+        "height": 1707,
+        "kb": 332
+      },
+      {
+        "file": "pousada-externa-1920.webp",
+        "width": 1920,
+        "height": 2560,
+        "kb": 745
+      }
+    ]
   }
 }

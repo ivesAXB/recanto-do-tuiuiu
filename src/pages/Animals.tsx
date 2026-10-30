@@ -12,7 +12,10 @@ export default function Animals() {
   return (
     <>
       <title>Animais do Pantanal | Recanto do Tuiuiú</title>
-      <meta name="description" content="Alguns dos animais que vivem no Pantanal mato-grossense, perto da Pousada Recanto do Tuiuiú." />
+      <meta
+        name="description"
+        content="Alguns dos animais que vivem no Pantanal mato-grossense, perto da Pousada Recanto do Tuiuiú."
+      />
       <main className="mx-auto max-w-6xl px-6 py-10 md:px-16">
         <Link
           to="/"
@@ -27,7 +30,7 @@ export default function Animals() {
         </p>
         <ul className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {animals.map((a) => (
-            <FlipCard key={a.slug} id={a.slug} nome={a.nome} foto={a.foto} alt={a.alt}>
+            <FlipCard key={a.slug} id={a.slug} nome={a.nome} photos={a.fotos} placeholderAlt={a.alt} showCredit>
               <p className="font-display text-2xl">{a.nome}</p>
               <p className={`mt-1 ${a.cientifico ? 'italic' : 'text-sm italic opacity-70'}`}>
                 {a.cientifico || `Nome científico: ${SOON.toLowerCase()}`}
@@ -39,9 +42,10 @@ export default function Animals() {
                 <CardDetail label="Curiosidade" value={a.curiosidade} />
               </dl>
               {!a.revisado && (
-                <p className="mt-4 text-xs font-bold tracking-wider text-forest-700 uppercase">Informações em revisão</p>
+                <p className="mt-4 text-xs font-bold tracking-wider text-forest-700 uppercase">
+                  Informações em revisão
+                </p>
               )}
-              <p className="mt-4 text-xs opacity-70">Foto: {a.credito || `crédito ${SOON.toLowerCase()}`}</p>
             </FlipCard>
           ))}
         </ul>

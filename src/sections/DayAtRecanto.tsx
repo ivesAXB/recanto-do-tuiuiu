@@ -32,16 +32,16 @@ const PANELS = [
     id: 'entardecer',
     title: 'Fim de tarde',
     text: 'Passeio ecológico com roteiro fotográfico.',
-    image: 'por-do-sol-horizontal',
-    alt: 'Pôr do sol no Pantanal',
+    image: 'casal-de-tuiuiu-voando-no-por-do-sol',
+    alt: 'Dois tuiuiús voando no céu alaranjado do pôr do sol',
     bg: '#3a2620', // tom do entardecer
   },
   {
     id: 'fauna',
     title: 'Pantanal vivo',
-    text: 'Jacarés, araras e tuiuiús: a fauna do Pantanal faz parte da paisagem.',
-    image: 'imagem-jacare-dentro-da-agua-nitida',
-    alt: 'Jacaré dentro da água',
+    text: 'Jacarés, capivaras, araras e tuiuiús: a fauna do Pantanal faz parte da paisagem.',
+    image: 'foto-linda-jacare-e-capivara',
+    alt: 'Jacaré na água e uma capivara na margem, logo atrás',
     bg: '#0f1d18',
   },
 ]

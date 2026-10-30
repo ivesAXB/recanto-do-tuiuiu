@@ -28,6 +28,52 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## Fotos novas do Ives: animais com várias fotos e faixas de foto grande
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Fotos recebidas:** 52 arquivos em `originais/fotos/`.
+  - **10 em RAW da Sony (`.ARW`)**: foi extraída a prévia em JPEG que vem dentro do arquivo, em resolução total (7008×4672).
+  - **3 em `.HEIC`**: convertidas com o ffmpeg.
+  - As versões `.jpg` convertidas ficaram ao lado dos originais, em `originais/` (fora do Git), para que `npm run media:images` funcione da próxima vez.
+  - `onca-pintada-5` existia em `.ARW` e em `.jpeg`; foi usado o `.jpeg`.
+  - O script gerou 54 fotos em 640, 1280 e 1920 px. `public/media/img` foi de 4 MB para 31 MB.
+- **Animais com várias fotos:**
+  - `src/data/animals.ts`: `foto` virou `fotos` (lista com nome, `alt` e crédito de cada foto) e ganhou `destaque`.
+  - **12 animais**, todos com foto real: onça-pintada (9 fotos), tuiuiú (4), arara-azul (3), jacaré (5), ariranha (3), tucano (3), capivara, anta (3), bugio-preto (4), cervo-do-pantanal, martim-pescador (4) e quati.
+  - **6 em destaque no anel:** onça-pintada, tuiuiú, arara-azul, jacaré, ariranha e tucano.
+  - A garça-branca saiu da lista (a foto dela tem também um colhereiro); pode voltar quando o Ives quiser.
+  - Textos genéricos e seguros para os animais novos (ex.: "O maior felino das Américas, com a pelagem coberta de pintas em forma de roseta."); os campos específicos continuam "Em breve".
+- **Cartão com várias fotos** (`src/components/FlipCard.tsx`):
+  - A frente troca de foto com um esmaecimento a cada 4,5 s, só enquanto o cartão está na tela.
+  - Pontinhos embaixo do cartão escolhem a foto: ficam fora do cartão para continuarem clicáveis quando o mouse vira o cartão.
+  - **Só a foto atual e a próxima são baixadas**; as outras chegam na vez delas.
+  - O verso mostra o crédito da foto que está na frente.
+  - Com "reduzir movimento", a troca automática fica desligada e a foto é escolhida pelos pontinhos.
+  - A página de peixes usa o mesmo cartão, com uma foto só.
+- **Faixas de foto grande** (`src/components/PhotoBand.tsx` + `src/data/bands.ts`): foto de tela inteira entre as seções verdes, com paralaxe, uma legenda grande que sobe ao aparecer e um degradê que funde com o verde.
+  - Depois de **A pousada**: três araras-azuis no céu.
+  - Depois da **Pesca**: a onça-pintada bocejando na beira do rio.
+  - Depois dos **Pequenos**, antes da Reserva: o pôr do sol.
+  - Trocar a foto ou a legenda de uma faixa = editar `src/data/bands.ts`.
+- **Um dia no Recanto:**
+  - "Fim de tarde" agora mostra **os dois tuiuiús voando no pôr do sol** (combina com o conceito "O tuiuiú chega").
+  - "Pantanal vivo" mostra o jacaré com a capivara; o texto ganhou "capivaras".
+- **Pousada:** as duas fotos externas novas (`.HEIC`, verticais, de celular) **não foram usadas**, porque as atuais têm melhor qualidade. Ficaram disponíveis.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - No navegador: as 3 faixas aparecem; o anel mostra 6 fotos reais.
+  - No cartão da onça, só 2 fotos estavam carregadas no início; depois de 5 s a foto trocou; o pontinho 7 mostrou a sétima foto, com `aria-current` certo e o crédito "em breve".
+  - 12 cartões no catálogo; celular (375 px) sem rolagem lateral.
+- **Fotos sem uso no momento** (continuam em `public/media/img`):
+  - **antigas:** `casal-de-tuiuius-asa-aberta`, `casal-de-tuiuius-perto-do-barco`, `homens-pescando-em-barco` e `-2`, `imagem-jacare-dentro-da-agua-nitida` e `-2`, `mulher-com-araras-horizontal`, `ninho-de-tuiuius`, `por-do-sol-horizontal`, `pousada-externa-ampliada-horizontal2`, `rogaciano-com-arara-horizontal` e `-vertical`;
+  - **novas:** `ave-ema`, `ave-garca-azul`, `ave-garca-real`, `ave-gaviao-belo`, `ave-soco-boi`, `ave-soco-dorminhoco`, `ave-urubu`, `aves-garca-branca-e-colheiro`, `jacare-3`, `por-do-sol-com-lago`, `pousada-externa`, `pousada-externa-com-cavalos`.
+- **Pendências do Ives:**
+  - Créditos de cada foto (fotógrafo) em `src/data/animals.ts`.
+  - Revisar as legendas das faixas e as frases dos animais novos.
+  - Decidir se as fotos antigas sem uso podem ser apagadas, e se as aves extras (garças, gavião, ema, socós) entram no catálogo.
+
+---
+
 ## F9 — Revisão final de front
 
 - **Resultado:** pronto. **A fila termina aqui (PARAR).** Commit local, **sem push** (aguardando o Ives).

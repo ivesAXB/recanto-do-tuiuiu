@@ -27,7 +27,10 @@ export default function FishPage() {
   return (
     <>
       <title>Peixes do Pantanal | Recanto do Tuiuiú</title>
-      <meta name="description" content="Os peixes da pesca esportiva na Pousada Recanto do Tuiuiú, no Pantanal mato-grossense." />
+      <meta
+        name="description"
+        content="Os peixes da pesca esportiva na Pousada Recanto do Tuiuiú, no Pantanal mato-grossense."
+      />
       <main className="mx-auto max-w-6xl px-6 py-10 md:px-16">
         <Link
           to="/"
@@ -41,13 +44,22 @@ export default function FishPage() {
           Passe o mouse sobre um cartão, ou toque em “Ver informações”, para ver iscas, épocas e mais sobre cada peixe.
         </p>
         {defeso && (
-          <p role="status" className="mt-8 max-w-2xl rounded-2xl border border-gold-400/50 bg-forest-800 p-5 text-sand-100">
+          <p
+            role="status"
+            className="mt-8 max-w-2xl rounded-2xl border border-gold-400/50 bg-forest-800 p-5 text-sand-100"
+          >
             {defesoMessage(defeso)}
           </p>
         )}
         <ul className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {fish.map((f) => (
-            <FlipCard key={f.slug} id={f.slug} nome={f.nome} foto={f.foto} alt={f.alt}>
+            <FlipCard
+              key={f.slug}
+              id={f.slug}
+              nome={f.nome}
+              photos={f.foto ? [{ nome: f.foto, alt: f.alt }] : []}
+              placeholderAlt={f.alt}
+            >
               <p className="font-display text-2xl">{f.nome}</p>
               {f.cientifico && <p className="mt-1 italic">{f.cientifico}</p>}
               <p className="mt-3">{f.descricao}</p>
@@ -59,7 +71,9 @@ export default function FishPage() {
                 <CardDetail label="Observações" value={f.observacoes} />
               </dl>
               {!f.oficial && (
-                <p className="mt-4 text-xs font-bold tracking-wider text-forest-700 uppercase">Informações em revisão</p>
+                <p className="mt-4 text-xs font-bold tracking-wider text-forest-700 uppercase">
+                  Informações em revisão
+                </p>
               )}
             </FlipCard>
           ))}

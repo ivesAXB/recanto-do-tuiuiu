@@ -2,6 +2,18 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — Fotos novas: animais com várias fotos e faixas
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| RAW (.ARW) convertido com a prévia JPEG embutida. | Pedir ao Ives para exportar. | A prévia tem resolução total (7008×4672), mais do que o site usa; nada a instalar. |
+| Cartão troca as fotos com esmaecimento, mais pontinhos fora do cartão. | Setas sobre a foto. | No desktop o mouse vira o cartão; os controles precisam ficar fora dele. |
+| Só a foto atual, a próxima e a anterior ficam na página. | Carregar todas as fotos do animal. | A onça tem 9 fotos; baixar todas pesaria demais no celular. |
+| 12 animais no catálogo, 6 em destaque no anel. | Todas as 23 espécies. | O Ives falou em cerca de 10; um anel com mais de 6 fica apertado no celular. |
+| Legendas das faixas só descrevem a foto. | Frases de efeito. | Sem clichês nem afirmações não confirmadas (CLAUDE.md, tom); o Ives pode reescrever. |
+| Fotos da pousada em HEIC não usadas. | Trocar as atuais. | As atuais (drone e fachada) têm mais qualidade. |
+| Fotos antigas sem uso não foram apagadas. | Apagar. | Apagar é decisão do Ives; elas não pesam no site (só no repositório). |
+
 ## 2026-10-30 — F9: Revisão final de front
 
 | Decisão | Alternativa descartada | Motivo |
