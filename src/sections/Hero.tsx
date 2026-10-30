@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { introDelay } from '../lib/intro'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -53,6 +54,8 @@ export default function Hero() {
       return
     }
 
+    // Wait for the opening curtain (if any) so the title rises as it lifts
+    const wait = introDelay()
     const ctx = gsap.context(() => {
       // Entrada: as palavras do título sobem uma a uma, depois o resto aparece
       gsap.from('[data-hero-word]', {
@@ -61,7 +64,7 @@ export default function Hero() {
         duration: 1.1,
         ease: 'power4.out',
         stagger: 0.08,
-        delay: 0.3,
+        delay: 0.3 + wait,
       })
       gsap.from('[data-hero-fade]', {
         y: 24,
@@ -69,7 +72,7 @@ export default function Hero() {
         duration: 1,
         ease: 'power3.out',
         stagger: 0.12,
-        delay: 1,
+        delay: 1 + wait,
       })
 
       // Profundidade ao rolar: o vídeo anda mais devagar que o texto

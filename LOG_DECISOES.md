@@ -2,6 +2,17 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — F1: Tela de carregamento
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Com "reduzir movimento", a abertura não aparece. | Fade de 300 ms. | A tarefa permitia as duas opções; sem nada, a pessoa chega ao conteúdo mais rápido. |
+| Não aparece em links diretos para uma seção (`#/reservar`). | Mostrar sempre na Home. | Quem recebe o link do formulário quer ir direto a ele. |
+| Clique ou tecla pula a animação. | Esperar sempre os 2,2 s. | Respeita quem tem pressa e não atrasa o formulário. |
+| Se o `sessionStorage` estiver bloqueado, não mostra. | Mostrar mesmo assim. | Sem como lembrar que já viu, apareceria a cada visita. |
+| Traço vermelho embaixo do "RT". | Só o monograma. | É um detalhe na cor do colar do tuiuiú (CLAUDE.md: vermelho só em detalhes). |
+| O título do Hero espera a cortina (`introDelay`). | Animar por baixo da tela. | Senão a animação do título aconteceria escondida. |
+
 ## 2026-10-29 — P7: Dados confirmados
 
 | Decisão | Alternativa descartada | Motivo |

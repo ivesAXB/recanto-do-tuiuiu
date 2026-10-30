@@ -109,7 +109,7 @@ preço nem horários além dos acima. Registrar em RELATORIO.md o que ainda falt
 Pronto quando: build/lint passam; nada hardcoded duplicado (centralizar em src/data/site.ts).
 Sem push (só o Ives faz). NÃO pausar aqui: seguir para a próxima tarefa e lembrar no relatório que há commits locais aguardando push.
 
-### [ ] F1 — Tela de carregamento "Recanto do Tuiuiú"
+### [x] F1 — Tela de carregamento "Recanto do Tuiuiú"
 Escopo: componente Loader no topo do app (src/components/Loader.tsx), GSAP.
 Requisitos:
 - Tela cheia na cor forest-900, nome "Recanto do Tuiuiú" centralizado (Fraunces, claro) que se

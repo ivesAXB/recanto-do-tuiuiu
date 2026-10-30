@@ -27,6 +27,37 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F1 — Tela de carregamento "Recanto do Tuiuiú"
+
+- **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver no navegador.** Há commits locais aguardando push (P7 e F1).
+- **Arquivos criados:**
+  - `src/components/Loader.tsx`: tela cheia verde (`forest-900`) com o nome em Fraunces. As letras somem até sobrar "RT", com um traço vermelho do colar do tuiuiú embaixo, e então a tela sobe. Duração total de cerca de 2,15 s. **Qualquer clique ou tecla pula a animação.**
+  - `src/lib/intro.ts`: decide uma vez por carregamento se a abertura toca e informa as outras partes do site.
+- **Arquivos alterados:**
+  - `src/pages/Home.tsx`: mostra o Loader e pausa a rolagem suave (Lenis) enquanto ele está na tela.
+  - `src/sections/Hero.tsx`: o título espera a cortina para subir junto com ela. Sem a abertura, anima como antes.
+  - `TAREFAS.md`: F1 marcada como `[x]`.
+- **Quando aparece:**
+  - Só na página inicial e só 1 vez por sessão do navegador. Recarregar a página não repete.
+  - Não aparece em `#/admin`.
+  - Não aparece em links que levam direto a uma seção (ex.: `#/reservar`), porque quem chega por eles quer a seção.
+  - Com "reduzir movimento" ligado no aparelho, não aparece. A tarefa permitia "fade de 300 ms ou nada"; escolhi nada.
+  - Se o navegador bloquear o `sessionStorage`, também não aparece, para não repetir a cada visita.
+- **Desempenho e acessibilidade:**
+  - A Home carrega por baixo (vídeo e dados) desde o início.
+  - O texto oculto "Carregando" é lido por leitores de tela, e o foco nunca fica preso.
+  - A rolagem fica travada só enquanto a tela está visível.
+- **Verificação:**
+  - Lint e build passam.
+  - Testado no navegador, no desktop e no celular (375 px): a animação toca, "RT" aparece, a tela sobe e o título anima.
+  - Recarregar não repete. Uma tecla pula a animação e libera a rolagem na hora.
+  - `#/reservar` não mostra a tela.
+- **Para o Ives ver:**
+  - Abra o site e veja a abertura uma vez.
+  - Para ver de novo, abra uma aba anônima ou feche e reabra a aba.
+
+---
+
 ## P7 — Dados confirmados (endereço, telefone, horários)
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).

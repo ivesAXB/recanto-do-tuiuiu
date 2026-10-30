@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import Loader from '../components/Loader'
+import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
 import Hero from '../sections/Hero'
 import DayAtRecanto from '../sections/DayAtRecanto'
 import Packages from '../sections/Packages'
@@ -14,6 +16,8 @@ gsap.registerPlugin(ScrollTrigger)
 export default function Home() {
   const lenis = useRef<Lenis | null>(null)
   const { pathname } = useLocation()
+  // Decided once per page load (see src/lib/intro.ts)
+  const [showIntro, setShowIntro] = useState(() => shouldPlayIntro(pathname))
 
   // Rolagem suave. Desligada para quem pediu menos movimento no sistema.
   useEffect(() => {
@@ -22,6 +26,8 @@ export default function Home() {
     const instance = new Lenis({ lerp: 0.1 })
     lenis.current = instance
     instance.on('scroll', ScrollTrigger.update)
+    // No scrolling under the opening curtain; Loader restarts it when it lifts
+    if (isIntroPlaying()) instance.stop()
 
     const tick = (time: number) => instance.raf(time * 1000)
     gsap.ticker.add(tick)
@@ -84,6 +90,14 @@ export default function Home() {
 
   return (
     <main>
+      {showIntro && (
+        <Loader
+          onDone={() => {
+            setShowIntro(false)
+            lenis.current?.start()
+          }}
+        />
+      )}
       <Hero />
       <DayAtRecanto />
       <Fishing />
