@@ -96,7 +96,8 @@ export default function AnimalRing() {
         .timeline({ repeat: -1 })
         .to(ring.current, { rotation: 360, duration: SECONDS_PER_TURN, ease: 'none' }, 0)
         .to('[data-ring-item]', { rotation: -360, duration: SECONDS_PER_TURN, ease: 'none' }, 0)
-      stop = controlLoop(area.current!, spin)
+      // Arrives spinning fast (one full turn), then slows down to the calm speed
+      stop = controlLoop(area.current!, spin, { speed: 40, settle: 3 })
     }, area)
     return () => {
       stop()

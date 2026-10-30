@@ -28,6 +28,16 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## Ajuste: chegada do anel e troféus contínuos (pedido do Ives)
+
+- **Anel:** na primeira vez que a seção aparece, ele chega girando bem rápido (40 vezes a velocidade normal, cerca de 2 s por volta). Depois de uma volta completa, desacelera em 3 s até o giro calmo (uma volta a cada 90 s). Medido no navegador: cerca de 80° a cada meio segundo na primeira volta, caindo até 2°. A pausa com mouse, toque e teclado continua.
+- **Troféus:** velocidade sempre igual e **sem pausa** (nem com mouse, toque ou foco). Os itens deixaram de receber foco pelo Tab, porque não faz sentido focar algo que não para. Com "reduzir movimento", a faixa continua parada, com rolagem manual.
+  - Observação de acessibilidade: a recomendação WCAG 2.2.2 pede um jeito de pausar movimentos longos. Quem ativa "reduzir movimento" no aparelho já recebe a faixa parada; fica registrado como decisão do Ives.
+- **Arquivos:** `src/lib/loop.ts` (opção `intro`), `src/sections/AnimalRing.tsx` e `src/sections/Trophies.tsx`.
+- **Verificação:** lint e build passam. No navegador, a faixa continuou andando durante um toque simulado.
+
+---
+
 ## F6/F7 (ajustes pedidos pelo Ives) + encerramento que destampa o rodapé
 
 - **Resultado:** pronto e enviado (push autorizado pelo Ives).

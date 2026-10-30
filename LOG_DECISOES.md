@@ -2,6 +2,13 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — Chegada rápida do anel, troféus contínuos
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Entrada rápida feita com `timeScale` do próprio loop (40×, uma volta, depois desacelera até 1×). | Uma animação de entrada separada. | Não há emenda: a velocidade cai continuamente até o giro normal. |
+| Troféus sem pausa e sem foco por Tab. | Manter a pausa no foco. | Pedido do Ives; \"reduzir movimento\" mantém a versão parada. |
+
 ## 2026-10-30 — Ajustes do anel, dos troféus e do rodapé
 
 | Decisão | Alternativa descartada | Motivo |

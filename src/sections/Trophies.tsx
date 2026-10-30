@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import Placeholder from '../components/Placeholder'
 import { trophies, type Trophy } from '../data/trophies'
-import { controlLoop } from '../lib/loop'
 import { imageSources } from '../lib/media'
 import { prefersReducedMotion } from '../lib/motion'
 
@@ -22,10 +21,7 @@ function TrophyCard({ trophy, copy }: { trophy: Trophy; copy?: boolean }) {
   const text = caption(trophy)
   return (
     <li className="w-60 shrink-0 md:w-72" aria-hidden={copy || undefined}>
-      <figure
-        tabIndex={copy ? -1 : 0}
-        className="rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-sand-100 focus-visible:ring-offset-4 focus-visible:ring-offset-forest-900"
-      >
+      <figure>
         <div className="overflow-hidden rounded-3xl">
           {sources ? (
             <img
@@ -50,22 +46,20 @@ function TrophyCard({ trophy, copy }: { trophy: Trophy; copy?: boolean }) {
 
 export default function Trophies() {
   const [reduced] = useState(prefersReducedMotion)
-  const area = useRef<HTMLElement>(null)
   const track = useRef<HTMLUListElement>(null)
 
   useEffect(() => {
-    if (reduced || !area.current || !track.current) return
-    // Moving half the track (one full copy) lands on the same picture: an endless loop without a seam
+    if (reduced || !track.current) return
+    // Moving half the track (one full copy) lands on the same picture: an endless loop without a seam.
+    // Constant speed, never pauses (Ives's choice); "reduce motion" gets the still row below.
     const slide = gsap.to(track.current, { xPercent: -50, duration: 45, ease: 'none', repeat: -1 })
-    const stop = controlLoop(area.current, slide)
     return () => {
-      stop()
       slide.revert()
     }
   }, [reduced])
 
   return (
-    <section ref={area} id="trofeus" aria-labelledby="trofeus-titulo" className="overflow-hidden py-24">
+    <section id="trofeus" aria-labelledby="trofeus-titulo" className="overflow-hidden py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-16">
         <p className="text-sm font-bold tracking-[0.14em] text-gold-400">TROFÉUS</p>
         <h2 id="trofeus-titulo" className="mt-3 font-display text-4xl md:text-5xl">

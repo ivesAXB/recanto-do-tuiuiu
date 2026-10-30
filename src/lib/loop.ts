@@ -7,14 +7,26 @@ gsap.registerPlugin(ScrollTrigger)
 // - runs only while `area` is on screen, starting gently (no jump when the section arrives);
 // - slows to a stop while the mouse is over it, a finger is touching it or the keyboard focus is inside;
 // - resumes smoothly afterwards (touch: a moment after the finger leaves).
-export function controlLoop(area: HTMLElement, loop: gsap.core.Animation): () => void {
+// intro: the first time the area shows up, start at intro.speed × the normal speed for one full cycle,
+// then slow down to normal over intro.settle seconds.
+type Intro = { speed: number; settle: number }
+
+export function controlLoop(area: HTMLElement, loop: gsap.core.Animation, intro?: Intro): () => void {
   let visible = false
+  let introPending = Boolean(intro)
   let holds = 0
   let touchTimer = 0
 
   loop.timeScale(0).pause()
   const update = () => {
     const speed = visible && holds === 0 ? 1 : 0
+    if (speed && intro && introPending) {
+      introPending = false
+      const cycle = loop.duration() / intro.speed // seconds for one fast cycle
+      loop.timeScale(intro.speed).play()
+      gsap.to(loop, { timeScale: 1, duration: intro.settle, delay: cycle, ease: 'power2.out', overwrite: true })
+      return
+    }
     if (speed && loop.paused()) loop.play()
     gsap.to(loop, {
       timeScale: speed,
