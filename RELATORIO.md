@@ -62,7 +62,7 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 - **Atualização (2026-10-29):** o Ives autorizou; o push foi feito (`140069f`) e o deploy daquele commit terminou com sucesso. O keep-alive roda pela primeira vez no próximo horário agendado (08:00 de Cuiabá), ou antes, se o Ives rodar manualmente.
 - **Precisa do Ives:**
   1. ~~Autorizar o push.~~ Feito.
-  2. Depois do push, rodar o workflow uma vez manualmente e conferir se ficou verde.
+  2. ~~Depois do push, rodar o workflow uma vez manualmente e conferir se ficou verde.~~ Feito pelo Ives em 2026-10-29: "Supabase respondeu HTTP 200".
   3. Ficar atento ao e-mail do GitHub se o repositório passar 60 dias sem push: os workflows agendados são desativados e é só reativar.
 - **Próxima tarefa:** P3 — Mensagem de limite de envios no formulário público.
 
