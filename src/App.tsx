@@ -2,10 +2,11 @@ import { lazy, Suspense, type ReactNode } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 
-// These pages are only downloaded when someone opens them ("#/admin", "#/animais", "#/peixes")
+// These pages are only downloaded when someone opens them ("#/admin", "#/animais", "#/peixes", "#/pequenos")
 const AdminApp = lazy(() => import('./admin/AdminApp'))
 const Animals = lazy(() => import('./pages/Animals'))
 const FishPage = lazy(() => import('./pages/FishPage'))
+const Kids = lazy(() => import('./pages/Kids'))
 
 function Lazy({ children }: { children: ReactNode }) {
   return (
@@ -46,6 +47,14 @@ export default function App() {
           element={
             <Lazy>
               <FishPage />
+            </Lazy>
+          }
+        />
+        <Route
+          path="/pequenos"
+          element={
+            <Lazy>
+              <Kids />
             </Lazy>
           }
         />

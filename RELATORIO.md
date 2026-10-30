@@ -28,6 +28,44 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F10 — "Pantanal para os pequenos" (estrutura com placeholders)
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives). O push dos commits anteriores (F8 e ajustes, até `53cb356`) foi feito.
+- **Arquivos criados:**
+  - `src/data/pequenos.ts`: os blocos de curiosidades (`titulo`, `texto`, `provisorio`) e o número de espaços do mural.
+  - `src/pages/Kids.tsx`: página `#/pequenos`, carregada sob demanda (4 kB).
+    - Topo com formas coloridas que flutuam devagar e o título "Vamos conhecer o Pantanal?".
+    - 4 cartões coloridos que aparecem com um leve "pulo".
+    - Mural com 6 espaços reservados ("Desenho de criança: espaço reservado").
+    - **Aviso visível:** "Os desenhos das crianças só serão publicados com a autorização dos pais ou responsáveis."
+    - Botão "Voltar ao início", título e descrição próprios, e rodapé.
+    - Com "reduzir movimento", nada se mexe.
+  - `src/sections/KidsCall.tsx`: chamada clara (cartão areia) na Home, entre Troféus e Reserva (a ordem da F11), com o botão "Entrar →".
+- **Arquivos alterados:**
+  - `src/App.tsx`: rota `/pequenos`.
+  - `src/pages/Home.tsx`: inclui a chamada.
+  - `src/sections/Hero.tsx`: item **"Para os pequenos"** no menu.
+  - `TAREFAS.md`: F10 marcada como `[x]`.
+- **Conteúdo** (genérico, seguro e em linguagem simples):
+  - "Quem é o tuiuiú?" (ave grande, pescoço preto, colar vermelho, símbolo do Pantanal);
+  - "A água sobe e desce" (cheia e seca);
+  - "Quem mora perto da água?" (jacarés, peixes, capivaras, aves);
+  - **"Atividades na pousada": "Em breve"**, para não inventar serviços (CLAUDE.md: só publicar o que a pousada realmente oferece).
+- **Não implementado de propósito:** envio de desenhos, upload ou banco. Envolve imagem de menores, moderação e LGPD; fica para uma tarefa própria, com pausa.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - O menu mostra "Para os pequenos", e o botão "Entrar" abre `#/pequenos` com o título certo, os 4 cartões, os 6 espaços do mural e o aviso.
+- **Observação:** o menu do topo só aparece do tablet para cima. No celular não há menu (já era assim); fica para a F11.
+- **Pendências do Ives:**
+
+| Onde | O que falta |
+|---|---|
+| Pequenos | Quais atividades para crianças a pousada **realmente** oferece (para substituir o "Em breve") |
+| Pequenos | Revisar os textos das curiosidades e da chamada na Home |
+| Pequenos | Desenhos reais, só com autorização dos responsáveis; o envio pelo site fica para uma tarefa própria |
+
+---
+
 ## Ajuste da F8 + vídeo novo de abertura (pedido do Ives)
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).

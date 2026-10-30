@@ -19,6 +19,7 @@ const EMPHASIS_INDEX = 5 // "tuiuiú"
 const NAV = [
   { href: '#pesca', label: 'Pesca' },
   { href: '#epocas', label: 'Épocas' },
+  { href: '#/pequenos', label: 'Para os pequenos' },
 ]
 
 function Header() {

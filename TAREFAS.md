@@ -234,7 +234,7 @@ Defeso continua vindo do banco (closed_periods), nunca hardcoded.
 Pendências registrar em RELATORIO.md: "validar com o tio: iscas, época, dificuldade, peso".
 Pronto quando: build/lint passam; páginas navegáveis; nenhum dado específico inventado.
 
-### [ ] F10 — Área infantil "Pantanal para os pequenos" (estrutura com placeholders)
+### [x] F10 — Área infantil "Pantanal para os pequenos" (estrutura com placeholders)
 Escopo: rota /pequenos e uma chamada na Home.
 Requisitos: página lúdica (cores e movimentos mais suaves, linguagem simples) com: mural de
 desenhos (grade de placeholders "Desenho de criança: espaço reservado"), 3 a 4 blocos de

@@ -2,6 +2,16 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F10: Pantanal para os pequenos
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Bloco "Atividades na pousada" com "Em breve". | Listar atividades comuns em pousadas. | CLAUDE.md: nunca inventar serviços. |
+| Item "Para os pequenos" no menu do topo agora. | Esperar a F11. | A F10 pede "navegável no menu". |
+| A chamada da Home fica entre Troféus e Reserva. | No fim da página. | É a ordem final da F11. |
+| Cartões de cores claras com texto escuro. | Cores fortes com texto branco. | Visual mais leve para crianças, com contraste alto. |
+| Animações suaves (pulo leve, formas flutuando) só quando o movimento é permitido. | Animações mais intensas. | Página lúdica sem exagero; respeita "reduzir movimento". |
+
 ## 2026-10-30 — F8: Peixes
 
 | Decisão | Alternativa descartada | Motivo |

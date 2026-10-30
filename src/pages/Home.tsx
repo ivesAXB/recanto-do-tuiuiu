@@ -10,6 +10,7 @@ import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
 import AnimalRing from '../sections/AnimalRing'
 import Closing from '../sections/Closing'
 import Hero from '../sections/Hero'
+import KidsCall from '../sections/KidsCall'
 import DayAtRecanto from '../sections/DayAtRecanto'
 import Packages from '../sections/Packages'
 import Pousada from '../sections/Pousada'
@@ -113,6 +114,7 @@ export default function Home() {
         <Fishing />
         <Packages />
         <Trophies />
+        <KidsCall />
         <Reserve />
         <Closing />
       </main>
