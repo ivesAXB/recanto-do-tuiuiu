@@ -18,6 +18,8 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 | Quando a pousada fechar ou lotar | Cadastrar um **bloqueio** no painel (aba **Períodos**). | O formulário impede pedidos nas noites bloqueadas. | C1 |
 | Opcional (melhoria futura) | Pedir ao agente um workflow que faça um commit pequeno por mês. | Elimina o risco do item dos 60 dias. | P2 |
 | Se os pedidos pelo site pararem e aparecer "verificação de segurança" ou erro genérico | Supabase → *Edge Functions → submit-reservation → Logs*: ver o erro. Conferir se o secret `TURNSTILE_SECRET_KEY` existe e se o widget no Cloudflare continua ativo. Enquanto isso, os pedidos chegam pelo WhatsApp. | Com o captcha ligado, o pedido depende da Edge Function e da Cloudflare. | P4 |
+| Nunca apagar a variável `VITE_TURNSTILE_SITE_KEY` do GitHub (ou do `.env`) | Se precisar desligar o captcha, peça ao agente: é preciso devolver a permissão no banco (o `grant` comentado na migração 20261029180000) **antes** de remover a variável. | Desde a migração, o caminho antigo está fechado: sem a variável, o site volta a usá-lo e todo pedido falha. | P4 |
+| `npm run dev` no computador | Usar a porta padrão 5173. | A Edge Function só aceita `http://localhost:5173` entre os endereços locais. | P4 |
 | Ao trocar ou adicionar um domínio (ex.: na troca para recantodotuiuiu.com.br) | Adicionar o domínio (1) no widget do Turnstile no Cloudflare e (2) nas listas `ALLOWED_ORIGINS`/`ALLOWED_HOSTNAMES` da Edge Function (pedir ao agente), e publicar a função de novo. | O captcha e a função só aceitam domínios listados. Os domínios `recantodotuiuiu.com.br` e `www.` já estão na lista. | P4 |
 | Se as chaves do Turnstile forem trocadas no Cloudflare | Atualizar `VITE_TURNSTILE_SITE_KEY` (GitHub e `.env`) e `TURNSTILE_SECRET_KEY` (Supabase). | Chaves desencontradas fazem todo pedido falhar no captcha. | P4 |
 
@@ -50,8 +52,13 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
   1. ~~Criar o widget Turnstile no Cloudflare.~~ Feito (2026-10-29).
   2. ~~Cadastrar `TURNSTILE_SECRET_KEY` e publicar `submit-reservation` sem verificação de JWT.~~ Feito (2026-10-29).
   3. ~~Criar `VITE_TURNSTILE_SITE_KEY` no GitHub e no `.env`.~~ Feito (2026-10-29).
-  4. Fazer um pedido de teste real pelo site publicado.
-  5. Só depois, rodar a migração `20261029180000_reservation_via_edge_function.sql`.
+  4. ~~Fazer um pedido de teste real pelo site publicado.~~ Feito: o pedido chegou ao painel.
+  5. ~~Rodar a migração `20261029180000_reservation_via_edge_function.sql`.~~ Feito (2026-10-29).
+- **Verificação final (2026-10-29):**
+  - A Edge Function publicada passou nos 3 testes sem criar dados: CORS aceito para o site, chamada sem origem recusada e token falso recusado com `captcha`.
+  - O widget aparece no site publicado.
+  - Depois da migração, a chamada direta antiga foi recusada pelo banco (`42501 permission denied`) e nenhum pedido foi criado.
+  - **O captcha está totalmente ativo.**
 
 ---
 
