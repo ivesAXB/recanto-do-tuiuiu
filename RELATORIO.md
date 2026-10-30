@@ -28,6 +28,27 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## Guia de fauna (versão 2) + correção do Instagram
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Instagram só no rodapé**, como o Ives queria. O botão embaixo dos troféus foi retirado; lá fica só "Catálogo de peixes →". O perfil continua no JSON-LD (`sameAs`), que não aparece na tela.
+- **Fotos novas:** 11 arquivos, 8 em `.ARW` (convertidos pela prévia JPEG embutida e salvos ao lado dos originais). `npm run media:images` gerou as versões web.
+- **Catálogo agora com 28 animais**, todos com foto real:
+  - **João-pinto:** ganhou a foto `ave-joao-pinto`.
+  - **Colhereiro:** foto própria (`colhereiro`), além da foto com a garça.
+  - **Tucano-toco:** mais a foto da família no chão (`tucano-familia`).
+  - **Socó-dorminhoco:** habitat, quando ver e curiosidade atualizados conforme o guia novo (olhos vermelhos para visão noturna).
+  - **Novos:** tamanduá-bandeira (mamíferos); garça-moura, mutum-de-penacho e ariramba-de-cauda-ruiva (aves); iguana (répteis).
+- **Grupos:** Mamíferos 8, Aves 18, Répteis 2.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - As 58 fotos referenciadas existem no manifest; nenhuma imagem quebrada.
+  - Nenhum espaço reservado restante no catálogo.
+  - `#/animais/joao-pinto` abre no cartão certo; os troféus têm só o botão do catálogo de peixes; o Instagram aparece no rodapé.
+- **Sem uso:** `ave-garca-real` (o guia não tem a garça-real).
+
+---
+
 ## Guia de fauna aplicado + Instagram + botão do catálogo de peixes
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).

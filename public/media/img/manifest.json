@@ -2032,5 +2032,439 @@
         "kb": 745
       }
     ]
+  },
+  "anta-4": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "anta-4-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 34
+      },
+      {
+        "file": "anta-4-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 104
+      },
+      {
+        "file": "anta-4-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 214
+      }
+    ]
+  },
+  "ave-ariramba-de-cauda-ruiva": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-ariramba-de-cauda-ruiva-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 31
+      },
+      {
+        "file": "ave-ariramba-de-cauda-ruiva-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 88
+      },
+      {
+        "file": "ave-ariramba-de-cauda-ruiva-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 175
+      }
+    ]
+  },
+  "ave-garca-moura-2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-garca-moura-2-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 50
+      },
+      {
+        "file": "ave-garca-moura-2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 139
+      },
+      {
+        "file": "ave-garca-moura-2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 251
+      }
+    ]
+  },
+  "ave-garca-moura": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-garca-moura-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 55
+      },
+      {
+        "file": "ave-garca-moura-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 154
+      },
+      {
+        "file": "ave-garca-moura-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 281
+      }
+    ]
+  },
+  "ave-joao-pinto": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2881,
+      "height": 1921
+    },
+    "files": [
+      {
+        "file": "ave-joao-pinto-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 28
+      },
+      {
+        "file": "ave-joao-pinto-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 68
+      },
+      {
+        "file": "ave-joao-pinto-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 114
+      }
+    ]
+  },
+  "ave-martim-pescador-grande2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2634,
+      "height": 1756
+    },
+    "files": [
+      {
+        "file": "ave-martim-pescador-grande2-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 55
+      },
+      {
+        "file": "ave-martim-pescador-grande2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 144
+      },
+      {
+        "file": "ave-martim-pescador-grande2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 265
+      }
+    ]
+  },
+  "ave-mutum-de-penacho-2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-mutum-de-penacho-2-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 9
+      },
+      {
+        "file": "ave-mutum-de-penacho-2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 22
+      },
+      {
+        "file": "ave-mutum-de-penacho-2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 45
+      }
+    ]
+  },
+  "ave-mutum-de-penacho": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "ave-mutum-de-penacho-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 11
+      },
+      {
+        "file": "ave-mutum-de-penacho-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 28
+      },
+      {
+        "file": "ave-mutum-de-penacho-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 59
+      }
+    ]
+  },
+  "ave-tucano-5": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 2311,
+      "height": 1541
+    },
+    "files": [
+      {
+        "file": "ave-tucano-5-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 46
+      },
+      {
+        "file": "ave-tucano-5-1280.webp",
+        "width": 1280,
+        "height": 854,
+        "kb": 116
+      },
+      {
+        "file": "ave-tucano-5-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 200
+      }
+    ]
+  },
+  "colhereiro": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "colhereiro-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 74
+      },
+      {
+        "file": "colhereiro-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 190
+      },
+      {
+        "file": "colhereiro-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 323
+      }
+    ]
+  },
+  "iguana-2": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "iguana-2-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 60
+      },
+      {
+        "file": "iguana-2-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 167
+      },
+      {
+        "file": "iguana-2-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 304
+      }
+    ]
+  },
+  "iguana": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 6357,
+      "height": 4238
+    },
+    "files": [
+      {
+        "file": "iguana-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 53
+      },
+      {
+        "file": "iguana-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 155
+      },
+      {
+        "file": "iguana-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 284
+      }
+    ]
+  },
+  "tamandua-bandeira": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 4713,
+      "height": 3142
+    },
+    "files": [
+      {
+        "file": "tamandua-bandeira-640.webp",
+        "width": 640,
+        "height": 426,
+        "kb": 46
+      },
+      {
+        "file": "tamandua-bandeira-1280.webp",
+        "width": 1280,
+        "height": 854,
+        "kb": 133
+      },
+      {
+        "file": "tamandua-bandeira-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 279
+      }
+    ]
+  },
+  "tucano-familia": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "animais",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "tucano-familia-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 36
+      },
+      {
+        "file": "tucano-familia-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 92
+      },
+      {
+        "file": "tucano-familia-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 158
+      }
+    ]
   }
 }

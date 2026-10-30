@@ -168,6 +168,23 @@ export const animals: Animal[] = [
     revisado: true,
   },
 
+  {
+    slug: 'tamandua-bandeira',
+    nome: 'Tamanduá-bandeira',
+    grupo: 'mamiferos',
+    cientifico: 'Myrmecophaga tridactyla',
+    fotos: [{ nome: 'tamandua-bandeira', alt: 'Tamanduá-bandeira caminhando no campo, com a cauda grande e peluda' }],
+    alt: 'Foto de um tamanduá-bandeira',
+    texto: 'O maior tamanduá, de cauda enorme em forma de bandeira.',
+    habitat: 'Áreas abertas, savanas, cerrados, campos e bordas de matas do Pantanal.',
+    melhorEpoca:
+      'O ano todo, durante o dia ou no crepúsculo, andando calmamente pelo chão à procura de cupinzeiros e formigueiros.',
+    curiosidade:
+      'Tem uma língua longa e pegajosa, com mais de 40 cm, que entra e sai da boca muito rápido para comer milhares de insetos por dia.',
+    destaque: false,
+    revisado: true,
+  },
+
   // Aves
   {
     slug: 'tuiuiu',
@@ -216,6 +233,7 @@ export const animals: Animal[] = [
       { nome: 'ave-tucano-2', alt: 'Tucano-toco de bico laranja pousado em um galho' },
       { nome: 'ave-tucano-3', alt: 'Tucano-toco entre os galhos de uma árvore' },
       { nome: 'ave-tucano-4', alt: 'Tucano-toco em um galho, com a água do rio ao fundo' },
+      { nome: 'tucano-familia', alt: 'Grupo de tucanos-toco no chão, entre galhos caídos' },
     ],
     alt: 'Foto de um tucano-toco',
     texto: 'Ave de bico grande e colorido, fácil de reconhecer.',
@@ -294,6 +312,7 @@ export const animals: Animal[] = [
     grupo: 'aves',
     cientifico: 'Platalea ajaja',
     fotos: [
+      { nome: 'colhereiro', alt: 'Colhereiro cor-de-rosa entre as plantas de uma área alagada' },
       { nome: 'aves-garca-branca-e-colheiro', alt: 'Colhereiro rosa ao lado de uma garça-branca-grande na água rasa' },
     ],
     alt: 'Foto de um colhereiro',
@@ -342,9 +361,11 @@ export const animals: Animal[] = [
     fotos: [{ nome: 'ave-soco-dorminhoco', alt: 'Socó-dorminhoco escondido no capim verde' }],
     alt: 'Foto de um socó-dorminhoco',
     texto: 'Ave noturna, que passa o dia quieta na vegetação.',
-    habitat: 'Áreas alagadas, pântanos, margens de rios, manguezais e matas ciliares no Pantanal.',
-    melhorEpoca: 'O ano todo. Mais ativo ao anoitecer e à noite; durante o dia fica escondido na vegetação densa.',
-    curiosidade: 'Passa grande parte do dia imóvel, descansando, e por isso ganhou o nome de "dorminhoco".',
+    habitat: 'Margens de rios, lagos, pântanos, manguezais e áreas alagadas no Pantanal.',
+    melhorEpoca:
+      'O ano todo. Mais ativo ao anoitecer e à noite; durante o dia fica escondido entre a vegetação densa perto da água.',
+    curiosidade:
+      'Tem grandes olhos vermelhos, adaptados para enxergar à noite, e espera a penumbra para emboscar peixes, anfíbios e crustáceos.',
     destaque: false,
     revisado: true,
   },
@@ -397,12 +418,70 @@ export const animals: Animal[] = [
     nome: 'João-pinto',
     grupo: 'aves',
     cientifico: 'Icterus croconotus',
-    fotos: [], // pending: Ives has no photo yet
+    fotos: [{ nome: 'ave-joao-pinto', alt: 'João-pinto, de plumagem laranja e preta, dentro da água rasa' }],
     alt: 'Foto de um joão-pinto, ave laranja e preta',
     texto: 'Ave de plumagem laranja e preta, de canto bonito.',
     habitat: 'Áreas abertas, bordas de matas, cerrados e margens de rios no Pantanal.',
     melhorEpoca: 'O ano todo, durante o dia, em árvores ou descendo à margem para beber água e se banhar.',
     curiosidade: 'Tem um canto melodioso, capaz de imitar outras espécies de aves.',
+    destaque: false,
+    revisado: true,
+  },
+
+  {
+    slug: 'garca-moura',
+    nome: 'Garça-moura',
+    grupo: 'aves',
+    cientifico: 'Ardea cocoi',
+    fotos: [
+      { nome: 'ave-garca-moura', alt: 'Garça-moura, cinza e branca, entre galhos secos na margem' },
+      { nome: 'ave-garca-moura-2', alt: 'Garça-moura em pé sobre galhos caídos' },
+    ],
+    alt: 'Foto de uma garça-moura',
+    texto: 'A maior garça do Brasil, com mais de um metro de altura.',
+    habitat: 'Margens de rios, lagos, lagoas, pântanos e áreas alagadas do Pantanal.',
+    melhorEpoca:
+      'O ano todo, principalmente no início da manhã ou no final da tarde, caçando sozinha nas margens ou empoleirada em árvores altas.',
+    curiosidade: 'Caça com extrema paciência: fica totalmente imóvel até dar um bote rápido com o bico afiado.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'mutum-de-penacho',
+    nome: 'Mutum-de-penacho',
+    grupo: 'aves',
+    cientifico: 'Crax fasciolata',
+    fotos: [
+      { nome: 'ave-mutum-de-penacho', alt: 'Mutum-de-penacho macho, preto, com topete crespo e bico amarelo' },
+      { nome: 'ave-mutum-de-penacho-2', alt: 'Mutum-de-penacho macho olhando para a câmera' },
+    ],
+    alt: 'Foto de um mutum-de-penacho',
+    texto: 'Ave grande, de topete crespo, que anda pelo chão da mata.',
+    habitat: 'Matas de galeria, bordas de florestas tropicais, cerrados e capões do Pantanal.',
+    melhorEpoca:
+      'O ano todo, durante o dia, caminhando pelo chão da mata em busca de frutos e sementes ou empoleirado nos galhos do meio das árvores.',
+    curiosidade:
+      'O macho é preto, com barriga branca e topete de penas crespas pretas; a fêmea tem o corpo estriado de preto e branco e a barriga amarelada.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'ariramba-de-cauda-ruiva',
+    nome: 'Ariramba-de-cauda-ruiva',
+    grupo: 'aves',
+    cientifico: 'Galbula ruficauda',
+    fotos: [
+      {
+        nome: 'ave-ariramba-de-cauda-ruiva',
+        alt: 'Ariramba-de-cauda-ruiva macho, verde brilhante e peito ferrugem, em um galho',
+      },
+    ],
+    alt: 'Foto de uma ariramba-de-cauda-ruiva',
+    texto: 'Pequena ave verde-brilhante, caçadora de insetos em pleno voo.',
+    habitat: 'Bordas de matas ciliares, capoeiras, vegetação secundária e áreas de arbustos perto de cursos de água.',
+    melhorEpoca: 'O ano todo, durante o dia, parada e quieta em galhos abertos, à espera das presas.',
+    curiosidade:
+      'Lança-se em voos acrobáticos para capturar borboletas, libélulas e vespas no ar. O macho tem a garganta toda branca.',
     destaque: false,
     revisado: true,
   },
@@ -427,6 +506,25 @@ export const animals: Animal[] = [
     curiosidade:
       'Na seca, quando as lagoas evaporam, os jacarés podem se concentrar em grande número nas últimas poças de água.',
     destaque: true,
+    revisado: true,
+  },
+  {
+    slug: 'iguana',
+    nome: 'Iguana',
+    grupo: 'repteis',
+    cientifico: 'Iguana iguana',
+    fotos: [
+      { nome: 'iguana', alt: 'Iguana-verde tomando sol em um galho, no meio das folhas' },
+      { nome: 'iguana-2', alt: 'Iguana caminhando no chão de terra, perto da mata' },
+    ],
+    alt: 'Foto de uma iguana',
+    texto: 'Também chamada de iguana-verde, vive nas árvores perto dos rios.',
+    habitat: 'Árvores e galhos perto das margens de rios, matas ciliares e áreas de vegetação densa.',
+    melhorEpoca:
+      'O ano todo, principalmente nas horas mais quentes do dia, quando sobe em galhos expostos para tomar sol.',
+    curiosidade:
+      'Tem ótima camuflagem e uma crista de escamas pontudas nas costas. Quando ameaçada no alto das árvores, pode se soltar e cair direto na água para fugir nadando.',
+    destaque: false,
     revisado: true,
   },
 ]

@@ -40,7 +40,7 @@ export const instagramUrl = 'https://www.instagram.com/recantodotuiuiu/'
 // Footer content. Items flagged "provisorio" still need Ives's review.
 export const footer = {
   tagline: 'Pesca esportiva, natureza e conforto rústico no coração do Pantanal matogrossense.',
-  // Confirmed by Ives on 2026-10-30. Also used in the JSON-LD ("sameAs") and under the trophies.
+  // Confirmed by Ives on 2026-10-30. Shown in the footer and used in the JSON-LD ("sameAs").
   social: [{ label: 'Instagram @recantodotuiuiu', href: instagramUrl }] as SocialLink[],
   // Pending: photographer credit, e.g. 'Fotos: Nome do fotógrafo'. Hidden while empty.
   photoCredit: '',

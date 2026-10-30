@@ -10,11 +10,10 @@ Estado atual: site publicado em https://ivesaxb.github.io/recanto-do-tuiuiu/ com
 
 ## 1. Feito em 2026-10-30 (guia de fauna e Instagram)
 
-- [x] Guia de fauna aplicado nos **23 animais** (nome científico, habitat, quando ver, curiosidade), separados em Mamíferos (7), Aves (15) e Répteis (1).
+- [x] Guia de fauna aplicado nos **28 animais** (nome científico, habitat, quando ver, curiosidade), separados em Mamíferos (8), Aves (18) e Répteis (2). Entraram também tamanduá-bandeira, garça-moura, mutum-de-penacho, ariramba-de-cauda-ruiva e iguana.
 - [x] Martins-pescadores em 3 cartões (grande, verde, pequeno), como no guia.
-- [x] Aves novas no catálogo: socó-dorminhoco, socó-boi, ema, garça-branca-grande, colhereiro, garça-azul, gavião-belo e urubu.
-- [x] Instagram @recantodotuiuiu no rodapé, nos dados do Google (`sameAs`) e num botão embaixo dos troféus, ao lado do botão **"Catálogo de peixes"**.
-- [ ] 🧑 **Foto do João-pinto** (o cartão existe, com espaço reservado).
+- [x] Aves novas no catálogo: socó-dorminhoco, socó-boi, ema, garça-branca-grande, colhereiro, garça-azul, gavião-belo, urubu e João-pinto (com foto).
+- [x] Instagram @recantodotuiuiu no rodapé e nos dados do Google (`sameAs`). Embaixo dos troféus fica só o botão **"Catálogo de peixes"**.
 
 ## 2. Conteúdo que ainda falta (Ives / tio)
 
