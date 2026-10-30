@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { FunctionsHttpError } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
+import TurnstileWidget from '../components/TurnstileWidget'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -135,6 +137,55 @@ const whatsAppHref = (text: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${
 const RATE_LIMIT_PREFIX = 'Muitos pedidos em pouco tempo'
 const isRateLimitError = (error: { message?: string }) => (error.message ?? '').startsWith(RATE_LIMIT_PREFIX)
 
+// With a Turnstile site key, requests go through the "submit-reservation" Edge Function, which checks
+// the captcha on the server. Without it (e.g. before the key is configured) the form calls the RPC directly.
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? ''
+
+type Failure = 'generic' | 'limit' | 'captcha'
+type SendResult = { id: string | null; failure?: undefined } | { id?: undefined; failure: Failure }
+
+async function sendViaRpc(form: Form): Promise<SendResult> {
+  const { data, error } = await supabase.rpc('create_reservation_request', {
+    p_guest_name: form.name.trim(),
+    p_whatsapp: form.whatsapp.trim(),
+    p_email: form.email.trim() || null,
+    p_check_in: form.checkIn,
+    p_check_out: form.checkOut,
+    p_guests: form.guests,
+    p_message: form.message.trim() || null,
+    p_experience_ids: form.experienceIds,
+  })
+  if (error) {
+    console.error('Erro ao enviar pedido:', error)
+    return { failure: isRateLimitError(error) ? 'limit' : 'generic' }
+  }
+  return { id: typeof data === 'string' ? data : null }
+}
+
+async function sendViaEdgeFunction(form: Form, token: string): Promise<SendResult> {
+  const { data, error } = await supabase.functions.invoke('submit-reservation', {
+    body: {
+      turnstile_token: token,
+      guest_name: form.name.trim(),
+      whatsapp: form.whatsapp.trim(),
+      email: form.email.trim() || null,
+      check_in: form.checkIn,
+      check_out: form.checkOut,
+      guests: form.guests,
+      message: form.message.trim() || null,
+      experience_ids: form.experienceIds,
+    },
+  })
+  if (error) {
+    // The function answers { error: 'captcha' | 'limite' | 'dados' | 'origem' | 'erro' }
+    let code: string | undefined
+    if (error instanceof FunctionsHttpError) code = (await error.context.json().catch(() => null))?.error
+    console.error('Erro ao enviar pedido:', code ?? error)
+    return { failure: code === 'limite' ? 'limit' : code === 'captcha' ? 'captcha' : 'generic' }
+  }
+  return { id: typeof data?.id === 'string' ? data.id : null }
+}
+
 const inputClass =
   'mt-2 block min-h-12 w-full rounded-xl border border-sand-100/25 bg-forest-950 px-4 text-base text-sand-100 [color-scheme:dark] placeholder:text-sand-300/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 aria-[invalid=true]:border-tuiuiu-500'
 
@@ -190,7 +241,10 @@ export default function Reserve() {
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [requestId, setRequestId] = useState<string | null>(null)
-  const [rateLimited, setRateLimited] = useState(false)
+  const [failure, setFailure] = useState<Failure>('generic')
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const [captchaReset, setCaptchaReset] = useState(0)
+  const [captchaUnavailable, setCaptchaUnavailable] = useState(false)
   // Bumped only on step change or when sending ends (success/error), never on 'sending'
   const [reveal, setReveal] = useState(0)
   const [form, setForm] = useState<Form>({
@@ -285,29 +339,23 @@ export default function Reserve() {
       setStatus('success')
       return
     }
+    if (TURNSTILE_SITE_KEY && !captchaToken) return
     sendingLock.current = true
     setStatus('sending')
 
-    const { data: id, error } = await supabase.rpc('create_reservation_request', {
-      p_guest_name: form.name.trim(),
-      p_whatsapp: form.whatsapp.trim(),
-      p_email: form.email.trim() || null,
-      p_check_in: form.checkIn,
-      p_check_out: form.checkOut,
-      p_guests: form.guests,
-      p_message: form.message.trim() || null,
-      p_experience_ids: form.experienceIds,
-    })
+    const result = TURNSTILE_SITE_KEY ? await sendViaEdgeFunction(form, captchaToken!) : await sendViaRpc(form)
 
     setReveal((r) => r + 1)
-    if (error) {
-      console.error('Erro ao enviar pedido:', error)
+    if (result.failure) {
       sendingLock.current = false
-      setRateLimited(isRateLimitError(error))
+      setFailure(result.failure)
+      // Turnstile tokens are single-use: get a fresh one for the next try
+      setCaptchaToken(null)
+      setCaptchaReset((k) => k + 1)
       setStatus('error')
       return
     }
-    setRequestId(typeof id === 'string' ? id : null)
+    setRequestId(result.id)
     setStatus('success')
   }
 
@@ -325,6 +373,8 @@ export default function Reserve() {
   }
 
   const errorCount = Object.values(errors).filter(Boolean).length
+  const waitingCaptcha = step === STEPS.length - 1 && !!TURNSTILE_SITE_KEY && !captchaToken
+  const submitDisabled = status === 'sending' || (step === 0 && !!block) || waitingCaptcha
 
   return (
     <section ref={root} id="reservar" className="mx-auto max-w-6xl scroll-mt-6 px-6 py-24 md:px-16">
@@ -394,9 +444,14 @@ export default function Reserve() {
                 )}
                 {status === 'error' && (
                   <div className="rounded-2xl bg-tuiuiu-500/20 p-5">
-                    {rateLimited ? (
+                    {failure === 'limit' ? (
                       <p className="font-bold">
                         Recebemos muitos pedidos agora. Tente em alguns minutos{WHATSAPP_NUMBER ? ' ou fale pelo WhatsApp.' : '.'}
+                      </p>
+                    ) : failure === 'captcha' ? (
+                      <p className="font-bold">
+                        Não conseguimos confirmar a verificação de segurança. Aguarde a nova verificação e tente de novo
+                        {WHATSAPP_NUMBER ? ', ou envie pelo WhatsApp.' : '.'}
                       </p>
                     ) : (
                       <>
@@ -669,6 +724,42 @@ export default function Reserve() {
                 </dl>
               )}
 
+              {step === 3 && TURNSTILE_SITE_KEY && (
+                <div className="mt-6">
+                  <p id="reserve-captcha-label" className="font-bold">
+                    Verificação de segurança
+                  </p>
+                  <p className="mt-1 text-sm text-sand-300">
+                    Confirma que o pedido foi feito por uma pessoa. Normalmente é automática.
+                  </p>
+                  <div role="group" aria-labelledby="reserve-captcha-label" className="mt-3">
+                    <TurnstileWidget
+                      siteKey={TURNSTILE_SITE_KEY}
+                      action="reservation"
+                      resetKey={captchaReset}
+                      onToken={(token) => {
+                        setCaptchaToken(token)
+                        if (token) setCaptchaUnavailable(false)
+                      }}
+                      onError={() => setCaptchaUnavailable(true)}
+                    />
+                  </div>
+                  <div aria-live="polite">
+                    {captchaUnavailable && (
+                      <p className="mt-3 rounded-2xl border border-gold-400/50 p-4">
+                        A verificação não carregou. Se você usa bloqueador de anúncios, libere este site e recarregue a
+                        página{WHATSAPP_NUMBER ? ', ou envie o pedido pelo WhatsApp:' : '.'}
+                        {WHATSAPP_NUMBER && (
+                          <span className="mt-3 block">
+                            <WhatsAppButton text={waText} />
+                          </span>
+                        )}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
                 {step > 0 ? (
                   <button
@@ -684,11 +775,17 @@ export default function Reserve() {
                 )}
                 <button
                   type="submit"
-                  disabled={status === 'sending' || (step === 0 && !!block)}
-                  aria-disabled={status === 'sending' || (step === 0 && !!block)}
+                  disabled={submitDisabled}
+                  aria-disabled={submitDisabled}
                   className="min-h-12 rounded-full bg-tuiuiu-500 px-8 font-bold text-white transition hover:brightness-110 disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-sand-100 focus-visible:ring-offset-2 focus-visible:ring-offset-forest-800"
                 >
-                  {step < STEPS.length - 1 ? 'Continuar' : status === 'sending' ? 'Enviando…' : 'Enviar pedido'}
+                  {step < STEPS.length - 1
+                    ? 'Continuar'
+                    : status === 'sending'
+                      ? 'Enviando…'
+                      : waitingCaptcha
+                        ? 'Aguardando verificação…'
+                        : 'Enviar pedido'}
                 </button>
               </div>
             </div>

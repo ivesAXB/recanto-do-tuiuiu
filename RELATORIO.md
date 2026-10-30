@@ -17,6 +17,36 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 | Quando os preços mudarem | Atualizar diária, sinal e experiências no painel (aba **Valores**). | Os preços do site vêm do banco. | C1 |
 | Quando a pousada fechar ou lotar | Cadastrar um **bloqueio** no painel (aba **Períodos**). | O formulário impede pedidos nas noites bloqueadas. | C1 |
 | Opcional (melhoria futura) | Pedir ao agente um workflow que faça um commit pequeno por mês. | Elimina o risco do item dos 60 dias. | P2 |
+| Se os pedidos pelo site pararem e aparecer "verificação de segurança" ou erro genérico | Supabase → *Edge Functions → submit-reservation → Logs*: ver o erro. Conferir se o secret `TURNSTILE_SECRET_KEY` existe e se o widget no Cloudflare continua ativo. Enquanto isso, os pedidos chegam pelo WhatsApp. | Com o captcha ligado, o pedido depende da Edge Function e da Cloudflare. | P4 |
+| Ao trocar ou adicionar um domínio (ex.: na troca para recantodotuiuiu.com.br) | Adicionar o domínio (1) no widget do Turnstile no Cloudflare e (2) nas listas `ALLOWED_ORIGINS`/`ALLOWED_HOSTNAMES` da Edge Function (pedir ao agente), e publicar a função de novo. | O captcha e a função só aceitam domínios listados. Os domínios `recantodotuiuiu.com.br` e `www.` já estão na lista. | P4 |
+| Se as chaves do Turnstile forem trocadas no Cloudflare | Atualizar `VITE_TURNSTILE_SITE_KEY` (GitHub e `.env`) e `TURNSTILE_SECRET_KEY` (Supabase). | Chaves desencontradas fazem todo pedido falhar no captcha. | P4 |
+
+---
+
+## P4 (continuação) — Captcha implementado, aguardando as etapas do Ives
+
+- **Resultado:** código pronto. **A ativação depende do Ives**: chaves, publicação da função e migração.
+- **Aprovação:** o Ives aprovou em 2026-10-29 ("vamos fazer isso já… seguir com tudo completo").
+- **Arquivos criados:**
+  - `supabase/functions/submit-reservation/index.ts`: Edge Function. Confere a origem, valida os dados, confere o token na Cloudflare e grava pela função do banco. Responde `captcha`, `limite`, `dados`, `origem` ou `erro`.
+  - `supabase/migrations/20261029180000_reservation_via_edge_function.sql`: tira dos visitantes a permissão de chamar a função direto. **Não executada**, registrada como pendente em `MIGRACOES.md`, com a ordem obrigatória escrita no próprio arquivo.
+  - `src/components/TurnstileWidget.tsx`: widget, carregado só no passo 4.
+- **Arquivos alterados:**
+  - `src/sections/Reserve.tsx`: envia pela Edge Function quando há site key, senão usa o caminho antigo. Também traz a mensagem de captcha, o botão que espera a verificação e o aviso de widget bloqueado.
+  - `src/vite-env.d.ts`, `.github/workflows/deploy.yml` (variável opcional `VITE_TURNSTILE_SITE_KEY`), `README.md` (seção Captcha) e `supabase/MIGRACOES.md`.
+- **Decisões:** ativação em etapas pela variável, função sem JWT, conferência de hostname e action. Detalhes em `LOG_DECISOES.md`.
+- **Verificação:**
+  - `npm run build` e `npm run lint` passam.
+  - No navegador, num servidor local com a **site key de teste** da Cloudflare (que sempre aprova) e a resposta da função **simulada**:
+    - o botão espera o token e depois libera;
+    - o erro de captcha e o de limite mostram as mensagens certas;
+    - depois de cada erro, o widget gera um token novo;
+    - o sucesso mostra o número do pedido;
+    - a chamada direta ao banco nunca foi usada;
+    - nenhum pedido foi criado.
+  - **Não testado:** a Edge Function de verdade, porque não há Deno nem a Supabase CLI neste computador. Ela será testada depois que o Ives publicar, com um pedido real pelo site.
+- **Manutenção:** três linhas novas na tabela "Manutenção do Ives".
+- **Precisa do Ives:** veja a sequência na resposta do agente. Resumo: criar o widget no Cloudflare, cadastrar o secret e publicar a função no Supabase, criar a variável no GitHub, testar e, por último, rodar a migração.
 
 ---
 

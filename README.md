@@ -49,6 +49,20 @@ O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) roda a c
   3. Conferir o DNS (registro CNAME de `www` apontando para `ivesaxb.github.io`).
   4. Rodar o workflow de novo: o `base` passa a ser `/` automaticamente.
 
+## Captcha (Cloudflare Turnstile)
+
+Com o captcha ligado, o pedido de reserva não vai mais direto ao banco: o formulário manda os dados e um token do Turnstile para a Edge Function [supabase/functions/submit-reservation](supabase/functions/submit-reservation/index.ts), que confere o token na Cloudflare e só então grava o pedido.
+
+| Onde | Nome | Valor |
+|---|---|---|
+| `.env` e GitHub (*Repository variable*) | `VITE_TURNSTILE_SITE_KEY` | **Site key** do Turnstile (pública) |
+| Supabase → *Edge Functions → Secrets* | `TURNSTILE_SECRET_KEY` | **Secret key** do Turnstile. Nunca no GitHub nem no `.env` |
+
+- Sem `VITE_TURNSTILE_SITE_KEY`, o formulário usa o caminho antigo (chamada direta ao banco). Isso permite ligar o captcha por etapas.
+- A Edge Function deve ser publicada com **verificação de JWT desligada** (no painel: função → *Details* → desmarcar *Enforce JWT verification*; pela CLI: `supabase functions deploy submit-reservation --no-verify-jwt`). Quem protege a função é o captcha e a lista de origens permitidas no código.
+- **Ordem para ligar:** (1) publicar a função e cadastrar o secret; (2) criar a variável no GitHub e publicar o site; (3) fazer um pedido de teste pelo site publicado; (4) só então rodar a migração `20261029180000_reservation_via_edge_function.sql`, que impede o caminho antigo.
+- Para testar no computador sem as chaves reais, use a site key de teste da Cloudflare `1x00000000000000000000AA` (sempre aprova).
+
 ## Keep-alive do Supabase
 
 No plano gratuito, o Supabase **pausa o projeto depois de cerca de 1 semana sem uso** (o site para de carregar preços e de receber pedidos). O workflow [.github/workflows/keepalive.yml](.github/workflows/keepalive.yml) evita isso:

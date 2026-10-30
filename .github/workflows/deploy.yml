@@ -55,6 +55,8 @@ jobs:
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_WHATSAPP_NUMBER: ${{ vars.VITE_WHATSAPP_NUMBER }}
+          # Optional: with it, the form uses the captcha + Edge Function; without it, the direct RPC
+          VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
           VITE_BASE: ${{ steps.pages.outputs.base_path }}/
 
       - uses: actions/upload-pages-artifact@v3

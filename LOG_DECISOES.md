@@ -2,6 +2,20 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — P4: Implementação do captcha (aprovada pelo Ives)
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| O formulário só usa o captcha e a Edge Function **se existir `VITE_TURNSTILE_SITE_KEY`**; sem ela, usa a chamada direta antiga. | Trocar tudo de uma vez. | Permite ligar em etapas na ordem segura (função → site → migração) e desfazer só removendo a variável, enquanto a migração não for rodada. |
+| A Edge Function chama `create_reservation_request` com a credencial interna que o Supabase injeta (`SUPABASE_SERVICE_ROLE_KEY`, só no servidor). | Chamar com a chave pública. | Depois da migração, a chave pública não pode mais chamar a função. O código só lê a variável de ambiente; o valor nunca passa pelo agente nem pelo repositório. |
+| A Edge Function é publicada **sem verificação de JWT**. | Exigir JWT. | A chave nova *publishable* não é um JWT, e o visitante não tem login. A proteção é o captcha conferido no servidor mais a lista de origens permitidas (CORS + checagem de `Origin`). |
+| A função confere `hostname` e `action` do token (exceto com as chaves de teste da Cloudflare). | Conferir só `success`. | Impede reaproveitar tokens gerados em outros sites com a mesma site key. |
+| Validação básica de tipos e tamanhos na função antes de chamar o banco. | Deixar tudo para o banco. | Responde rápido com `dados` e evita chamadas inúteis; as regras definitivas continuam no banco. |
+| O script do Turnstile só é carregado no passo 4 (Resumo). | Carregar com a página. | Não pesa na página inicial (CLAUDE.md, desempenho). |
+| O botão "Enviar pedido" fica desativado e mostra "Aguardando verificação…" até existir o token. Depois de qualquer erro, o widget gera um token novo. | Deixar enviar sem o token. | Os tokens são de uso único e o envio sem token sempre falharia. |
+| Se o widget não carregar (bloqueador de anúncios), aparece um aviso com o botão do WhatsApp. | Só uma mensagem de erro genérica. | O visitante não fica sem saída. |
+| O componente fica em `src/components/TurnstileWidget.tsx` (pasta nova). | Dentro de `Reserve.tsx`. | É reutilizável e independente da seção (CLAUDE.md: componentes pequenos e reutilizáveis). |
+
 ## 2026-10-29 — P3: Mensagem de limite de envios
 
 | Decisão | Alternativa descartada | Motivo |
