@@ -1,7 +1,6 @@
 // Animal catalog: ring on the home page (src/sections/AnimalRing.tsx) and the /animais page.
-// Rule: no invented biology. Until Ives brings the official information, only the popular name
-// and one broadly known sentence; every specific field stays empty and shows "Em breve".
-// Scientific names are left empty on purpose: fill them only from a reliable source (cite it in RELATORIO.md).
+// Texts (scientific name, habitat, when to see, curiosity) come from the identification guide Ives sent
+// on 2026-10-30 ("Guia de identificação - Fauna do Pantanal"); "texto" is a short line written for the card.
 //
 // fotos: names in public/media/img/manifest.json (run `npm run media:images` after adding originals).
 // The first photo is the one used in the ring; the card fades through all of them.
@@ -9,26 +8,36 @@
 
 import type { CardPhoto } from '../components/FlipCard'
 
+export type AnimalGroup = 'mamiferos' | 'aves' | 'repteis'
+
+export const GROUP_TITLES: Record<AnimalGroup, string> = {
+  mamiferos: 'Mamíferos',
+  aves: 'Aves',
+  repteis: 'Répteis',
+}
+
 export type Animal = {
   slug: string
   nome: string
+  grupo: AnimalGroup
   cientifico: string
   fotos: CardPhoto[] // empty = placeholder
   alt: string // what the photo should show, used while there is no photo
-  texto: string // one generic, safe sentence
+  texto: string // one short line
   habitat: string
-  melhorEpoca: string // habit / best time to see
+  melhorEpoca: string // when / how to see it
   curiosidade: string
   destaque: boolean
-  revisado: boolean // true only after Ives (or a cited source) checks the specific fields
+  revisado: boolean // true = specific fields checked (here: from Ives's guide)
 }
 
-const pending = { cientifico: '', habitat: '', melhorEpoca: '', curiosidade: '', revisado: false }
-
 export const animals: Animal[] = [
+  // Mamíferos
   {
     slug: 'onca-pintada',
     nome: 'Onça-pintada',
+    grupo: 'mamiferos',
+    cientifico: 'Panthera onca',
     fotos: [
       { nome: 'onca-pintada-2', alt: 'Onça-pintada deitada em um galho grosso, olhando para a câmera' },
       { nome: 'onca-pintada-5', alt: 'Onça-pintada deitada na beira do rio, bocejando' },
@@ -42,54 +51,19 @@ export const animals: Animal[] = [
     ],
     alt: 'Foto de uma onça-pintada',
     texto: 'O maior felino das Américas, com a pelagem coberta de pintas em forma de roseta.',
+    habitat: 'Matas ciliares, florestas tropicais, áreas de transição e margens de rios alagados do Pantanal.',
+    melhorEpoca:
+      'O ano todo, principalmente ao amanhecer, ao entardecer ou à noite, embora no Pantanal seja frequentemente avistada à luz do dia nas margens de rios.',
+    curiosidade:
+      'É uma excelente nadadora. Diferente de outros grandes felinos, adora a água e caça com frequência animais aquáticos como jacarés e capivaras.',
     destaque: true,
-    ...pending,
-  },
-  {
-    slug: 'tuiuiu',
-    nome: 'Tuiuiú',
-    fotos: [
-      { nome: 'tuiuiu-com-asa-aberta', alt: 'Tuiuiú de asas abertas na beira da água' },
-      { nome: 'foto-linda-tuiuiu-em-pe', alt: 'Tuiuiú em pé no campo verde' },
-      { nome: 'tuiuiu-no-ninho', alt: 'Tuiuiú em pé no ninho, no alto de uma árvore, com céu azul' },
-      { nome: 'casal-de-tuiuiu-voando-no-por-do-sol', alt: 'Dois tuiuiús voando no céu alaranjado do pôr do sol' },
-    ],
-    alt: 'Foto de um tuiuiú',
-    texto: 'Ave símbolo do Pantanal, de pescoço preto e colar vermelho.',
-    destaque: true,
-    ...pending,
-  },
-  {
-    slug: 'arara-azul',
-    nome: 'Arara-azul',
-    fotos: [
-      { nome: 'ave-arara-azul-grande-3', alt: 'Três araras-azuis em galhos secos, contra o céu' },
-      { nome: 'ave-arara-azul-grande', alt: 'Arara-azul comendo coquinhos em uma palmeira' },
-      { nome: 'ave-arara-azul-grande-2', alt: 'Arara-azul pousada entre as folhas de uma palmeira' },
-    ],
-    alt: 'Foto de uma arara-azul',
-    texto: 'Arara de plumagem azul intensa, uma das aves mais conhecidas do Pantanal.',
-    destaque: true,
-    ...pending,
-  },
-  {
-    slug: 'jacare',
-    nome: 'Jacaré',
-    fotos: [
-      { nome: 'jacare', alt: 'Jacaré com a cabeça para fora da água, entre aguapés' },
-      { nome: 'jacare-2', alt: 'Jacaré com um peixe na boca, dentro do rio' },
-      { nome: 'jacare-em-grupo', alt: 'Vários jacarés deitados lado a lado na margem' },
-      { nome: 'jacare-jovem', alt: 'Jacaré jovem na terra, perto de plantas da margem' },
-      { nome: 'foto-linda-jacare-e-capivara', alt: 'Jacaré na água e uma capivara na margem, logo atrás' },
-    ],
-    alt: 'Foto de um jacaré',
-    texto: 'Réptil comum nas baías e nos rios do Pantanal.',
-    destaque: true,
-    ...pending,
+    revisado: true,
   },
   {
     slug: 'ariranha',
     nome: 'Ariranha',
+    grupo: 'mamiferos',
+    cientifico: 'Pteronura brasiliensis',
     fotos: [
       { nome: 'ariranha-grupo', alt: 'Ariranhas juntas no barranco do rio, com uma garça ao fundo' },
       { nome: 'ariranha', alt: 'Ariranha com a cabeça para fora da água, perto de aguapés' },
@@ -97,88 +71,362 @@ export const animals: Animal[] = [
     ],
     alt: 'Foto de uma ariranha',
     texto: 'Uma lontra grande, que vive em grupos nos rios do Pantanal.',
+    habitat: 'Rios, riachos, lagos e áreas alagadas de água doce no Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, nadando em grupos sociais ruidosos ou descansando nas margens.',
+    curiosidade:
+      'Maior espécie de lontra do mundo. Cada indivíduo possui manchas brancas únicas na garganta, funcionando como uma digital.',
     destaque: true,
-    ...pending,
-  },
-  {
-    slug: 'tucano',
-    nome: 'Tucano',
-    fotos: [
-      { nome: 'ave-tucano-2', alt: 'Tucano de bico laranja pousado em um galho' },
-      { nome: 'ave-tucano-3', alt: 'Tucano entre os galhos de uma árvore' },
-      { nome: 'ave-tucano-4', alt: 'Tucano em um galho, com a água do rio ao fundo' },
-    ],
-    alt: 'Foto de um tucano',
-    texto: 'Ave de bico grande e colorido, fácil de reconhecer.',
-    destaque: true,
-    ...pending,
+    revisado: true,
   },
   {
     slug: 'capivara',
     nome: 'Capivara',
+    grupo: 'mamiferos',
+    cientifico: 'Hydrochoerus hydrochaeris',
     fotos: [{ nome: 'capivara', alt: 'Grupo de capivaras na beira da água' }],
     alt: 'Foto de uma capivara',
     texto: 'O maior roedor do mundo, sempre por perto da água.',
+    habitat: 'Margens de rios, lagos, lagoas e áreas alagadas com vegetação abundante.',
+    melhorEpoca: 'O ano todo, durante o dia ou no crepúsculo, reunidas em grupos familiares perto da água.',
+    curiosidade:
+      'Possui membranas entre os dedos que facilitam a natação, e consegue ficar submersa por vários minutos para escapar de predadores.',
     destaque: false,
-    ...pending,
+    revisado: true,
   },
   {
     slug: 'anta',
     nome: 'Anta',
+    grupo: 'mamiferos',
+    cientifico: 'Tapirus terrestris',
     fotos: [
       { nome: 'anta', alt: 'Anta dentro do rio, com aguapés floridos atrás' },
       { nome: 'anta-3', alt: 'Anta nadando com a cabeça para fora da água' },
       { nome: 'anta-2', alt: 'Anta na água, com uma garça na margem' },
     ],
     alt: 'Foto de uma anta',
-    texto: 'O maior mamífero terrestre do Brasil, que gosta de ficar perto da água.',
+    texto: 'O maior mamífero terrestre nativo do Brasil.',
+    habitat: 'Florestas, matas ciliares e margens de rios e pântanos no Pantanal.',
+    melhorEpoca:
+      'O ano todo, no início da manhã, no final da tarde ou à noite, frequentemente nadando para se refrescar.',
+    curiosidade: 'Sua tromba flexível serve para colher plantas e como snorkel na água.',
     destaque: false,
-    ...pending,
+    revisado: true,
   },
   {
     slug: 'bugio-preto',
     nome: 'Bugio-preto',
+    grupo: 'mamiferos',
+    cientifico: 'Alouatta caraya',
     fotos: [
       { nome: 'bugio-preto-familia', alt: 'Família de bugios em um galho de árvore' },
-      { nome: 'bugio-preto-femea-com-folhote', alt: 'Bugio fêmea com o filhote no alto da árvore' },
-      { nome: 'bugio-preto-femea', alt: 'Bugio fêmea sentada entre os galhos' },
-      { nome: 'bugio-preto-macho', alt: 'Bugio macho, de pelagem preta, pendurado na árvore' },
+      {
+        nome: 'bugio-preto-femea-com-folhote',
+        alt: 'Bugio fêmea, de pelagem dourada, com o filhote no alto da árvore',
+      },
+      { nome: 'bugio-preto-femea', alt: 'Bugio fêmea, de pelagem dourada, sentada entre os galhos' },
+      { nome: 'bugio-preto-macho', alt: 'Bugio macho adulto, de pelagem preta, pendurado na árvore' },
     ],
     alt: 'Foto de um bugio-preto',
-    texto: 'Macaco conhecido pelo ronco forte, que se ouve de longe na mata.',
+    texto: 'Macaco que vive em grupos familiares nas copas das árvores.',
+    habitat: 'Florestas, matas ciliares, cerrados e capões do Pantanal.',
+    melhorEpoca:
+      'O ano todo nas copas das árvores, deslocando-se em grupos familiares, especialmente nas primeiras horas da manhã.',
+    curiosidade:
+      'As fêmeas e os filhotes são dourados, enquanto os machos adultos são totalmente pretos. O rabo preênsil, com a ponta pelada, funciona como um "quinto membro" para se pendurar.',
     destaque: false,
-    ...pending,
+    revisado: true,
   },
   {
     slug: 'cervo-do-pantanal',
     nome: 'Cervo-do-pantanal',
+    grupo: 'mamiferos',
+    cientifico: 'Blastocerus dichotomus',
     fotos: [{ nome: 'cervo-do-pantanal', alt: 'Cervo-do-pantanal comendo entre o capim alto' }],
     alt: 'Foto de um cervo-do-pantanal',
-    texto: 'O maior cervo da América do Sul, que vive em áreas alagadas.',
+    texto: 'O maior cervo da América do Sul.',
+    habitat: 'Zonas úmidas, pântanos profundos, margens de rios e ilhas de vegetação em áreas alagadas.',
+    melhorEpoca:
+      'O ano todo, de preferência nas primeiras horas da manhã ou no final da tarde, circulando por áreas pantanosas inundadas.',
+    curiosidade:
+      'Suas longas pernas têm cascos alargados com membranas elásticas, uma adaptação que evita que o animal afunde na lama mole do Pantanal.',
     destaque: false,
-    ...pending,
-  },
-  {
-    slug: 'martim-pescador',
-    nome: 'Martim-pescador',
-    fotos: [
-      { nome: 'ave-martim-pescador-grande-2', alt: 'Martim-pescador-grande pousado em um galho fino' },
-      { nome: 'ave-martim-pescador-verde', alt: 'Martim-pescador-verde pousado em um fio' },
-      { nome: 'ave-martim-pescador-grande', alt: 'Martim-pescador-grande em um tronco seco' },
-      { nome: 'ave-martim-pescador-pequeno', alt: 'Martim-pescador-pequeno entre os galhos de uma árvore' },
-    ],
-    alt: 'Foto de um martim-pescador',
-    texto: 'Pequena ave que mergulha na água para pescar.',
-    destaque: false,
-    ...pending,
+    revisado: true,
   },
   {
     slug: 'quati',
     nome: 'Quati',
+    grupo: 'mamiferos',
+    cientifico: 'Nasua nasua',
     fotos: [{ nome: 'quati', alt: 'Quati de cauda listrada farejando o chão de terra' }],
     alt: 'Foto de um quati',
     texto: 'Mamífero de focinho comprido e cauda listrada.',
+    habitat: 'Florestas, matas ciliares, cerrados e áreas florestadas de transição no Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, em bandos pelo solo ou subindo em árvores em busca de comida.',
+    curiosidade:
+      'O focinho longo e muito flexível, com olfato apurado, examina fendas e o solo à procura de insetos e frutos.',
     destaque: false,
-    ...pending,
+    revisado: true,
+  },
+
+  // Aves
+  {
+    slug: 'tuiuiu',
+    nome: 'Tuiuiú',
+    grupo: 'aves',
+    cientifico: 'Jabiru mycteria',
+    fotos: [
+      { nome: 'tuiuiu-com-asa-aberta', alt: 'Tuiuiú de asas abertas na beira da água' },
+      { nome: 'foto-linda-tuiuiu-em-pe', alt: 'Tuiuiú em pé no campo verde' },
+      { nome: 'tuiuiu-no-ninho', alt: 'Tuiuiú em pé no ninho, no alto de uma árvore, com céu azul' },
+      { nome: 'casal-de-tuiuiu-voando-no-por-do-sol', alt: 'Dois tuiuiús voando no céu alaranjado do pôr do sol' },
+    ],
+    alt: 'Foto de um tuiuiú',
+    texto: 'A ave-símbolo do Pantanal, também conhecida como jaburu.',
+    habitat: 'Áreas alagadas, margens de lagoas e grandes extensões de campos abertos inundados do Pantanal.',
+    melhorEpoca: 'O ano todo, especialmente durante o dia, sozinho ou em grandes bandos nas áreas de várzea.',
+    curiosidade:
+      'Tem um imenso bico preto, levemente curvado para cima, e um papo vermelho na base do pescoço que infla durante as exibições de acasalamento.',
+    destaque: true,
+    revisado: true,
+  },
+  {
+    slug: 'arara-azul',
+    nome: 'Arara-azul-grande',
+    grupo: 'aves',
+    cientifico: 'Anodorhynchus hyacinthinus',
+    fotos: [
+      { nome: 'ave-arara-azul-grande-3', alt: 'Três araras-azuis em galhos secos, contra o céu' },
+      { nome: 'ave-arara-azul-grande', alt: 'Arara-azul comendo coquinhos em uma palmeira' },
+      { nome: 'ave-arara-azul-grande-2', alt: 'Arara-azul pousada entre as folhas de uma palmeira' },
+    ],
+    alt: 'Foto de uma arara-azul-grande',
+    texto: 'Arara de plumagem azul intensa, uma das aves mais conhecidas do Pantanal.',
+    habitat: 'Áreas abertas, cerrados, bordas de matas e palmeirais no Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, em pares ou bandos, voando ou se alimentando em palmeiras.',
+    curiosidade: 'Maior psitacídeo do mundo. Seu bico poderoso quebra cocos nativos duros, como acuri e bocaiúva.',
+    destaque: true,
+    revisado: true,
+  },
+  {
+    slug: 'tucano',
+    nome: 'Tucano-toco',
+    grupo: 'aves',
+    cientifico: 'Ramphastos toco',
+    fotos: [
+      { nome: 'ave-tucano-2', alt: 'Tucano-toco de bico laranja pousado em um galho' },
+      { nome: 'ave-tucano-3', alt: 'Tucano-toco entre os galhos de uma árvore' },
+      { nome: 'ave-tucano-4', alt: 'Tucano-toco em um galho, com a água do rio ao fundo' },
+    ],
+    alt: 'Foto de um tucano-toco',
+    texto: 'Ave de bico grande e colorido, fácil de reconhecer.',
+    habitat: 'Áreas abertas, cerrados, bordas de florestas e matas no Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, nos galhos mais altos das árvores ou voando entre as copas.',
+    curiosidade:
+      'Maior espécie de tucano. O bico imenso é oco e leve, ajuda a alcançar frutos e a regular a temperatura do corpo.',
+    destaque: true,
+    revisado: true,
+  },
+  {
+    slug: 'martim-pescador-grande',
+    nome: 'Martim-pescador-grande',
+    grupo: 'aves',
+    cientifico: 'Megaceryle torquata',
+    fotos: [
+      { nome: 'ave-martim-pescador-grande-2', alt: 'Martim-pescador-grande pousado em um galho fino' },
+      { nome: 'ave-martim-pescador-grande', alt: 'Martim-pescador-grande em um tronco seco' },
+    ],
+    alt: 'Foto de um martim-pescador-grande',
+    texto: 'O maior martim-pescador das Américas.',
+    habitat: 'Margens de rios, lagos, lagoas e áreas alagadas por todo o Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, empoleirado em galhos secos e troncos, observando a água.',
+    curiosidade: 'Tem uma vocalização forte e ruidosa, emitida durante o voo.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'martim-pescador-verde',
+    nome: 'Martim-pescador-verde',
+    grupo: 'aves',
+    cientifico: 'Chloroceryle amazona',
+    fotos: [{ nome: 'ave-martim-pescador-verde', alt: 'Martim-pescador-verde pousado em um fio' }],
+    alt: 'Foto de um martim-pescador-verde',
+    texto: 'Muito comum à beira dos rios do Pantanal.',
+    habitat: 'Margens de rios, córregos, lagos e áreas alagadas da América do Sul, muito abundante no Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, pousado em galhos baixos sobre a água, observando as presas.',
+    curiosidade: 'Mergulha em alta velocidade direto na água para capturar pequenos peixes com extrema precisão.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'martim-pescador-pequeno',
+    nome: 'Martim-pescador-pequeno',
+    grupo: 'aves',
+    cientifico: 'Chloroceryle americana',
+    fotos: [
+      { nome: 'ave-martim-pescador-pequeno', alt: 'Martim-pescador-pequeno macho, de peito ferrugem, em um galho' },
+    ],
+    alt: 'Foto de um martim-pescador-pequeno',
+    texto: 'Uma das menores espécies de martim-pescador.',
+    habitat: 'Margens de rios, córregos, lagos e lagoas no Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, empoleirado em galhos baixos e na vegetação à beira da água.',
+    curiosidade: 'Os machos têm o peito avermelhado (ferrugem); as fêmeas têm o peito verde e listrado.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'garca-branca-grande',
+    nome: 'Garça-branca-grande',
+    grupo: 'aves',
+    cientifico: 'Ardea alba',
+    fotos: [{ nome: 'aves-garca-branca-e-colheiro', alt: 'Garça-branca-grande e um colhereiro rosa na água rasa' }],
+    alt: 'Foto de uma garça-branca-grande',
+    texto: 'Grande ave branca, sempre na beira da água.',
+    habitat: 'Áreas alagadas, margens de rios, lagos, pântanos e campos irrigados por todo o Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, caminhando nas partes rasas da água ou empoleirada em árvores.',
+    curiosidade:
+      'Caçadora muito paciente: fica imóvel por longos períodos antes de dar um bote rápido para capturar peixes.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'colhereiro',
+    nome: 'Colhereiro',
+    grupo: 'aves',
+    cientifico: 'Platalea ajaja',
+    fotos: [
+      { nome: 'aves-garca-branca-e-colheiro', alt: 'Colhereiro rosa ao lado de uma garça-branca-grande na água rasa' },
+    ],
+    alt: 'Foto de um colhereiro',
+    texto: 'A ave cor-de-rosa de bico em forma de colher.',
+    habitat: 'Zonas úmidas, margens de lagoas lodosas, pântanos e áreas alagadas rasas.',
+    melhorEpoca: 'O ano todo, durante o dia, procurando alimento em grupos nas partes rasas dos banhados.',
+    curiosidade:
+      'Move o bico de um lado para o outro na água para filtrar alimentos. Sua cor rosa vem de pigmentos da dieta.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'garca-azul',
+    nome: 'Garça-azul',
+    grupo: 'aves',
+    cientifico: 'Egretta caerulea',
+    fotos: [{ nome: 'ave-garca-azul', alt: 'Garça-azul entre plantas aquáticas' }],
+    alt: 'Foto de uma garça-azul',
+    texto: 'Garça de plumagem azul-escura, que caça devagar na água rasa.',
+    habitat: 'Margens de rios, lagoas, banhados, pântanos e estuários.',
+    melhorEpoca: 'O ano todo, durante o dia, procurando alimento devagar em águas rasas.',
+    curiosidade:
+      'Quando jovens, estas garças são totalmente brancas e mudam aos poucos para a plumagem azul-escura ao amadurecer.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'soco-boi',
+    nome: 'Socó-boi',
+    grupo: 'aves',
+    cientifico: 'Tigrisoma lineatum',
+    fotos: [{ nome: 'ave-soco-boi', alt: 'Socó-boi pousado em um galho seco sobre a água' }],
+    alt: 'Foto de um socó-boi',
+    texto: 'Ave de pescoço ferrugem, mestre da camuflagem.',
+    habitat: 'Margens de rios com mata, lagos, pântanos e áreas alagadas.',
+    melhorEpoca: 'O ano todo, principalmente no início da manhã ou no final da tarde, perto da água.',
+    curiosidade: 'Para se camuflar, estica o pescoço e aponta o bico para cima, confundindo-se com a vegetação.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'soco-dorminhoco',
+    nome: 'Socó-dorminhoco',
+    grupo: 'aves',
+    cientifico: 'Nycticorax nycticorax',
+    fotos: [{ nome: 'ave-soco-dorminhoco', alt: 'Socó-dorminhoco escondido no capim verde' }],
+    alt: 'Foto de um socó-dorminhoco',
+    texto: 'Ave noturna, que passa o dia quieta na vegetação.',
+    habitat: 'Áreas alagadas, pântanos, margens de rios, manguezais e matas ciliares no Pantanal.',
+    melhorEpoca: 'O ano todo. Mais ativo ao anoitecer e à noite; durante o dia fica escondido na vegetação densa.',
+    curiosidade: 'Passa grande parte do dia imóvel, descansando, e por isso ganhou o nome de "dorminhoco".',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'gaviao-belo',
+    nome: 'Gavião-belo',
+    grupo: 'aves',
+    cientifico: 'Busarellus nigricollis',
+    fotos: [{ nome: 'ave-gaviao-belo', alt: 'Gavião-belo, de penas cor de canela, pousado em um arbusto' }],
+    alt: 'Foto de um gavião-belo',
+    texto: 'Gavião especialista em pescar.',
+    habitat: 'Margens de rios, lagoas, pântanos e áreas alagadas do Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, empoleirado em galhos sobre a água, atento ao movimento dos peixes.',
+    curiosidade: 'Tem espinhos nas solas das patas que ajudam a segurar os peixes escorregadios.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'ema',
+    nome: 'Ema',
+    grupo: 'aves',
+    cientifico: 'Rhea americana',
+    fotos: [{ nome: 'ave-ema', alt: 'Ema caminhando em um campo aberto' }],
+    alt: 'Foto de uma ema',
+    texto: 'A maior ave da América do Sul.',
+    habitat: 'Campos abertos, savanas, pastagens, cerrados e áreas de transição no Pantanal.',
+    melhorEpoca:
+      'O ano todo, durante o dia, caminhando em áreas abertas em busca de sementes, frutos e pequenos animais.',
+    curiosidade: 'O macho é quem constrói o ninho, choca os ovos e cuida sozinho dos filhotes.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'urubu',
+    nome: 'Urubu',
+    grupo: 'aves',
+    cientifico: 'Cathartes aura / Coragyps atratus',
+    fotos: [{ nome: 'ave-urubu', alt: 'Urubu de penas pretas na areia, perto da água' }],
+    alt: 'Foto de um urubu',
+    texto: 'O "faxineiro da natureza". No Pantanal há mais de uma espécie.',
+    habitat: 'Áreas abertas, pastagens, margens de rodovias, matas e proximidades de rios em todo o Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, planando nas correntes de ar quente em busca de carcaças.',
+    curiosidade:
+      'Com olfato muito apurado (urubu-de-cabeça-vermelha) ou visão excelente (urubu-preto), acelera a decomposição da matéria orgânica e ajuda a prevenir doenças.',
+    destaque: false,
+    revisado: true,
+  },
+  {
+    slug: 'joao-pinto',
+    nome: 'João-pinto',
+    grupo: 'aves',
+    cientifico: 'Icterus croconotus',
+    fotos: [], // pending: Ives has no photo yet
+    alt: 'Foto de um joão-pinto, ave laranja e preta',
+    texto: 'Ave de plumagem laranja e preta, de canto bonito.',
+    habitat: 'Áreas abertas, bordas de matas, cerrados e margens de rios no Pantanal.',
+    melhorEpoca: 'O ano todo, durante o dia, em árvores ou descendo à margem para beber água e se banhar.',
+    curiosidade: 'Tem um canto melodioso, capaz de imitar outras espécies de aves.',
+    destaque: false,
+    revisado: true,
+  },
+
+  // Répteis
+  {
+    slug: 'jacare',
+    nome: 'Jacaré-do-pantanal',
+    grupo: 'repteis',
+    cientifico: 'Caiman yacare',
+    fotos: [
+      { nome: 'jacare', alt: 'Jacaré com a cabeça para fora da água, entre aguapés' },
+      { nome: 'jacare-2', alt: 'Jacaré com um peixe na boca, dentro do rio' },
+      { nome: 'jacare-em-grupo', alt: 'Vários jacarés deitados lado a lado na margem' },
+      { nome: 'jacare-jovem', alt: 'Jacaré jovem na terra, perto de plantas da margem' },
+      { nome: 'foto-linda-jacare-e-capivara', alt: 'Jacaré na água e uma capivara na margem, logo atrás' },
+    ],
+    alt: 'Foto de um jacaré-do-pantanal',
+    texto: 'Também chamado de jacaré-do-papo-amarelo, é comum em toda a região.',
+    habitat: 'Rios, lagoas, baías, pântanos e áreas alagadas rasas de toda a região pantaneira.',
+    melhorEpoca: 'O ano todo, durante o dia, tomando sol nas margens ou com os olhos e as narinas à flor da água.',
+    curiosidade:
+      'Na seca, quando as lagoas evaporam, os jacarés podem se concentrar em grande número nas últimas poças de água.',
+    destaque: true,
+    revisado: true,
   },
 ]

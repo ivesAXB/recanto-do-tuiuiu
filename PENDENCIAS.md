@@ -8,20 +8,19 @@ Estado atual: site publicado em https://ivesaxb.github.io/recanto-do-tuiuiu/ com
 
 ---
 
-## 1. Pronto para aplicar agora (já temos o material)
+## 1. Feito em 2026-10-30 (guia de fauna e Instagram)
 
-- [ ] 🤖 **Aplicar o guia de fauna** (`fauna_do_pantanal_guia_de_identifica_o.txt`) nos cartões: nome científico, habitat, quando ver e curiosidade de **anta, ariranha, arara-azul-grande, bugio-preto, quati, tucano-toco e martim-pescador**. Depois, marcar `revisado: true` nesses animais.
-- [ ] 🧑 Decidir se os **3 martins-pescadores** (grande, verde, pequeno) continuam num cartão só (hoje) ou viram 3 cartões, como no guia.
-- [ ] 🧑 Decidir se as **aves que têm foto e texto no guia** entram no catálogo: socó-dorminhoco, socó-boi, ema, garça-branca-grande e colhereiro (os dois estão na mesma foto), garça-azul, gavião-belo. Hoje o catálogo tem 12 animais; com todas, iria para 19.
-- [ ] 🧑 O guia traz o **João-pinto**, mas não há foto dele na pasta. Mandar a foto ou tirar do guia.
-- [ ] 🧑 A foto `ave-urubu` não tem texto no guia. Usar ou deixar de fora.
+- [x] Guia de fauna aplicado nos **23 animais** (nome científico, habitat, quando ver, curiosidade), separados em Mamíferos (7), Aves (15) e Répteis (1).
+- [x] Martins-pescadores em 3 cartões (grande, verde, pequeno), como no guia.
+- [x] Aves novas no catálogo: socó-dorminhoco, socó-boi, ema, garça-branca-grande, colhereiro, garça-azul, gavião-belo e urubu.
+- [x] Instagram @recantodotuiuiu no rodapé, nos dados do Google (`sameAs`) e num botão embaixo dos troféus, ao lado do botão **"Catálogo de peixes"**.
+- [ ] 🧑 **Foto do João-pinto** (o cartão existe, com espaço reservado).
 
 ## 2. Conteúdo que ainda falta (Ives / tio)
 
 ### Animais (`#/animais`)
-- [ ] 🧑 Texto do guia para os 5 que **ficaram de fora**: **onça-pintada, tuiuiú, jacaré, capivara e cervo-do-pantanal** (nome científico, habitat, quando ver, curiosidade).
 - [ ] 🧑 **Crédito de cada foto** (nome do fotógrafo). Hoje aparece "crédito em breve".
-- [ ] 🧑 Revisar as frases curtas de cada animal (escritas pelo agente, genéricas).
+- [ ] 🧑 Revisar a frase curta de cada cartão (escrita pelo agente a partir do guia).
 
 ### Peixes (`#/peixes`)
 - [ ] 🧑 Com o tio, para Dourado, Pintado e Pacu: **iscas, melhor época, dificuldade, peso comum, observações**. Depois, `oficial: true`.
@@ -48,7 +47,7 @@ Estado atual: site publicado em https://ivesaxb.github.io/recanto-do-tuiuiu/ com
 - [ ] 🧑 Desenhos de crianças: só com autorização dos responsáveis. Envio pelo site = tarefa futura, com pausa (LGPD, moderação).
 
 ### Rodapé
-- [ ] 🧑 **Redes sociais** (Instagram, Facebook…): a estrutura está pronta e aparece quando houver links.
+- [x] Instagram no rodapé. 🧑 Outras redes (Facebook, YouTube…), se houver.
 - [ ] 🧑 Crédito geral das fotos (ex.: "Fotos: Fulano").
 - [ ] 🧑 Revisar o **texto de privacidade** (rascunho).
 

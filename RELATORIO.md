@@ -28,6 +28,34 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## Guia de fauna aplicado + Instagram + botão do catálogo de peixes
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Catálogo de animais** (`src/data/animals.ts`):
+  - **23 animais**, com nome científico, habitat, quando ver e curiosidade tirados do guia que o Ives enviou ("Guia de identificação: Fauna do Pantanal"), todos com `revisado: true`.
+  - Os nomes seguem o guia: Arara-azul-grande, Tucano-toco, Jacaré-do-pantanal. Os endereços antigos (`#/animais/tucano`, `#/animais/jacare`…) continuam funcionando.
+  - **Martim-pescador** virou 3 cartões (grande, verde, pequeno).
+  - **Aves novas:** socó-dorminhoco, socó-boi, ema, garça-branca-grande e colhereiro (os dois usam a mesma foto, onde aparecem juntos), garça-azul, gavião-belo, urubu e **João-pinto (sem foto, com espaço reservado)**.
+  - **Bugio-preto:** as duas entradas do guia (fêmea e filhote, macho) viraram um cartão só, com as duas curiosidades.
+  - **Capivara:** o guia tinha "When ver" e "sobrenomes/bandos"; corrigido para "Quando ver" e "grupos familiares".
+  - A frase curta da frente de cada cartão foi escrita pelo agente a partir do guia.
+- **Página `#/animais` em grupos:** Mamíferos (7), Aves (15) e Répteis (1), com botões no topo para pular até cada grupo. Os nomes nos cartões viraram `h3` (ordem de títulos certa).
+- **Instagram (@recantodotuiuiu):** no rodapé e no JSON-LD (`sameAs`, que ajuda o Google a ligar o site ao perfil). Fica em `src/data/site.ts` (`instagramUrl`).
+- **Embaixo dos troféus:** os botões **"Catálogo de peixes →"** (`#/peixes`) e **"Mais no Instagram @recantodotuiuiu"**.
+- **Catálogo de peixes:** a página já existe (`#/peixes`), com os cartões que viram. Iscas, melhor época, dificuldade, peso médio e observações continuam "Em breve" até o tio passar os dados.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - `#/animais/soco-boi` abre no cartão certo, com o foco no botão.
+  - Grupos com 7, 15 e 1 animais; títulos em ordem (h1 → h2 → h3).
+  - Os botões dos troféus levam aos endereços certos, e o Instagram aparece no rodapé.
+- **Pendências:**
+  - foto do João-pinto;
+  - créditos das fotos;
+  - dados dos peixes;
+  - revisar as frases curtas.
+
+---
+
 ## Fotos novas do Ives: animais com várias fotos e faixas de foto grande
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import Placeholder from '../components/Placeholder'
+import { instagramUrl } from '../data/site'
 import { trophies, type Trophy } from '../data/trophies'
 import { imageSources } from '../lib/media'
 import { prefersReducedMotion } from '../lib/motion'
@@ -87,6 +89,23 @@ export default function Trophies() {
           </ul>
         </div>
       )}
+
+      <div className="mx-auto mt-10 flex max-w-6xl flex-wrap gap-4 px-6 md:px-16">
+        <Link
+          to="/peixes"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full bg-tuiuiu-500 px-8 py-4 font-bold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sand-100"
+        >
+          Catálogo de peixes <span aria-hidden="true">→</span>
+        </Link>
+        <a
+          href={instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-sand-100/70 px-8 py-4 font-medium transition hover:bg-sand-100/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sand-100"
+        >
+          Mais no Instagram @recantodotuiuiu
+        </a>
+      </div>
     </section>
   )
 }

@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
-import { site } from './src/data/site.ts'
+import { footer, site } from './src/data/site.ts'
 
 // Absolute site address without trailing slash, e.g. "https://ivesaxb.github.io/recanto-do-tuiuiu".
 // Set by GitHub Actions (configure-pages base_url); empty locally, so links stay relative.
@@ -18,6 +18,7 @@ function jsonLd() {
     url: `${siteUrl}/`,
     image: `${siteUrl}/og-image.jpg`,
     telephone: phone.e164,
+    sameAs: footer.social.map((s) => s.href),
     address: {
       '@type': 'PostalAddress',
       streetAddress: address.street,

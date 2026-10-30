@@ -26,6 +26,7 @@ type Props = {
   photos: CardPhoto[] // empty = placeholder
   placeholderAlt: string // what the missing photo should show
   showCredit?: boolean // adds "Foto: …" (credit of the photo on the front) at the end of the back
+  heading?: 'h2' | 'h3' // level of the name on the front (h3 when the cards sit under group titles)
   children: ReactNode // back of the card
 }
 
@@ -36,7 +37,8 @@ const SIZES = '(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw'
 // Both faces stay in the DOM, so screen readers read the back even when it is turned away.
 // Several photos: the front fades from one to the next while the card is on screen;
 // the dots below pick a photo. Extra photos are only downloaded when their turn comes.
-export default function FlipCard({ id, nome, photos, placeholderAlt, showCredit, children }: Props) {
+export default function FlipCard({ id, nome, photos, placeholderAlt, showCredit, heading = 'h2', children }: Props) {
+  const Heading = heading
   const [flipped, setFlipped] = useState(false)
   const [current, setCurrent] = useState(0)
   const [moved, setMoved] = useState(false)
@@ -111,7 +113,7 @@ export default function FlipCard({ id, nome, photos, placeholderAlt, showCredit,
               })
             )}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-950/90 to-transparent p-5 pt-16">
-              <h2 className="font-display text-3xl text-sand-100">{nome}</h2>
+              <Heading className="font-display text-3xl text-sand-100">{nome}</Heading>
             </div>
           </div>
           <div className="absolute inset-0 overflow-y-auto rounded-3xl bg-sand-100 p-6 text-forest-900 [backface-visibility:hidden] [transform:rotateY(180deg)]">

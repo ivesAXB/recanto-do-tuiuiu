@@ -1,8 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import FlipCard, { CardDetail } from '../components/FlipCard'
 import Footer from '../components/Footer'
-import { animals } from '../data/animals'
+import { animals, GROUP_TITLES, type AnimalGroup } from '../data/animals'
 import { SOON, useScrollToCard } from '../lib/cards'
+
+const GROUPS = Object.keys(GROUP_TITLES) as AnimalGroup[]
 
 export default function Animals() {
   const { slug } = useParams()
@@ -28,27 +30,58 @@ export default function Animals() {
         <p className="mt-4 max-w-xl text-lg text-sand-300">
           Passe o mouse sobre um cartão, ou toque em “Ver informações”, para ler sobre cada animal.
         </p>
-        <ul className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {animals.map((a) => (
-            <FlipCard key={a.slug} id={a.slug} nome={a.nome} photos={a.fotos} placeholderAlt={a.alt} showCredit>
-              <p className="font-display text-2xl">{a.nome}</p>
-              <p className={`mt-1 ${a.cientifico ? 'italic' : 'text-sm italic opacity-70'}`}>
-                {a.cientifico || `Nome científico: ${SOON.toLowerCase()}`}
-              </p>
-              <p className="mt-4">{a.texto}</p>
-              <dl className="mt-4 space-y-3 text-sm">
-                <CardDetail label="Habitat" value={a.habitat} />
-                <CardDetail label="Quando ver" value={a.melhorEpoca} />
-                <CardDetail label="Curiosidade" value={a.curiosidade} />
-              </dl>
-              {!a.revisado && (
-                <p className="mt-4 text-xs font-bold tracking-wider text-forest-700 uppercase">
-                  Informações em revisão
-                </p>
-              )}
-            </FlipCard>
+        {/* Jump to a group. Buttons, not "#id" links: with HashRouter "#aves" would be read as a route */}
+        <nav aria-label="Grupos de animais" className="mt-8 flex flex-wrap gap-3">
+          {GROUPS.map((g) => (
+            <button
+              key={g}
+              type="button"
+              onClick={() => document.getElementById(`grupo-${g}`)?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-sand-100/40 px-5 text-sm font-medium transition hover:bg-sand-100/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-100"
+            >
+              {GROUP_TITLES[g]} <span className="text-sand-300">{animals.filter((a) => a.grupo === g).length}</span>
+            </button>
           ))}
-        </ul>
+        </nav>
+
+        {GROUPS.map((g) => (
+          <section key={g} id={`grupo-${g}`} aria-labelledby={`titulo-${g}`} className="mt-16 scroll-mt-8">
+            <h2 id={`titulo-${g}`} className="font-display text-4xl">
+              {GROUP_TITLES[g]}
+            </h2>
+            <ul className="mt-8 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              {animals
+                .filter((a) => a.grupo === g)
+                .map((a) => (
+                  <FlipCard
+                    key={a.slug}
+                    id={a.slug}
+                    nome={a.nome}
+                    photos={a.fotos}
+                    placeholderAlt={a.alt}
+                    showCredit
+                    heading="h3"
+                  >
+                    <p className="font-display text-2xl">{a.nome}</p>
+                    <p className={`mt-1 ${a.cientifico ? 'italic' : 'text-sm italic opacity-70'}`}>
+                      {a.cientifico || `Nome científico: ${SOON.toLowerCase()}`}
+                    </p>
+                    <p className="mt-4">{a.texto}</p>
+                    <dl className="mt-4 space-y-3 text-sm">
+                      <CardDetail label="Habitat" value={a.habitat} />
+                      <CardDetail label="Quando ver" value={a.melhorEpoca} />
+                      <CardDetail label="Curiosidade" value={a.curiosidade} />
+                    </dl>
+                    {!a.revisado && (
+                      <p className="mt-4 text-xs font-bold tracking-wider text-forest-700 uppercase">
+                        Informações em revisão
+                      </p>
+                    )}
+                  </FlipCard>
+                ))}
+            </ul>
+          </section>
+        ))}
       </main>
       <Footer />
     </>
