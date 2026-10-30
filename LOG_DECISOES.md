@@ -2,6 +2,17 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — Ajustes do anel, dos troféus e do rodapé
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Loops em GSAP, ligados só com a seção visível e com aceleração suave. | Manter o CSS. | O CSS não pausa com o toque e dava o "arremesso" ao chegar na seção. |
+| Toque pausa e retoma 1,5 s depois de soltar. | Pausar até tocar de novo. | Natural no celular, sem botão extra. |
+| Rodapé sticky (CSS puro) sob o `main` com fundo sólido. | Animar o rodapé com GSAP. | Sem JavaScript e sem custo de desempenho; dá exatamente o efeito de "destampar". |
+| Efeito do rodapé só a partir de 768 px. | Também no celular. | No celular o rodapé é mais alto que a tela. |
+| Botão do encerramento leva ao WhatsApp. | Botão "Pedir reserva". | Logo depois do formulário, outra chamada para a reserva seria repetitiva; o WhatsApp atende quem ficou com dúvida. |
+| Foto do encerramento: `imagem-lago-drone-com-barcos` (real, da região). | Pôr do sol. | É a mais parecida com a referência (vista aérea de água e mata) e mostra os barcos. |
+
 ## 2026-10-30 — F7: Troféus
 
 | Decisão | Alternativa descartada | Motivo |

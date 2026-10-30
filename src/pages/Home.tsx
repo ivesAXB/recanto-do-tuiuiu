@@ -8,6 +8,7 @@ import Footer from '../components/Footer'
 import Loader from '../components/Loader'
 import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
 import AnimalRing from '../sections/AnimalRing'
+import Closing from '../sections/Closing'
 import Hero from '../sections/Hero'
 import DayAtRecanto from '../sections/DayAtRecanto'
 import Packages from '../sections/Packages'
@@ -95,7 +96,8 @@ export default function Home() {
 
   return (
     <>
-      <main>
+      {/* main sits above the footer (z-10, solid background); the sticky footer waits underneath and is uncovered at the end */}
+      <main className="relative z-10 bg-forest-900">
         {showIntro && (
           <Loader
             onDone={() => {
@@ -112,8 +114,10 @@ export default function Home() {
         <Packages />
         <Trophies />
         <Reserve />
+        <Closing />
       </main>
-      <Footer />
+      {/* Reveal only from tablet up: on phones the footer is taller than the screen */}
+      <Footer className="md:sticky md:bottom-0 md:z-0" />
       <Cursor />
     </>
   )

@@ -28,6 +28,35 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F6/F7 (ajustes pedidos pelo Ives) + encerramento que destampa o rodapé
+
+- **Resultado:** pronto e enviado (push autorizado pelo Ives).
+- **Pausa ao tocar:** o anel e a faixa de troféus agora param ao tocar em qualquer ponto da seção e voltam 1,5 s depois de tirar o dedo. Também param com o mouse em cima e com o foco do teclado. Antes era só CSS `:hover`, que no celular não funciona.
+- **Sem o "arremesso":** a rotação passou do CSS para o GSAP (`src/lib/loop.ts`, `controlLoop`). A animação **só roda com a seção na tela**, começa parada e acelera suavemente (e desacelera ao pausar). Fora da tela, fica parada, o que também poupa bateria.
+- **Anel em quadrados** (como na referência):
+  - 6 quadrados de tamanhos um pouco diferentes (16% a 22% do anel), a distâncias levemente diferentes do centro, girando no sentido horário e sempre em pé.
+  - No centro, parados: "FAUNA", o título e o botão "Ver os animais →".
+  - **No celular**, o título fica acima do anel e só o botão fica no centro, porque o meio é pequeno demais para o texto.
+- **Encerramento que destampa o rodapé** (`src/sections/Closing.tsx`, novo, depois de "Peça sua reserva"):
+  - Foto de tela cheia (`imagem-lago-drone-com-barcos`) com leve paralaxe e o texto à direita: "Ficou alguma dúvida? A gente responde pelo WhatsApp." e o botão "Falar no WhatsApp".
+  - O rodapé fica **parado embaixo** (`position: sticky`) e a página passa por cima dele. Ao rolar até o fim, a foto sobe e o rodapé aparece, como na referência.
+  - **Só do tablet para cima:** no celular, o rodapé (909 px) é mais alto que a tela (812 px), e o efeito mostraria primeiro a parte de baixo dele. Lá, ele segue a rolagem normal.
+- **Arquivos:**
+  - novos: `src/lib/loop.ts`, `src/sections/Closing.tsx`;
+  - alterados: `src/sections/AnimalRing.tsx`, `src/sections/Trophies.tsx`, `src/components/Footer.tsx` (aceita `className`), `src/pages/Home.tsx`;
+  - `src/index.css`: as animações CSS antigas foram removidas.
+- **Verificação:**
+  - Lint e build passam, sem erros no console (inclusive navegando entre a Home e `#/animais`).
+  - O anel começa em 0° ao entrar na tela.
+  - Com um toque simulado, o anel e a faixa pararam (ângulo e posição iguais em 0,8 s) e voltaram depois de soltar.
+  - Rodapé: no desktop ele fica fixo embaixo enquanto a página sobe. Celular (375 px) sem rolagem lateral.
+- **Textos para o Ives revisar:**
+  - "SUA ESTADIA";
+  - "Ficou alguma dúvida? A gente responde pelo WhatsApp.";
+  - "Conte as datas, quantas pessoas vêm e o que querem fazer. O resto a gente combina com você."
+
+---
+
 ## F7 — Troféus de pesca (faixa horizontal)
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).

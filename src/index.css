@@ -39,35 +39,3 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Anel de animais (AnimalRing): gira no sentido horário; cada foto gira ao contrário para ficar em pé.
-   Pausa com o mouse em cima ou com o foco do teclado dentro. */
-@keyframes ring-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.animal-ring {
-  animation: ring-spin 80s linear infinite;
-}
-.animal-ring-item {
-  animation: ring-spin 80s linear infinite reverse;
-}
-.animal-ring-area:hover :is(.animal-ring, .animal-ring-item),
-.animal-ring-area:focus-within :is(.animal-ring, .animal-ring-item) {
-  animation-play-state: paused;
-}
-
-/* Faixa de troféus (Trophies): anda da direita para a esquerda sem emenda (a lista está duplicada,
-   então mover 50% volta ao mesmo ponto). Pausa com o mouse em cima ou com o foco dentro. */
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-.trophy-track {
-  animation: marquee 45s linear infinite;
-}
-.trophy-strip:hover .trophy-track,
-.trophy-strip:focus-within .trophy-track {
-  animation-play-state: paused;
-}

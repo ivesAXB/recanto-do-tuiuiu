@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 import Placeholder from '../components/Placeholder'
 import { trophies, type Trophy } from '../data/trophies'
+import { controlLoop } from '../lib/loop'
 import { imageSources } from '../lib/media'
 import { prefersReducedMotion } from '../lib/motion'
 
@@ -48,9 +50,22 @@ function TrophyCard({ trophy, copy }: { trophy: Trophy; copy?: boolean }) {
 
 export default function Trophies() {
   const [reduced] = useState(prefersReducedMotion)
+  const area = useRef<HTMLElement>(null)
+  const track = useRef<HTMLUListElement>(null)
+
+  useEffect(() => {
+    if (reduced || !area.current || !track.current) return
+    // Moving half the track (one full copy) lands on the same picture: an endless loop without a seam
+    const slide = gsap.to(track.current, { xPercent: -50, duration: 45, ease: 'none', repeat: -1 })
+    const stop = controlLoop(area.current, slide)
+    return () => {
+      stop()
+      slide.revert()
+    }
+  }, [reduced])
 
   return (
-    <section id="trofeus" aria-labelledby="trofeus-titulo" className="overflow-hidden py-24">
+    <section ref={area} id="trofeus" aria-labelledby="trofeus-titulo" className="overflow-hidden py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-16">
         <p className="text-sm font-bold tracking-[0.14em] text-gold-400">TROFÉUS</p>
         <h2 id="trofeus-titulo" className="mt-3 font-display text-4xl md:text-5xl">
@@ -66,9 +81,9 @@ export default function Trophies() {
           ))}
         </ul>
       ) : (
-        <div className="trophy-strip mt-12">
+        <div className="mt-12">
           {/* Two copies side by side: when the first has fully passed, the loop restarts without a seam */}
-          <ul className="trophy-track flex w-max gap-6 pr-6">
+          <ul ref={track} className="flex w-max gap-6 pr-6">
             {trophies.map((t, i) => (
               <TrophyCard key={i} trophy={t} />
             ))}

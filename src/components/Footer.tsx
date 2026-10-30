@@ -8,11 +8,11 @@ function Heading({ children }: { children: string }) {
   return <h2 className="text-sm font-bold tracking-[0.14em] text-gold-400">{children}</h2>
 }
 
-export default function Footer() {
+export default function Footer({ className = '' }: { className?: string }) {
   const { address, hours } = site
 
   return (
-    <footer className="bg-forest-950 text-sand-300">
+    <footer className={`bg-forest-950 text-sand-300 ${className}`}>
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-3 md:px-16">
         <div>
           <p className="font-display text-3xl text-sand-100">Recanto do Tuiuiú</p>
