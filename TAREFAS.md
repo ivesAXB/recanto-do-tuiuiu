@@ -245,7 +245,7 @@ NÃO implementar envio de desenhos, upload nem banco agora: isso envolve imagem 
 exige moderação e LGPD, e fica para uma tarefa própria com PAUSA.
 Pronto quando: build/lint passam; navegável no menu; sem coleta de dado nenhum.
 
-### [ ] F11 — Pronto para apresentação
+### [x] F11 — Pronto para apresentação
 Escopo: Home e menu.
 Requisitos: todas as seções (Hero, Dia na pousada, Pousada, Animais, Peixes/Pesca, Pacotes, Troféus,
 Pequenos, Reserva, Rodapé) existem, na ordem narrativa, com navegação por âncoras/rotas sem links

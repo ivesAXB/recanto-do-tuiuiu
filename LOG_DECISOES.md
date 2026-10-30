@@ -2,6 +2,16 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F11: Pronto para apresentação
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Menu: A pousada, Fauna, Pesca, Pacotes, Para os pequenos (+ Pedir reserva). | Um item para cada seção. | Cabe numa linha no desktop; Troféus e Reserva aparecem ao rolar e a reserva já tem botão próprio. "Épocas" saiu porque fica dentro de Pesca. |
+| Menu de celular em tela cheia, abaixo de 1024 px. | Menu suspenso pequeno. | Alvos de toque grandes; no tablet, os 5 itens não cabem ao lado do logo. |
+| No celular, o botão "Pedir reserva" do topo fica dentro do menu (abaixo de 640 px). | Logo, botão e menu na mesma linha. | Em 375 px os três não cabem sem apertar o logo. |
+| 404 só para caminhos que não são seções conhecidas. | Toda rota desconhecida vira 404. | Links antigos compartilhados (`site/#reservar`) precisam continuar abrindo a seção. |
+| O aviso de tamanho do arquivo JS continua. | Resolver agora com code-splitting. | É decisão pendente do Ives (P5); não é um aviso novo. |
+
 ## 2026-10-30 — F10: Pantanal para os pequenos
 
 | Decisão | Alternativa descartada | Motivo |

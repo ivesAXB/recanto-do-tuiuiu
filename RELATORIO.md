@@ -28,6 +28,63 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F11 — Pronto para apresentação
+
+- **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver.** Commit local, **sem push** (aguardando o Ives). O push da F10 foi feito.
+- **Arquivos criados:**
+  - `src/components/SiteHeader.tsx`: menu do topo, que antes ficava dentro do Hero.
+    - Itens: **A pousada · Fauna · Pesca · Pacotes · Para os pequenos**, mais o botão "Pedir reserva".
+    - **Menu de celular e tablet** (abaixo de 1024 px), aberto pelo botão "Menu": tela cheia com os mesmos itens em letra grande, "Pedir reserva" e "Falar no WhatsApp".
+    - Fecha ao escolher um item, com "Fechar" ou com Esc. O foco vai para o primeiro item ao abrir, o Tab fica preso dentro do menu e, ao fechar, o foco volta ao botão.
+    - A página atrás não rola enquanto o menu está aberto.
+  - `src/pages/NotFound.tsx`: **404 amigável** ("Esse caminho o tuiuiú não conhece."), com "Voltar ao início", "Pedir reserva", `noindex` e rodapé.
+- **Arquivos alterados:**
+  - `src/App.tsx`: endereços que não existem mostram a 404. Os links antigos de seção (`site/#reservar`, `#pesca`…) **continuam abrindo a Home** e rolando até a seção (lista `SECTIONS`).
+  - `src/sections/Hero.tsx`: usa o `SiteHeader`.
+  - `TAREFAS.md`: F11 marcada como `[x]`.
+- **Ordem da Home conferida:** Hero → Um dia no Recanto → A pousada → Fauna → Pesca (calendário e "Conheça os peixes") → Pacotes → Troféus → Pequenos → Reserva → Foto final → Rodapé.
+- **Verificação (1440 px e 375 px):**
+  - Lint e build passam. O único aviso do build é o do arquivo grande, que já existia: o code-splitting está pendente de decisão.
+  - **Nenhum link de âncora quebrado:** todos os `#id` da página existem.
+  - **Nenhum "undefined", "TODO", "lorem" ou "NaN"** no texto visível.
+  - **13 espaços reservados na Home, todos com a etiqueta "ilustrativo".**
+  - O menu do desktop rola até a seção certa.
+  - `#/nao-existe` mostra a 404, e `#/reservar` abre a Home na seção de reserva.
+  - `#/animais`, `#/peixes` e `#/pequenos` têm "Voltar ao início".
+  - No celular, o menu abre, foca o primeiro item, leva a "Fauna", fecha com Esc e devolve o foco ao botão, sem rolagem lateral.
+  - Sem erros no console.
+
+### Lista final de pendências do Ives (por seção)
+
+Tudo o que falta para trocar o conteúdo provisório pelo real. O caminho indica onde cada coisa é editada; nenhuma troca exige mexer em componente.
+
+| Seção | Pendência | Onde fica |
+|---|---|---|
+| **Geral** | Aprovar título, descrição e foto de compartilhamento (WhatsApp/Google) | `index.html` |
+| Geral | Conferir se a Variable `VITE_WHATSAPP_NUMBER` do GitHub (e o `.env`) é `5565999713778` | GitHub → Settings → Variables |
+| Geral | Remover o `noindex` só no lançamento, sem conteúdo provisório (P6, item 7) | `index.html` |
+| Geral | Decidir o code-splitting (deixa o site mais rápido) | — |
+| **Hero** | Revisar o título "O Pantanal começa quando o tuiuiú chega." sobre o vídeo da onça | `src/sections/Hero.tsx` |
+| **Um dia no Recanto** | Revisar os textos das 4 cenas | `src/sections/DayAtRecanto.tsx` |
+| **A pousada** | 3 fotos: quarto, refeição, varanda ao fim do dia (verticais 4:5) | `originais/fotos/pousada/` e depois `src/data/pousada.ts` |
+| A pousada | Revisar o título e as legendas | `src/data/pousada.ts` |
+| **Fauna** | Fotos de arara-azul, capivara, garça-branca e martim-pescador, e créditos de todas | `originais/fotos/animais/` e `src/data/animals.ts` |
+| Fauna | Nome científico, habitat, quando ver e curiosidade de cada animal (com o tio ou uma fonte citada) | `src/data/animals.ts` |
+| Fauna | Confirmar quais animais mostrar; autorização de imagem para as fotos com pessoas (araras) | — |
+| **Pesca** | Revisar os textos das épocas e os meses do calendário (vieram do site antigo) | `src/sections/Fishing.tsx` |
+| Pesca | Confirmar as datas oficiais do defeso de cada ano | Painel → Períodos |
+| **Peixes** (`#/peixes`) | Com o tio: iscas, melhor época, dificuldade, peso comum e observações; depois, `oficial: true` | `src/data/fish.ts` |
+| Peixes | Confirmar os nomes científicos, fotos de cada espécie e outras espécies | `src/data/fish.ts` |
+| **Pacotes** | Conferir preços e textos | Painel → Valores |
+| **Troféus** | Fotos reais (pescador com o peixe), espécie, peso, ano, nome ou apelido; **autorização de imagem e nome** de cada um; peso e espécie conferidos pelo tio | `src/data/trophies.ts` |
+| **Pequenos** (`#/pequenos`) | Quais atividades para crianças a pousada **realmente** oferece | `src/data/pequenos.ts` |
+| Pequenos | Revisar os textos; desenhos reais só com autorização (o envio pelo site é uma tarefa futura, com pausa) | `src/data/pequenos.ts` |
+| **Foto final** | Revisar "Ficou alguma dúvida? A gente responde pelo WhatsApp." e o texto abaixo | `src/sections/Closing.tsx` |
+| **Rodapé** | Redes sociais, crédito das fotos e revisão do texto de privacidade (rascunho) | `src/data/site.ts` |
+| **Lançamento** | Itens da P6: limpar pedidos de teste, conta de admin do tio, conferir RLS, testar em celular real, Lighthouse, troca de domínio, backup | P6, mais acima |
+
+---
+
 ## F10 — "Pantanal para os pequenos" (estrutura com placeholders)
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives). O push dos commits anteriores (F8 e ajustes, até `53cb356`) foi feito.

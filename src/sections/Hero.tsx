@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SiteHeader from '../components/SiteHeader'
 import { introDelay } from '../lib/intro'
 import { canUsePointerEffects, pointerParallax } from '../lib/motion'
 
@@ -15,35 +16,6 @@ const HERO_POSTER = `${base}media/video/${HERO_VIDEO_NAME}-poster.jpg`
 
 const HEADLINE = ['O', 'Pantanal', 'começa', 'quando', 'o', 'tuiuiú', 'chega.']
 const EMPHASIS_INDEX = 5 // "tuiuiú"
-
-const NAV = [
-  { href: '#pesca', label: 'Pesca' },
-  { href: '#epocas', label: 'Épocas' },
-  { href: '#/pequenos', label: 'Para os pequenos' },
-]
-
-function Header() {
-  return (
-    <header className="flex items-center justify-between px-6 py-6 md:px-16">
-      <a href="#" className="font-display text-2xl font-semibold">
-        Recanto do Tuiuiú
-      </a>
-      <nav aria-label="Principal" className="hidden gap-8 font-medium md:flex">
-        {NAV.map((item) => (
-          <a key={item.href} href={item.href} className="transition hover:text-gold-400">
-            {item.label}
-          </a>
-        ))}
-      </nav>
-      <a
-        href="#reservar"
-        className="rounded-full bg-tuiuiu-500 px-5 py-3 text-sm font-bold text-white transition hover:brightness-110"
-      >
-        Pedir reserva
-      </a>
-    </header>
-  )
-}
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null)
@@ -131,7 +103,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-950/25 to-forest-900" />
       </div>
 
-      <Header />
+      <SiteHeader />
 
       <div data-hero-content className="mt-auto px-6 pb-16 md:px-16 md:pb-24">
         <h1
