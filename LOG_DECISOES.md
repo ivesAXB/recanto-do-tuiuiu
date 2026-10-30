@@ -2,6 +2,18 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F5: Galeria "A pousada"
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| 6 itens: 3 fotos reais da pousada e 3 espaços reservados (quartos, refeições, varanda). | Um espaço reservado também para "noite". | 6 fecham duas linhas de 3; noite e varanda viraram "varanda ao fim do dia". |
+| A segunda foto da fachada (`pousada-externa-ampliada-horizontal2`) ficou de fora. | Usar todas as fotos externas. | É quase igual à fachada escolhida. |
+| As fotos vêm do `manifest.json` (`src/lib/media.ts`), e o dado só guarda o nome. | Listar as larguras em cada item. | A tarefa pede "trocar = só preencher `foto`"; as larguras novas entram sozinhas. |
+| Legendas dos espaços reservados neutras ("Os quartos."). | Adjetivos ("simples e confortáveis"). | Seriam afirmações não confirmadas. |
+| `noindex` no `index.html` agora. | Esperar o F11. | A regra geral manda ligar enquanto houver placeholder, e a F5 é a primeira tarefa com placeholders. |
+| A etiqueta "ilustrativo" é ignorada por leitores de tela; o `aria-label` diz "Espaço reservado para foto: …". | Ler a etiqueta e a descrição separadas. | Uma frase só, clara, sem `alt` enganoso. |
+| Menu sem o item "A pousada" por enquanto. | Acrescentar agora. | O menu completo é escopo da F11. |
+
 ## 2026-10-30 — F4: Scripts de mídia
 
 | Decisão | Alternativa descartada | Motivo |

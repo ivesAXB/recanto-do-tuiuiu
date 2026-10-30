@@ -10,6 +10,7 @@ import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
 import Hero from '../sections/Hero'
 import DayAtRecanto from '../sections/DayAtRecanto'
 import Packages from '../sections/Packages'
+import Pousada from '../sections/Pousada'
 import Fishing from '../sections/Fishing'
 import Reserve from '../sections/Reserve'
 
@@ -103,6 +104,7 @@ export default function Home() {
         )}
         <Hero />
         <DayAtRecanto />
+        <Pousada />
         <Fishing />
         <Packages />
         <Reserve />

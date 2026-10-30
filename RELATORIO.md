@@ -23,7 +23,51 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 | Ao trocar ou adicionar um domínio (ex.: na troca para recantodotuiuiu.com.br) | Adicionar o domínio (1) no widget do Turnstile no Cloudflare e (2) nas listas `ALLOWED_ORIGINS`/`ALLOWED_HOSTNAMES` da Edge Function (pedir ao agente), e publicar a função de novo. | O captcha e a função só aceitam domínios listados. Os domínios `recantodotuiuiu.com.br` e `www.` já estão na lista. | P4 |
 | Se as chaves do Turnstile forem trocadas no Cloudflare | Atualizar `VITE_TURNSTILE_SITE_KEY` (GitHub e `.env`) e `TURNSTILE_SECRET_KEY` (Supabase). | Chaves desencontradas fazem todo pedido falhar no captcha. | P4 |
 | Uma vez por mês | Backup: exportar em CSV as tabelas de pedidos, passeios, períodos, experiências e configurações (Table Editor → Export), guardando em pasta privada e apagando as cópias antigas. | O plano gratuito do Supabase não tem backup para baixar. | P6 |
+| Quando chegarem fotos ou vídeos novos | 1) Fotos em `originais/fotos/<tema>/` (ex.: `pousada/varanda.jpg`; animais com o nome do animal no arquivo: `animais/tuiuiu.jpg`, `tuiuiu-2.jpg`, sem pasta por animal). Vídeos em `originais/videos/`. 2) Na pasta raiz do projeto: `npm run media:images` e/ou `npm run media:videos`. 3) Preencher `legenda` e `credito` em `public/media/img/manifest.json`. 4) Avisar o agente ou fazer commit de `public/media/img` e `public/media/video`. A pasta `originais/` nunca vai para o Git. | Os originais pesados ficam só no computador; o site usa as versões otimizadas. Nomes de arquivo iguais em pastas diferentes colidem (o script avisa e pula). | F4 |
 | Ao lançar e ao criar contas | Manter desligado o cadastro público no Supabase (Authentication → Allow new users to sign up). Admin novo: criar o usuário e dar o papel pelo SQL (P6, item 3). | Sem isso, qualquer pessoa poderia criar conta. | P6 |
+
+---
+
+## F5 — Seção "A pousada": galeria com legenda
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Arquivos criados:**
+  - `src/components/Placeholder.tsx`: espaço reservado reutilizável (regra geral de placeholders). É um bloco verde-claro na proporção da foto final, com a descrição visível do que vai ali e a etiqueta "ilustrativo". Leitores de tela ouvem "Espaço reservado para foto: …".
+  - `src/lib/media.ts`: `imageSources(nome)` monta `src`, `srcset`, largura e altura a partir do `public/media/img/manifest.json`. Quando o script da F4 gerar a versão 1920, ela entra no `srcset` sozinha.
+  - `src/data/pousada.ts`: os itens da galeria (`foto`, `legenda`, `alt`, `provisorio`).
+  - `src/sections/Pousada.tsx`: seção `id="pousada"`, depois de "Um dia no Recanto" (a ordem do F11):
+    - 3 colunas no desktop, com a coluna do meio mais baixa (ritmo editorial), e 1 no celular;
+    - as fotos sobem e aparecem ao entrar na tela, e deslizam levemente dentro da moldura ao rolar;
+    - com "reduzir movimento", tudo fica parado.
+- **Arquivos alterados:**
+  - `src/index.css`: novo token `--color-sage-200` (verde-claro dos espaços reservados).
+  - `src/pages/Home.tsx`: inclui a seção.
+  - `index.html`: **`<meta name="robots" content="noindex">`** enquanto houver conteúdo provisório (regra geral). Remover é decisão do Ives no lançamento (P6, item 7).
+  - `TAREFAS.md`: F5 marcada como `[x]`.
+- **Conteúdo:**
+  - **3 fotos reais** já existentes: vista aérea da casa, a pousada vista da água e a fachada.
+  - **3 espaços reservados:** quartos, refeições e varanda.
+  - Nada de vídeo nem de imagem gerada por IA.
+- **Como trocar um espaço reservado por foto real** (sem mexer em componente):
+  1. Rodar `npm run media:images` com a foto em `originais/fotos/pousada/`.
+  2. Em `src/data/pousada.ts`, preencher `foto` com o nome gerado (ex.: `quarto-casal`), ajustar `alt` para descrever a foto real e marcar `provisorio: false`.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - Desktop: 3 colunas, as 3 fotos carregam a versão de 640 px e os 3 espaços reservados mostram a etiqueta.
+  - Celular (375 px): 1 coluna, sem rolagem lateral.
+  - Imagens com `srcset`, `loading="lazy"`, largura e altura (para não "pular" a página).
+- **Pendências do Ives (fotos):**
+
+| Onde | O que falta | Formato |
+|---|---|---|
+| A pousada, item 4 | Foto do quarto (camas e janela) | Vertical 4:5, de preferência 1920 px ou mais na largura do original |
+| A pousada, item 5 | Foto de uma refeição servida | Vertical 4:5 |
+| A pousada, item 6 | Foto da varanda ao fim do dia | Vertical 4:5 |
+
+- **Textos para o Ives revisar:**
+  - o título "Uma casa no meio do Pantanal.";
+  - as legendas das fotos reais, escritas pelo agente a partir do que aparece nas fotos;
+  - as legendas dos espaços reservados ("Os quartos.", "Café, almoço e janta inclusos na diária.", "A varanda ao fim do dia.").
 
 ---
 

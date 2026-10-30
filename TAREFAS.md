@@ -176,7 +176,7 @@ Pronto quando: scripts rodam com uma pasta de teste e documentam o uso no README
 NÃO pausar por falta de fotos: as tarefas F5 a F8 seguem com placeholders (regra geral). Só
 registrar em RELATORIO.md que o Ives deve colocar as fotos na pasta de entrada.
 
-### [ ] F5 — Seção "A pousada": galeria com legenda
+### [x] F5 — Seção "A pousada": galeria com legenda
 Escopo: nova seção (id="pousada") com fotos reais em colunas e uma frase curta abaixo de cada foto
 (estilo galeria editorial: 3 fotos por linha no desktop, 1 no celular), com revelação suave ao
 rolar e leve paralaxe.
