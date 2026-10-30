@@ -2,6 +2,15 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — P6: Checklist de lançamento
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| SQL de limpeza filtra por `guest_name ilike '%teste%'`, com uma consulta de conferência antes do `delete`. | Entregar só o `delete`. | Apagar é definitivo; o Ives vê a lista antes. |
+| Revisão de RLS feita lendo as 4 migrações, mais consultas só de leitura para o Ives conferir no banco ao vivo. | Consultar o banco diretamente. | O agente não usa credenciais do banco nem chave secreta. |
+| Registrado como risco futuro: `admin_notes` ficaria visível ao hóspede se o login do visitante for ligado. | Criar a migração já. | Hoje não há risco (cadastro desligado); mudar o esquema pede pausa. |
+| Backup recomendado: exportar CSV uma vez por mês, com `supabase db dump` como opção completa. | Workflow automático de backup. | O automático exige guardar a senha do banco como Secret, uma decisão de segurança do Ives. |
+
 ## 2026-10-29 — P5: SEO e desempenho
 
 | Decisão | Alternativa descartada | Motivo |

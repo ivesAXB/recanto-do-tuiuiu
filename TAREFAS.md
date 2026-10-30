@@ -88,7 +88,174 @@ lazy-load abaixo da dobra, avisar o tamanho do bundle e propor code-splitting se
 Pronto quando: build/lint passam e há relatório com pontos de melhoria que dependem do Ives.
 PAUSA: textos/endereço/telefone que não estiverem confirmados no CLAUDE.md.
 
-### [ ] P6 — Checklist de lançamento (somente relatório)
+### [x] P6 — Checklist de lançamento (somente relatório)
 Gerar em RELATORIO.md uma checklist: remover reservas de teste (SQL para o Ives rodar), datas de
 defeso cadastradas, conta admin do tio, revisão de RLS (listar todas as tabelas e políticas),
 teste em celular real, Lighthouse, troca de domínio, backup. NÃO executar nada. PARAR.
+
+---
+
+## Fase 7 — Conteúdo confirmado e rodapé
+
+### [ ] P7 — Dados confirmados do Ives (SEO, JSON-LD, rodapé) + push da P5
+Dados confirmados pelo Ives em 2026-10-29 (usar EXATAMENTE assim):
+- Endereço: Rio Mutum com Baía Siá Mariana, Zona Rural, Barão de Melgaço - MT, 78190-000
+- Telefone/WhatsApp público: (65) 99971-3778
+- Check-in: 05h (horário de Cuiabá, 06h em Brasília). Check-out: 18h (horário de Cuiabá).
+  Sempre escrever o fuso junto, para ninguém chegar na hora errada.
+Requisitos: aplicar nos JSON-LD (LodgingBusiness: address, telephone, checkinTime/checkoutTime
+em formato válido), no CLAUDE.md (seção 2) e onde já houver texto sobre isso. Não inventar faixa de
+preço nem horários além dos acima. Registrar em RELATORIO.md o que ainda falta do Ives.
+Pronto quando: build/lint passam; nada hardcoded duplicado (centralizar em src/data/site.ts).
+Sem push (só o Ives faz). NÃO pausar aqui: seguir para a próxima tarefa e lembrar no relatório que há commits locais aguardando push.
+
+### [ ] F1 — Tela de carregamento "Recanto do Tuiuiú"
+Escopo: componente Loader no topo do app (src/components/Loader.tsx), GSAP.
+Requisitos:
+- Tela cheia na cor forest-900, nome "Recanto do Tuiuiú" centralizado (Fraunces, claro) que se
+  comprime até virar o monograma "RT" e, em seguida, a tela sobe/some revelando a Home, que já
+  anima do jeito atual. Duração total máxima ~2,2 s.
+- Mostra só 1 vez por sessão (sessionStorage dentro de try/catch). Não bloqueia o conteúdo: a Home
+  carrega por baixo; o loader não atrasa o LCP nem o formulário. Não aparece em /admin.
+- prefers-reduced-motion: sem animação, apenas um fade curto de 300 ms ou nada.
+- Acessível: role="status" com texto oculto "Carregando", foco liberado ao terminar, scroll
+  travado só enquanto visível (compatível com Lenis).
+- Não copiar o logotipo ou a identidade de outro site: o conceito é o nosso nome virando "RT".
+Pronto quando: build/lint passam; funciona em mobile; segunda visita na mesma sessão não repete.
+Fim: PARE para o Ives ver no navegador (marco visual).
+
+### [ ] F2 — Rodapé
+Escopo: src/components/Footer.tsx, usado na Home.
+Requisitos: nome e frase curta da pousada; endereço, telefone e WhatsApp (src/data/site.ts);
+horários de check-in/check-out com fuso; link "Como chegar" abrindo o Google Maps; redes sociais
+só se estiverem em CLAUDE.md (se não, deixar a estrutura pronta e listar como pendência);
+aviso curto de privacidade/LGPD (dados do pedido de reserva usados só para contato; texto marcado
+como rascunho para revisão do Ives); crédito de fotografia (campo configurável, pendente do Ives).
+Visual coerente com o design system, links com alvo de toque de 44px, contraste AA.
+Pronto quando: build/lint passam; responsivo; nenhum dado inventado.
+
+## Regra geral de PLACEHOLDERS (vale para todas as tarefas F)
+Objetivo do Ives: site COMPLETO e navegável para apresentação, mesmo sem as fotos finais.
+- Criar UM componente reutilizável `Placeholder` (src/components/Placeholder.tsx): bloco verde
+  claro (token do design system) na proporção da imagem final, com a descrição do que deve entrar
+  ali (ex.: "Foto do quarto: cama de casal, vista da varanda") e uma etiqueta discreta "ilustrativo".
+  Acessível: texto visível, sem alt enganoso (alt descreve que é espaço reservado).
+- Todo conteúdo provisório (placeholder, texto genérico, troféu de exemplo) carrega a flag
+  `provisorio: true` no arquivo de dados. Nunca inventar nome de pessoa, peso, recorde ou dado
+  técnico. Rótulos de exemplo devem ser claramente fictícios e marcados ("Exemplo: 1º lugar,
+  categoria Pintado"), sem nome de pescador.
+- Trocar placeholder por foto real = só preencher o campo `foto` no arquivo de dados (sem mexer
+  em componente). Documentar isso em RELATORIO.md.
+- Cada placeholder gera uma linha na lista de pendências em RELATORIO.md (onde, o que falta,
+  formato/proporção da foto).
+- Enquanto houver conteúdo provisório, o site NÃO deve ser indexado: manter `noindex` (meta robots)
+  e sitemap sem as páginas provisórias, até o Ives liberar. Remover o noindex é decisão do Ives
+  no lançamento (item da P6).
+
+## Fase F — Front mais vivo (animações e conteúdo visual)
+
+### [ ] F3 — Profundidade e movimento com rolagem e cursor
+Escopo: Hero e 2 outras seções (DayAtRecanto e a nova galeria, quando existir).
+Requisitos:
+- Camadas em paralaxe que se movem em velocidades diferentes com a rolagem (GSAP ScrollTrigger),
+  e no desktop leve movimento pelo ponteiro (mouse) com transform apenas (sem layout thrash).
+- Cursor personalizado SÓ em dispositivos com ponteiro fino (pointer: fine); desligado em touch e
+  com prefers-reduced-motion. Estado de hover em links/botões/cards. Nunca esconder o cursor
+  nativo em campos de formulário.
+- Desempenho: animar só transform/opacity, will-change com cuidado, sem vídeo extra.
+Pronto quando: build/lint passam; 60 fps percebidos em notebook comum; reduced-motion respeitado.
+Fim: PARE para o Ives ver (marco visual).
+
+### [ ] F4 — Mídia em alta qualidade (scripts)
+Escopo: scripts/optimize-images.mjs e optimize-videos.mjs.
+Requisitos: aceitar originais em HD; gerar imagens webp em larguras 640/1280/1920 (srcset) e
+manifest.json com largura, altura, tema e legenda/crédito; vídeos mp4 sem áudio até 1920px
+com poster e orçamento de peso por vídeo (avisar se passar de ~8 MB). Originais ficam FORA do
+repositório (pasta ignorada no .gitignore); só os arquivos otimizados são commitados.
+Pronto quando: scripts rodam com uma pasta de teste e documentam o uso no README.
+NÃO pausar por falta de fotos: as tarefas F5 a F8 seguem com placeholders (regra geral). Só
+registrar em RELATORIO.md que o Ives deve colocar as fotos na pasta de entrada.
+
+### [ ] F5 — Seção "A pousada": galeria com legenda
+Escopo: nova seção (id="pousada") com fotos reais em colunas e uma frase curta abaixo de cada foto
+(estilo galeria editorial: 3 fotos por linha no desktop, 1 no celular), com revelação suave ao
+rolar e leve paralaxe.
+Requisitos: lê os itens de src/data/pousada.ts (foto, legenda, alt em pt-BR). NÃO usar vídeo nem
+imagem gerada por IA para mostrar quartos ou instalações (decisão do Ives e do consumidor: o
+hóspede decide com base no que vê). Se faltarem fotos, criar a estrutura com placeholders
+claramente marcados e listar em RELATORIO.md o que falta (quartos, refeições, varanda, noite).
+Pronto quando: build/lint passam; imagens com srcset e loading="lazy" abaixo da dobra.
+
+### [ ] F6 — Catálogo de animais (anel + página de cards que viram)
+Escopo: src/sections/AnimalRing.tsx (na Home) e rota /animais (src/pages/Animals.tsx).
+Requisitos:
+- Home: anel de fotos de animais girando no sentido horário em rotação fixa (CSS/GSAP,
+  independente da rolagem), pausa ao passar o mouse e com foco; clicar em um animal leva à rota
+  /animais (âncora do animal). prefers-reduced-motion: grade estática no lugar do anel.
+- /animais: grade de cards, um por animal, com foto na frente. Ao passar o mouse (desktop) ou
+  tocar/Enter (mobile e teclado) o card vira e mostra o verso com: nome popular, nome
+  científico, habitat, hábito/melhor época para ver, curiosidade. O verso precisa ser acessível:
+  botão real para virar (aria-pressed), conteúdo do verso lido por leitor de tela, nada some
+  do DOM, e funciona sem hover.
+- Dados em src/data/animals.ts (slug, nome, científico, foto, texto, crédito, revisado: boolean).
+- Não inventar informação biológica. Preencher só com o que o Ives passar ou o que for verificável
+  em fonte confiável (citar a fonte no RELATORIO.md). Até o Ives trazer as informações oficiais, usar texto genérico e seguro (nome popular e uma
+  frase consensual); campos específicos mostram "Em breve" e ficam como pendência no RELATORIO.md.
+- Crédito/autor da foto visível no verso do card.
+Pronto quando: build/lint passam; navegação por teclado completa; funciona em celular.
+NÃO pausar por falta de fotos ou dados: usar placeholders e texto genérico (regra geral) e listar
+o que falta. Fim: marco visual.
+
+### [ ] F7 — Troféus de pesca (faixa horizontal, direita para a esquerda)
+Escopo: seção antes do rodapé, uma faixa (marquee) com rotação horizontal contínua da direita
+para a esquerda, em velocidade fixa, sem depender da rolagem. Cada item = foto do pescador com o
+peixe, espécie e peso.
+Requisitos: loop infinito sem emenda (lista duplicada), animação em CSS/GSAP só com transform,
+pausa ao passar o mouse e ao focar um item; reduced-motion: faixa parada com rolagem horizontal
+manual. Dados em src/data/trophies.ts (foto, espécie, peso em kg, ano, nome ou apelido do
+pescador, `autorizado: boolean`). Enquanto não houver fotos reais autorizadas, usar 4 a 6
+placeholders (regra geral acima) com legenda de exemplo, ex.: "Exemplo: 1º lugar, categoria
+Pintado", sem nome de pessoa, e listar em RELATORIO.md como pendência "trocar por troféus reais". LGPD: pessoa identificável só com
+autorização de imagem e nome. Peso e espécie conferidos pelo tio antes de ir ao ar de verdade.
+Pronto quando: build/lint passam; nenhum item real sem `autorizado: true`.
+NÃO pausar por falta de fotos: seguir com placeholders; fotos e autorizações reais ficam como pendência.
+
+### [ ] F8 — Peixes: anel + página por espécie (conteúdo genérico por enquanto)
+Escopo: anel de peixes (reaproveitar o componente do F6) e rota /peixes/:slug.
+Decisão do Ives: construir a estrutura agora com informações GENÉRICAS e deixar as oficiais como
+pendência. Dados em src/data/fish.ts: nome popular, nome científico (só se tiver certeza),
+descrição geral curta e consensual, e os campos específicos (iscas, melhor época, dificuldade,
+peso comum, observações) ainda vazios com `oficial: false`.
+Regras: o texto genérico só pode conter fatos amplamente conhecidos e seguros (ex.: "peixe de
+couro", "peixe de escamas"); NADA de números, épocas, iscas ou recordes inventados. Na página, os
+campos sem dado mostram "Em breve" e uma etiqueta discreta "informações em revisão". Espécies
+iniciais: as que já estão no Fishing.tsx (Dourado, Pintado) e as que o Ives listar.
+Defeso continua vindo do banco (closed_periods), nunca hardcoded.
+Pendências registrar em RELATORIO.md: "validar com o tio: iscas, época, dificuldade, peso".
+Pronto quando: build/lint passam; páginas navegáveis; nenhum dado específico inventado.
+
+### [ ] F10 — Área infantil "Pantanal para os pequenos" (estrutura com placeholders)
+Escopo: rota /pequenos e uma chamada na Home.
+Requisitos: página lúdica (cores e movimentos mais suaves, linguagem simples) com: mural de
+desenhos (grade de placeholders "Desenho de criança: espaço reservado"), 3 a 4 blocos de
+atividades/curiosidades com texto genérico e seguro sobre a vida no Pantanal (sem dado técnico
+específico, sem inventar atividades que a pousada não oferece: usar "Em breve" onde faltar),
+e um aviso visível de que os desenhos só serão publicados com autorização dos responsáveis.
+NÃO implementar envio de desenhos, upload nem banco agora: isso envolve imagem de menores e
+exige moderação e LGPD, e fica para uma tarefa própria com PAUSA.
+Pronto quando: build/lint passam; navegável no menu; sem coleta de dado nenhum.
+
+### [ ] F11 — Pronto para apresentação
+Escopo: Home e menu.
+Requisitos: todas as seções (Hero, Dia na pousada, Pousada, Animais, Peixes/Pesca, Pacotes, Troféus,
+Pequenos, Reserva, Rodapé) existem, na ordem narrativa, com navegação por âncoras/rotas sem links
+mortos; menu com os itens certos; todas as páginas filhas têm botão de voltar; nenhum texto "lorem",
+"TODO" ou "undefined" visível; todos os placeholders com etiqueta; 404 amigável.
+Conferir em tela de 375 px e 1440 px e gerar em RELATORIO.md a lista final de pendências
+(fotos, textos oficiais, autorizações) agrupada por seção, para o Ives me trazer de uma vez.
+Pronto quando: build/lint passam; `npm run build` sem avisos novos. Fim: PARAR (marco visual).
+
+### [ ] F9 — Revisão final de front
+Rodar Lighthouse (mobile), checar CLS/LCP, peso das mídias, reduced-motion, teclado e contraste;
+gerar relatório com notas e o que corrigir. Corrigir só o que estiver no escopo; o resto vira lista.
+PARAR ao final.

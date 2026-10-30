@@ -22,6 +22,160 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 | `npm run dev` no computador | Usar a porta padrão 5173. | A Edge Function só aceita `http://localhost:5173` entre os endereços locais. | P4 |
 | Ao trocar ou adicionar um domínio (ex.: na troca para recantodotuiuiu.com.br) | Adicionar o domínio (1) no widget do Turnstile no Cloudflare e (2) nas listas `ALLOWED_ORIGINS`/`ALLOWED_HOSTNAMES` da Edge Function (pedir ao agente), e publicar a função de novo. | O captcha e a função só aceitam domínios listados. Os domínios `recantodotuiuiu.com.br` e `www.` já estão na lista. | P4 |
 | Se as chaves do Turnstile forem trocadas no Cloudflare | Atualizar `VITE_TURNSTILE_SITE_KEY` (GitHub e `.env`) e `TURNSTILE_SECRET_KEY` (Supabase). | Chaves desencontradas fazem todo pedido falhar no captcha. | P4 |
+| Uma vez por mês | Backup: exportar em CSV as tabelas de pedidos, passeios, períodos, experiências e configurações (Table Editor → Export), guardando em pasta privada e apagando as cópias antigas. | O plano gratuito do Supabase não tem backup para baixar. | P6 |
+| Ao lançar e ao criar contas | Manter desligado o cadastro público no Supabase (Authentication → Allow new users to sign up). Admin novo: criar o usuário e dar o papel pelo SQL (P6, item 3). | Sem isso, qualquer pessoa poderia criar conta. | P6 |
+
+---
+
+## P6 — Checklist de lançamento (somente relatório, nada foi executado)
+
+- **Resultado:** checklist pronta. Nenhum comando foi rodado no banco, no GitHub nem no DNS. A fila para aqui (a tarefa pede PARAR).
+- **Push:** a P5 (`d3d28ce`) foi enviada ao GitHub com autorização do Ives em 2026-10-29.
+- **Ordem sugerida:** 1 → 2 → 3 → 4 → 5 → 6 → 8 → 7. O backup (8) vem antes da troca de domínio (7) para ter uma cópia antes do lançamento.
+
+### 1. Remover reservas de teste (SQL para o Ives rodar)
+
+Supabase → **SQL Editor**. Rode **primeiro a consulta** e confira se só aparecem testes:
+
+```sql
+-- 1) Conferir (não apaga nada)
+select id, guest_name, whatsapp, check_in, status, created_at
+from public.reservation_requests
+where guest_name ilike '%teste%'
+order by created_at;
+```
+
+Se a lista estiver certa, rode:
+
+```sql
+-- 2) Apagar SÓ os testes (os passeios ligados saem junto, por "on delete cascade")
+delete from public.reservation_requests
+where guest_name ilike '%teste%'
+returning id, guest_name;
+```
+
+- Apagar é **definitivo**. Se algum teste não tiver "teste" no nome, troque o `where` por `where id in ('…', '…')` com os ids da consulta.
+- A trava de status (migração 20261029120000) só vale para `update`, por isso não atrapalha o `delete`.
+- Depois, confira no painel (aba Pedidos) se os contadores zeraram.
+
+### 2. Datas do defeso cadastradas
+
+- [ ] Confirmar as datas oficiais do defeso 2026/2027 para os rios da região (Barão de Melgaço, MT). A fonte é a portaria estadual (SEMA-MT/Conselho Estadual de Pesca).
+- [ ] Painel → aba **Períodos** → novo período, tipo **Defeso**, com início, fim e um rótulo curto. O rótulo **aparece no site**, então nada de dados pessoais.
+- [ ] Testar no site: escolher datas dentro do defeso deve mostrar o aviso, sem bloquear o pedido.
+
+### 3. Conta de administrador do tio
+
+O cadastro público está desligado, então a conta é criada à mão:
+
+1. Supabase → **Authentication → Users → Add user → Send invitation** (ou *Create new user*), com o e-mail do tio. O perfil `visitor` é criado sozinho.
+2. SQL Editor (troque o e-mail):
+
+```sql
+update public.profiles
+set role = 'admin'
+where id = (select id from auth.users where email = 'EMAIL_DO_TIO');
+
+-- conferir
+select p.role, u.email from public.profiles p join auth.users u on u.id = p.id;
+```
+
+3. O tio entra em `…/#/admin`, define uma senha forte e testa: ver um pedido, mudar o status de um pedido de teste.
+- [ ] Ensinar o tio a sair (botão Sair) em computador compartilhado.
+- [ ] Manter **Authentication → Sign In / Providers → Allow new users to sign up** desligado.
+
+### 4. Revisão de RLS (lida nas 4 migrações, não no banco ao vivo)
+
+| Tabela | RLS | Visitante sem login (`anon`) | Logado comum | Admin | Observação |
+|---|---|---|---|---|---|
+| `profiles` | ligado | nada | lê só o próprio | lê todos | Ninguém altera papel pelo site: não há política de insert/update/delete. O papel só muda pelo SQL Editor. ✅ |
+| `experiences` | ligado | lê só as ativas | lê só as ativas | tudo | ✅ |
+| `closed_periods` | ligado | lê tudo | lê tudo | tudo | O rótulo é público (avisado acima). ✅ |
+| `site_settings` | ligado | lê tudo | lê tudo | tudo | **Toda chave é pública.** Nunca guardar segredo ou dado pessoal aqui. ✅ |
+| `reservation_requests` | ligado | **nada** (nem insert direto) | lê só os próprios (`user_id`) | tudo | Pedidos entram só pela Edge Function. ⚠️ Ver nota 1. |
+| `reservation_experiences` | ligado | nada | lê os do próprio pedido | tudo | ✅ |
+
+Funções:
+
+| Função | Quem executa | Observação |
+|---|---|---|
+| `create_reservation_request` | **só `service_role`** (Edge Function) | Limites de 3 pedidos por WhatsApp por hora e 60 no total por hora. Chamada direta pelo site já foi testada: erro 42501. ✅ |
+| `is_admin()` | qualquer um | Só responde verdadeiro ou falso para o próprio usuário. `security definer` com `search_path` vazio. ✅ |
+| `handle_new_user`, `set_updated_at`, `check_reservation_status_transition` | gatilhos | Não podem ser chamadas pelo site. ✅ |
+
+Storage: nenhum bucket é usado hoje.
+
+**Nota 1 (só importa no futuro):** se um dia o login do visitante for ligado, a política "usuario ve as proprias" deixa o hóspede ler a linha inteira do próprio pedido, **incluindo `admin_notes`**. Antes de ligar o login, a nota interna precisa ir para uma tabela separada, só de admin. Isso pede uma migração nova e uma pausa. Hoje não há risco: o cadastro está desligado.
+
+Para o Ives conferir no banco ao vivo (só leitura):
+
+```sql
+-- Tabelas do schema public com RLS desligado (o esperado é: nenhuma linha)
+select tablename from pg_tables where schemaname = 'public' and not rowsecurity;
+
+-- Todas as políticas (comparar com a tabela acima)
+select tablename, policyname, cmd, roles from pg_policies where schemaname = 'public' order by tablename;
+
+-- Quem pode executar a função de pedidos (o esperado é: só service_role e postgres)
+select grantee from information_schema.routine_privileges
+where routine_schema = 'public' and routine_name = 'create_reservation_request';
+```
+
+Em seguida, rodar **Advisors → Security Advisor** no Supabase. O esperado é nenhum alerta vermelho.
+
+### 5. Teste em celular real (Android e iPhone, se possível, pelo 4G)
+
+- [ ] O vídeo do hero toca sem som, e a foto aparece enquanto ele carrega.
+- [ ] Menu e âncoras (Pesca, Épocas, "Conhecer a pousada") rolam até a seção certa.
+- [ ] Reserva completa: datas, pessoas, experiências, contato, captcha e envio, com o WhatsApp abrindo com a mensagem pronta. Depois, cancelar esse pedido no painel ou apagar pelo item 1.
+- [ ] O aviso de defeso aparece. Um bloqueio impede o envio.
+- [ ] Painel no celular: login, lista, detalhe, calendário.
+- [ ] Ativar "reduzir movimento" no aparelho e ver se as animações param.
+- [ ] Compartilhar o link no WhatsApp e ver se a prévia mostra a foto dos tuiuiús e o título. Depois da troca de domínio, conferir de novo.
+
+### 6. Lighthouse
+
+- Chrome no computador → abrir o site publicado → F12 → aba **Lighthouse** → *Mobile* → *Analyze*. Repetir em aba anônima, para as extensões não pesarem.
+- Meta: Desempenho ≥ 80, Acessibilidade ≥ 95, Boas práticas ≥ 95, SEO ≥ 95.
+- Ponto já conhecido: o arquivo JS principal tem 643 kB. A proposta de code-splitting (P5, opção 1) melhora o Desempenho e está esperando a decisão do Ives.
+- A revisão completa de front está na fila como **F9**.
+
+### 7. Troca de domínio (decisão e execução do Ives, no lançamento)
+
+Antes:
+- [ ] Liberar a indexação: se as tarefas F tiverem colocado `noindex` (regra de placeholders), removê-lo só quando não houver mais conteúdo provisório. Isso é decisão do Ives.
+- [ ] Turnstile (Cloudflare): conferir se `recantodotuiuiu.com.br` e `www.recantodotuiuiu.com.br` estão na lista de hostnames do widget. A Edge Function já aceita os dois.
+
+Troca:
+1. GitHub → repositório → **Settings → Pages → Custom domain**: `www.recantodotuiuiu.com.br` → *Save*. O GitHub cria o CNAME pelo próprio Pages; não é preciso criar arquivo no código.
+2. No registro do domínio (Registro.br ou onde estiver o DNS), **trocar** os registros do site antigo:
+   - `www` → CNAME → `ivesaxb.github.io`
+   - raiz (`@`) → 4 registros A: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+3. Esperar a verificação do DNS (de minutos a algumas horas) e marcar **Enforce HTTPS**.
+4. Rodar o workflow *Deploy to GitHub Pages* de novo (aba Actions → *Run workflow*). O endereço base vira `/` e o `og:url`/sitemap passam a usar o domínio sozinhos.
+5. Supabase → **Authentication → URL Configuration**: *Site URL* = `https://www.recantodotuiuiu.com.br` (e o github.io nas *Redirect URLs*, enquanto ele existir).
+
+Depois:
+- [ ] Testar uma reserva completa no domínio novo (o captcha depende do hostname).
+- [ ] Google Search Console: adicionar o domínio e enviar `https://www.recantodotuiuiu.com.br/sitemap.xml`.
+- [ ] Desligar o site antigo só depois de tudo funcionar. Se ele tinha o WhatsApp em destaque, o botão de WhatsApp do site novo cobre isso.
+- [ ] Atualizar o link em perfis (Instagram, Google Meu Negócio, WhatsApp Business).
+
+### 8. Backup
+
+O plano gratuito do Supabase **não oferece backup para baixar**. Opções, da mais simples para a mais completa:
+
+1. **Mensal, manual (recomendado para começar):** Supabase → *Table Editor* → em `reservation_requests`, `reservation_experiences`, `closed_periods`, `experiences` e `site_settings`, usar **Export → CSV**. Guardar numa pasta privada (Google Drive pessoal). Contém dados pessoais de hóspedes (LGPD): não compartilhar e apagar as cópias antigas.
+2. **Completo, pelo terminal:** com a Supabase CLI, `supabase db dump --data-only -f backup.sql`. Pede a senha do banco, que o Ives digita: o agente nunca vê essa senha. O esquema já está versionado em `supabase/migrations/`.
+3. **Automático (melhoria futura):** um workflow do GitHub que faça o dump. Exige guardar a senha do banco como Secret e a decisão do Ives (segurança), então só com pausa.
+
+- [ ] Fazer o primeiro backup antes da troca de domínio.
+
+### Pendências que continuam com o Ives
+
+- Executar os itens 1 a 8 acima.
+- Decidir o code-splitting (P5).
+- A P7 (dados confirmados: endereço, telefone, check-in e check-out) é a próxima tarefa da fila.
 
 ---
 
