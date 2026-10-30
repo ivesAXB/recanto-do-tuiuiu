@@ -154,7 +154,7 @@ Objetivo do Ives: site COMPLETO e navegável para apresentação, mesmo sem as f
 
 ## Fase F — Front mais vivo (animações e conteúdo visual)
 
-### [ ] F3 — Profundidade e movimento com rolagem e cursor
+### [x] F3 — Profundidade e movimento com rolagem e cursor
 Escopo: Hero e 2 outras seções (DayAtRecanto e a nova galeria, quando existir).
 Requisitos:
 - Camadas em paralaxe que se movem em velocidades diferentes com a rolagem (GSAP ScrollTrigger),

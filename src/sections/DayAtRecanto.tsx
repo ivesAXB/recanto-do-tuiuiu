@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { pointerParallax } from '../lib/motion'
+
 gsap.registerPlugin(ScrollTrigger)
 
 const base = import.meta.env.BASE_URL
@@ -80,6 +82,7 @@ function DayPinned() {
   const root = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    let stopPointer = () => {}
     const ctx = gsap.context(() => {
       const images = gsap.utils.toArray<HTMLElement>('[data-day-image]')
       const texts = gsap.utils.toArray<HTMLElement>('[data-day-text]')
@@ -115,11 +118,19 @@ function DayPinned() {
 
       tl.to({}, { duration: 1 }) // segura a última cena
 
-      // Zoom lento em todas as fotos durante a rolagem
-      tl.to(images, { scale: 1.1, duration: tl.duration() }, 0)
+      // Profundidade: a foto aproxima e desce devagar dentro da moldura, enquanto o texto sobe.
+      // A escala inicial maior que 1 deixa margem para o deslocamento sem mostrar a borda.
+      const total = tl.duration()
+      tl.fromTo(images, { scale: 1.08, yPercent: 3 }, { scale: 1.16, yPercent: -3, duration: total }, 0)
+      tl.fromTo('[data-day-copy]', { y: 40 }, { y: -40, duration: total }, 0)
+
+      if (root.current) stopPointer = pointerParallax(root.current, 12)
     }, root)
 
-    return () => ctx.revert()
+    return () => {
+      stopPointer()
+      ctx.revert()
+    }
   }, [])
 
   return (
@@ -130,7 +141,7 @@ function DayPinned() {
       className="flex h-svh items-center px-6 md:px-16"
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-8 md:grid-cols-[1.5fr_1fr] md:gap-14">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl md:aspect-[16/10]">
+        <div data-depth="0.6" className="relative aspect-[4/3] overflow-hidden rounded-3xl md:aspect-[16/10]">
           {PANELS.map((p, i) => (
             <img
               key={p.id}
@@ -145,10 +156,11 @@ function DayPinned() {
           ))}
         </div>
 
-        <div>
+        <div data-day-copy>
           <Label />
           {/* Os textos ficam empilhados no mesmo lugar (grid de uma célula) */}
-          <div className="mt-6 grid">
+          {/* Scroll moves the column (y); the pointer moves this inner block, so the two never fight over y */}
+          <div data-depth="-0.5" className="mt-6 grid">
             {PANELS.map((p, i) => (
               <div key={p.id} data-day-text className="col-start-1 row-start-1">
                 <span className="text-sm font-bold tracking-widest text-gold-400">

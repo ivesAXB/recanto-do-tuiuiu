@@ -27,6 +27,37 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F3 — Profundidade e movimento com rolagem e cursor
+
+- **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver no navegador.** Há commits locais aguardando push (F2 e F3).
+- **Arquivos criados:**
+  - `src/lib/motion.ts`: `prefersReducedMotion`, `canUsePointerEffects` (mouse + movimento permitido) e `pointerParallax`. Esta última move os elementos marcados com `data-depth` conforme o mouse, só com `transform`. O componente da galeria (F5) pode reaproveitar.
+  - `src/components/Cursor.tsx`: anel que segue o mouse.
+- **Arquivos alterados:**
+  - `src/sections/Hero.tsx`: agora com 3 velocidades ao rolar: o vídeo desce devagar, o texto sobe, e o título sobe mais rápido que o resto. No desktop, o vídeo e o título se movem em sentidos opostos com o mouse; o vídeo fica 6% maior para não mostrar a borda.
+  - `src/sections/DayAtRecanto.tsx`: durante a cena fixa, a foto aproxima e desliza dentro da moldura e a coluna de texto sobe. No desktop, a foto e o texto se movem em sentidos opostos com o mouse.
+  - `src/pages/Home.tsx`: inclui o Cursor.
+  - `TAREFAS.md`: F3 marcada como `[x]`.
+- **Cursor:**
+  - Aparece só com mouse (`pointer: fine`) e sem "reduzir movimento".
+  - Cresce sobre links, botões e cartões, e some sobre campos de formulário.
+  - **O cursor normal do sistema nunca é escondido**: o anel é só decoração.
+  - Não aparece no painel `#/admin`.
+- **Escopo:** a tarefa citava "a nova galeria, quando existir". Ela ainda não existe (F5); quando for criada, basta usar `data-depth` e `pointerParallax`.
+- **Desempenho:**
+  - Só `transform` e `opacity` são animados, sem vídeo extra e sem `will-change` fixo.
+  - O movimento do mouse usa `gsap.quickTo`, que reaproveita a mesma animação em vez de criar uma nova a cada movimento.
+  - O arquivo JS principal cresceu cerca de 10 kB (de 643 para 654 kB, sem dependências novas).
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - No navegador: o vídeo e o título se deslocam com o mouse (medido pelo `transform`).
+  - O anel cresce 1,8× sobre "Pedir reserva" e some sobre um campo, com o cursor de texto normal mantido.
+  - Com "reduzir movimento", nada disso roda: o código não liga os efeitos.
+  - Os 60 fps precisam ser conferidos pelo Ives num notebook comum.
+- **Para o Ives ver:** passe o mouse pelo topo do site e pela seção "Um dia no Recanto", role devagar e passe o mouse sobre os botões e o formulário.
+
+---
+
 ## F2 — Rodapé
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).

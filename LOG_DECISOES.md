@@ -2,6 +2,17 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F3: Profundidade e cursor
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| O cursor normal continua visível; o anel só acompanha. | Esconder o cursor do sistema e desenhar outro. | Mantém a precisão e a acessibilidade; a tarefa proíbe esconder o cursor em campos, e assim ele nunca some. |
+| O anel some sobre campos de formulário. | Mudar de forma. | Não atrapalha a digitação. |
+| Cartões (`article`) contam como elementos interativos para o anel. | Só links e botões. | A tarefa pede o estado de hover também em cards. |
+| Rolagem e mouse usam propriedades diferentes (`yPercent` ou `y` em elementos separados). | Animar o mesmo `y` nos dois. | Evita que uma animação apague a outra. |
+| Vídeo do Hero 6% maior só quando o efeito do mouse está ligado. | Sempre maior. | No celular e com "reduzir movimento" nada muda no visual. |
+| Galeria fica para a F5. | Criar a galeria agora. | Ela é escopo da F5; o código de profundidade já está pronto para reaproveitar. |
+
 ## 2026-10-29 — F2: Rodapé
 
 | Decisão | Alternativa descartada | Motivo |

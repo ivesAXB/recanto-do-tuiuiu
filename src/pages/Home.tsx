@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import Cursor from '../components/Cursor'
 import Footer from '../components/Footer'
 import Loader from '../components/Loader'
 import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
@@ -107,6 +108,7 @@ export default function Home() {
         <Reserve />
       </main>
       <Footer />
+      <Cursor />
     </>
   )
 }

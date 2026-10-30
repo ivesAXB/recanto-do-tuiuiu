@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { introDelay } from '../lib/intro'
+import { canUsePointerEffects, pointerParallax } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -56,6 +57,7 @@ export default function Hero() {
 
     // Wait for the opening curtain (if any) so the title rises as it lifts
     const wait = introDelay()
+    let stopPointer = () => {}
     const ctx = gsap.context(() => {
       // Entrada: as palavras do título sobem uma a uma, depois o resto aparece
       gsap.from('[data-hero-word]', {
@@ -89,9 +91,23 @@ export default function Hero() {
         ease: 'none',
         scrollTrigger: { ...trigger, end: '60% top' },
       })
+      // Third layer: the title rises faster than the rest of the text
+      gsap.to('[data-hero-title]', {
+        yPercent: -35,
+        ease: 'none',
+        scrollTrigger: { ...trigger, end: '60% top' },
+      })
+
+      // Desktop only: a slightly larger video leaves room to move with the pointer without showing edges
+      if (canUsePointerEffects()) gsap.set(videoRef.current, { scale: 1.06 })
+      // Created inside the context so revert() also clears the pointer offsets
+      if (root.current) stopPointer = pointerParallax(root.current)
     }, root)
 
-    return () => ctx.revert()
+    return () => {
+      stopPointer()
+      ctx.revert()
+    }
   }, [])
 
   return (
@@ -99,6 +115,7 @@ export default function Hero() {
       <div data-hero-media className="absolute inset-0 -z-10">
         <video
           ref={videoRef}
+          data-depth="-0.8"
           className="h-full w-full object-cover"
           src={HERO_VIDEO}
           poster={HERO_POSTER}
@@ -117,6 +134,8 @@ export default function Hero() {
 
       <div data-hero-content className="mt-auto px-6 pb-16 md:px-16 md:pb-24">
         <h1
+          data-hero-title
+          data-depth="0.5"
           aria-label={HEADLINE.join(' ')}
           className="max-w-4xl font-display text-5xl leading-[1.05] md:text-7xl lg:text-8xl"
         >
