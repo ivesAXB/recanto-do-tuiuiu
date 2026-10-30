@@ -113,4 +113,4 @@ Toda alteração no banco vira um arquivo SQL em `supabase/migrations/` (version
 - Definir o conteúdo real da seção "Pantanal para os pequenos".
 - Organizar fotos e vídeos enviados pelo dono (otimizar antes de usar).
 - Confirmar datas oficiais do defeso do ano.
-- Corrigir no conteúdo antigo: rodapé diz "Pousada Pantanal".
+- ~~Corrigir no conteúdo antigo: rodapé diz "Pousada Pantanal".~~ Resolvido: o rodapé novo (F2) usa o nome certo.

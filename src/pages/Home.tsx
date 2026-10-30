@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import Footer from '../components/Footer'
 import Loader from '../components/Loader'
 import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
 import Hero from '../sections/Hero'
@@ -89,20 +90,23 @@ export default function Home() {
   }, [])
 
   return (
-    <main>
-      {showIntro && (
-        <Loader
-          onDone={() => {
-            setShowIntro(false)
-            lenis.current?.start()
-          }}
-        />
-      )}
-      <Hero />
-      <DayAtRecanto />
-      <Fishing />
-      <Packages />
-      <Reserve />
-    </main>
+    <>
+      <main>
+        {showIntro && (
+          <Loader
+            onDone={() => {
+              setShowIntro(false)
+              lenis.current?.start()
+            }}
+          />
+        )}
+        <Hero />
+        <DayAtRecanto />
+        <Fishing />
+        <Packages />
+        <Reserve />
+      </main>
+      <Footer />
+    </>
   )
 }

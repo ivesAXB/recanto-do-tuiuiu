@@ -124,7 +124,7 @@ Requisitos:
 Pronto quando: build/lint passam; funciona em mobile; segunda visita na mesma sessão não repete.
 Fim: PARE para o Ives ver no navegador (marco visual).
 
-### [ ] F2 — Rodapé
+### [x] F2 — Rodapé
 Escopo: src/components/Footer.tsx, usado na Home.
 Requisitos: nome e frase curta da pousada; endereço, telefone e WhatsApp (src/data/site.ts);
 horários de check-in/check-out com fuso; link "Como chegar" abrindo o Google Maps; redes sociais

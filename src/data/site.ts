@@ -33,6 +33,24 @@ export const site = {
   },
 } as const
 
+type SocialLink = { label: string; href: string }
+
+// Footer content. Items flagged "provisorio" still need Ives's review.
+export const footer = {
+  tagline: 'Pesca esportiva, natureza e conforto rústico no coração do Pantanal matogrossense.',
+  // Pending: no social profiles confirmed yet. Add { label: 'Instagram', href: 'https://…' } to show them.
+  social: [] as SocialLink[],
+  // Pending: photographer credit, e.g. 'Fotos: Nome do fotógrafo'. Hidden while empty.
+  photoCredit: '',
+  privacy: {
+    provisorio: true, // draft for Ives to review
+    text: 'Os dados do pedido de reserva (nome, WhatsApp e e-mail) são usados apenas para responder ao seu pedido e combinar a estadia. Para corrigir ou apagar seus dados, fale com a gente pelo WhatsApp.',
+  },
+}
+
+export const whatsappUrl = `https://wa.me/${site.phone.e164.replace(/\D/g, '')}`
+export const phoneUrl = `tel:${site.phone.e164}`
+
 export const fullAddress = `${site.address.street}, ${site.address.city} - ${site.address.state}, ${site.address.postalCode}`
 
 // Google Maps search for the confirmed address (no invented coordinates)

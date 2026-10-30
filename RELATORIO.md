@@ -27,6 +27,37 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F2 — Rodapé
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Arquivos criados:**
+  - `src/components/Footer.tsx`.
+- **Arquivos alterados:**
+  - `src/data/site.ts`: frase, redes sociais, crédito de fotos, texto de privacidade e os links de WhatsApp e telefone.
+  - `src/pages/Home.tsx`: o rodapé entra depois do `<main>`.
+  - `CLAUDE.md`: a pendência "rodapé diz Pousada Pantanal" foi marcada como resolvida.
+  - `TAREFAS.md`: F2 marcada como `[x]`.
+- **Conteúdo do rodapé:**
+  - Nome e frase da pousada. A frase é a mesma do Hero, para não inventar texto novo.
+  - Endereço.
+  - "Como chegar", que abre a busca do endereço no Google Maps.
+  - WhatsApp e "Ligar", ambos com (65) 99971-3778.
+  - Check-in e check-out com o fuso.
+  - Aviso de privacidade.
+  - © com o ano atual.
+- **Verificação:**
+  - Lint e build passam.
+  - Testado no desktop (3 colunas) e no celular em 375 px (1 coluna, sem rolagem lateral).
+  - Os 3 links têm 44 px de altura.
+  - Contraste: texto areia e títulos dourados sobre o verde mais escuro, bem acima do mínimo AA.
+- **Pendências do Ives (tudo editável em `src/data/site.ts`, sem mexer no componente):**
+  - **Redes sociais:** nenhuma confirmada. A estrutura está pronta e só aparece quando houver itens em `footer.social`.
+  - **Crédito das fotos:** campo `footer.photoCredit`, escondido enquanto estiver vazio.
+  - **Texto de privacidade (rascunho, `provisorio: true`):** revisar.
+- **Nota:** o botão de reserva continua usando `VITE_WHATSAPP_NUMBER`, e o rodapé usa o telefone confirmado. Ver a pendência da P7.
+
+---
+
 ## F1 — Tela de carregamento "Recanto do Tuiuiú"
 
 - **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver no navegador.** Há commits locais aguardando push (P7 e F1).

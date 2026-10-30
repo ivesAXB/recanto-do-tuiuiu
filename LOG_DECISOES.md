@@ -2,6 +2,16 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — F2: Rodapé
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| A frase do rodapé reaproveita o texto do Hero. | Escrever uma frase nova. | Nada inventado; o Ives pode trocar em `site.ts`. |
+| O link do WhatsApp do rodapé usa o telefone confirmado (`site.ts`). | Usar `VITE_WHATSAPP_NUMBER`. | É o número público confirmado pelo Ives. |
+| "Rascunho" do texto de privacidade marcado só no arquivo de dados (`provisorio: true`) e no relatório. | Etiqueta "rascunho" visível no site. | O site precisa estar apresentável; a etiqueta visível é para placeholders de imagem. |
+| O texto de privacidade diz para que servem os dados e como pedir correção ou exclusão, sem prometer "não compartilhamos". | Prometer "nunca compartilhamos". | Os dados passam por serviços como Supabase e Cloudflare; uma promessa absoluta seria imprecisa. |
+| Redes sociais e crédito ficam escondidos enquanto vazios. | Mostrar "Em breve". | Um rodapé com "Em breve" parece inacabado. |
+
 ## 2026-10-29 — F1: Tela de carregamento
 
 | Decisão | Alternativa descartada | Motivo |
