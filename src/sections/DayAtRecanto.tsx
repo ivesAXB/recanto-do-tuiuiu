@@ -49,7 +49,8 @@ const PANELS = [
 const SIZES = '(min-width: 768px) 60vw, 100vw'
 
 function Label() {
-  return <p className="text-sm font-bold tracking-[0.14em] text-gold-400">UM DIA NO RECANTO</p>
+  // h2: the scene titles below are h3, so the section needs its own h2 (heading order)
+  return <h2 className="text-sm font-bold tracking-[0.14em] text-gold-400">UM DIA NO RECANTO</h2>
 }
 
 // Versão para quem pediu menos movimento: grade simples, sem animação

@@ -39,13 +39,41 @@ function jsonLd() {
   return `<script type="application/ld+json">${JSON.stringify(data).replaceAll('<', '\\u003c')}</script>`
 }
 
-// Fills __SITE_URL__ and __JSON_LD__ in index.html and emits robots.txt and sitemap.xml.
+// GitHub Pages shows 404.html for addresses without "#" (e.g. typed by hand: /recanto-do-tuiuiu/peixes).
+// It sends the visitor to the same path as a hash route ("#/peixes"), where the app shows the page or its own 404.
+function notFoundRedirect(base: string) {
+  return `<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <title>Recanto do Tuiuiú</title>
+    <script>
+      var base = ${JSON.stringify(base)};
+      var path = location.pathname.indexOf(base) === 0 ? location.pathname.slice(base.length) : location.pathname.slice(1);
+      if (path.charAt(path.length - 1) === "/") path = path.slice(0, -1);
+      location.replace(base + (path ? "#/" + path : "") + location.search);
+    </script>
+  </head>
+  <body style="background:#14261f;color:#f3ebdd;font-family:sans-serif">
+    <p><a href="${base}" style="color:inherit">Ir para o início do site</a></p>
+  </body>
+</html>
+`
+}
+
+// Fills __SITE_URL__ and __JSON_LD__ in index.html and emits robots.txt, sitemap.xml and 404.html.
 // robots.txt/sitemap.xml only take effect at a domain root (i.e. after the custom domain switch).
 function siteMeta(): Plugin {
+  let base = '/'
   return {
     name: 'site-meta',
+    configResolved: (config) => {
+      base = config.base
+    },
     transformIndexHtml: (html) => html.replace('<!--__JSON_LD__-->', jsonLd()).replaceAll('__SITE_URL__', siteUrl),
     generateBundle() {
+      this.emitFile({ type: 'asset', fileName: '404.html', source: notFoundRedirect(base) })
       const robots = ['User-agent: *', 'Allow: /', ...(siteUrl ? [`Sitemap: ${siteUrl}/sitemap.xml`] : [])]
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: `${robots.join('\n')}\n` })
       if (siteUrl) {

@@ -48,8 +48,11 @@ function Thumb({ item }: { item: RingItem }) {
           className="h-full w-full object-cover"
         />
       ) : (
-        // Placeholder: the link label says what it is
-        <span className="flex h-full items-center justify-center text-[10px] font-bold tracking-wider text-forest-900 uppercase md:text-xs">
+        // Placeholder: the link label says what it is (the tag is visual only, so the label matches)
+        <span
+          aria-hidden="true"
+          className="flex h-full items-center justify-center text-[10px] font-bold tracking-wider text-forest-900 uppercase md:text-xs"
+        >
           ilustrativo
         </span>
       )}
@@ -63,12 +66,12 @@ function ItemLink({ item, to, copy }: { item: RingItem; to: string; copy?: boole
   return (
     <Link
       to={to}
-      aria-label={item.nome}
       aria-hidden={copy || undefined}
       tabIndex={copy ? -1 : undefined}
       title={item.nome}
       className="group block outline-none"
     >
+      <span className="sr-only">{item.nome}</span>
       <Thumb item={item} />
     </Link>
   )

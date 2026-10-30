@@ -28,6 +28,62 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F9 — Revisão final de front
+
+- **Resultado:** pronto. **A fila termina aqui (PARAR).** Commit local, **sem push** (aguardando o Ives).
+- **Como foi medido:** Lighthouse 13.6 (`npx`, sem instalar nada no projeto), modo **celular**, contra o build de produção (`vite preview`), no Chrome sem interface.
+
+### Notas (celular)
+
+| | Antes | Depois |
+|---|---|---|
+| **Desempenho** | 77 | **97** |
+| **Acessibilidade** | 98 | **100** |
+| **Boas práticas** | 100 | **100** |
+| SEO | 66 | 66 (esperado: `noindex` ligado de propósito) |
+| Primeira pintura (FCP) | 2,4 s | **0,8 s** |
+| Maior elemento (LCP) | 2,4 s | **0,8 s** |
+| Mudança de layout (CLS) | 0,244 | **0,008** |
+| Bloqueio total (TBT) | 70 ms | 40 ms |
+| Peso total baixado | 4,0 MB | 3,3 MB |
+
+### O que foi corrigido
+
+1. **Texto do topo pulando (CLS):** a fonte do título chegava depois e o bloco do Hero mudava de lugar.
+   - As fontes **Fraunces** (normal e itálico) e **DM Sans** agora são **servidas pelo próprio site** (`public/fonts/`, 145 kB no total, só o alfabeto latino, que cobre o português) e **pré-carregadas** no `index.html`.
+   - Isso também eliminou a folha de estilo do Google Fonts, que **bloqueava a primeira pintura** (cerca de 600 ms).
+   - São as mesmas fontes, sem mudança visual. Licença livre (OFL).
+2. **Vídeo de abertura no celular:** nova versão de **720 px e 1,7 MB** (`-mobile.mp4`), usada em telas de até 767 px. O computador continua com a de 1280 px e 4,4 MB. O script gera as duas (`mobileWidth` em `OVERRIDES`).
+3. **Acessibilidade:**
+   - "Um dia no Recanto" pulava do título principal direto para títulos de nível 3; o rótulo da seção virou `h2`.
+   - Os links do anel de animais tinham nome ("Capivara") diferente do texto visível ("ilustrativo"). Agora o nome fica num texto só para leitores de tela, e a etiqueta é só visual.
+4. **`404.html` para o GitHub Pages** (gerado no build, `vite.config.ts`): quem digitar um endereço sem `#` (ex.: `/recanto-do-tuiuiu/peixes`) é levado ao mesmo endereço com `#` (`/#/peixes`), onde o site mostra a página certa ou a nossa 404. Testado com 4 endereços. Funciona também depois da troca de domínio.
+
+### Conferido sem precisar de correção
+
+- **"Reduzir movimento":** todos os 16 arquivos com animação foram conferidos e cada um respeita a preferência. O Loader e o loop do anel herdam a verificação de quem os usa.
+- **Teclado:** a ordem do Tab segue a página: logo, pedir reserva, menu, botões do Hero, anel, calendário… Todo item focado tem indicação visível (contorno). Nos quadrados do anel, o contorno aparece na própria foto.
+- **Contraste:** o Lighthouse não encontrou nenhum problema (Acessibilidade 100).
+
+### O que ficou (fora do escopo ou decisão do Ives)
+
+| Item | Por quê | O que fazer |
+|---|---|---|
+| Speed Index 4,9 s e "interativo" 5,5 s | Em boa parte é a **tela de abertura** (F1), que cobre a página por cerca de 2 s na primeira visita, de propósito. O LCP de 0,8 s mostra que o conteúdo chega rápido. | Nada, ou encurtar a abertura, se o Ives preferir. |
+| "JavaScript não usado: 109 kB" e o aviso de arquivo grande no build | É o **code-splitting** pendente da P5. | Decidir; a opção 1 (bibliotecas em arquivos separados) tem risco baixo. |
+| "Entrega de imagens: até 830 kB" | No celular, algumas fotos baixam na versão de 1280 px porque não existe uma de 960 px. | Quando o Ives rodar `npm run media:images` com os originais, as versões novas resolvem boa parte. |
+| SEO 66 / "página bloqueada para indexação" | `noindex` ligado enquanto houver conteúdo provisório. | Remover no lançamento (P6, item 7). |
+| "Source maps" e categoria experimental "agentic browsing" | Não afetam o visitante. | Nada. |
+| `preload="auto"` no vídeo do Hero (o CLAUDE.md pede `metadata`) | O vídeo toca sozinho logo na abertura; o navegador baixaria de qualquer forma. | Mantido, e registrado. |
+
+- **Arquivos:**
+  - novos: `public/fonts/` (3 arquivos) e `public/media/video/onca-na-arvore-lambendo-a-pata-mobile.mp4`;
+  - alterados: `index.html`, `src/index.css`, `src/sections/Hero.tsx`, `src/sections/DayAtRecanto.tsx`, `src/components/PhotoRing.tsx`, `vite.config.ts`, `scripts/optimize-videos.mjs`, `TAREFAS.md`.
+- **Verificação:** lint e build passam (o único aviso é o do arquivo grande, que já existia). Lighthouse antes e depois, como na tabela.
+- **Para o Ives conferir:** depois do push, rode o Lighthouse no site publicado (F12 → Lighthouse → Mobile → Analyze). As notas podem variar alguns pontos de uma medição para outra.
+
+---
+
 ## F11 — Pronto para apresentação
 
 - **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver.** Commit local, **sem push** (aguardando o Ives). O push da F10 foi feito.

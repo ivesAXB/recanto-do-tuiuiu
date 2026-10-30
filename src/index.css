@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+/* Fontes servidas pelo próprio site (antes vinham do Google Fonts e atrasavam a primeira pintura).
+   Arquivos variáveis, só com o alfabeto latino (cobre o português). */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-italic-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url("/fonts/dm-sans-latin.woff2") format("woff2");
+}
+
 /* Identidade visual do Recanto do Tuiuiú (ver CLAUDE.md, seção 4) */
 @theme {
   --color-forest-950: #0f1d18;

@@ -2,6 +2,17 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F9: Revisão final de front
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Fontes servidas pelo site (arquivos baixados do Google Fonts) + preload. | Manter o Google Fonts, ou instalar pacotes @fontsource. | Resolve o CLS e o bloqueio da primeira pintura sem nenhuma dependência nova. |
+| Só o subconjunto latino das fontes. | Latino estendido e vietnamita. | O site é todo em português; os demais subconjuntos só aumentariam o peso. |
+| Vídeo do Hero em duas versões, escolhida pela largura da tela. | Uma versão única menor. | O computador mantém a qualidade e o celular baixa cerca de 60% menos. |
+| `404.html` gerado no build, com o `base` do Vite. | Um arquivo fixo em `public/`. | O caminho muda entre o github.io e o domínio próprio. |
+| Lighthouse via `npx`. | Instalar como dependência. | É uma ferramenta usada só na revisão; não entra no projeto. |
+| Speed Index e code-splitting não foram mexidos. | Encurtar a abertura ou dividir o bundle. | A abertura é um pedido da F1 e o code-splitting é decisão pendente do Ives. |
+
 ## 2026-10-30 — F11: Pronto para apresentação
 
 | Decisão | Alternativa descartada | Motivo |

@@ -255,7 +255,7 @@ Conferir em tela de 375 px e 1440 px e gerar em RELATORIO.md a lista final de pe
 (fotos, textos oficiais, autorizações) agrupada por seção, para o Ives me trazer de uma vez.
 Pronto quando: build/lint passam; `npm run build` sem avisos novos. Fim: PARAR (marco visual).
 
-### [ ] F9 — Revisão final de front
+### [x] F9 — Revisão final de front
 Rodar Lighthouse (mobile), checar CLS/LCP, peso das mídias, reduced-motion, teclado e contraste;
 gerar relatório com notas e o que corrigir. Corrigir só o que estiver no escopo; o resto vira lista.
 PARAR ao final.

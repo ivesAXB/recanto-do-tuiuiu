@@ -16,9 +16,11 @@ const BUDGET_MB = 8 // orçamento de peso por vídeo
 const EXT = /\.(mp4|mov|m4v|mkv|webm)$/i
 const MAX_FPS = 30 // vídeos de 50/60 quadros por segundo ficam bem mais leves em 30
 // Ajustes por vídeo (nome final sem extensão). O vídeo de abertura precisa ser leve: aparece logo ao abrir o site.
+// mobileWidth: gera também "<nome>-mobile.mp4", uma versão menor que o site usa no celular.
 const OVERRIDES = {
-  'onca-na-arvore-lambendo-a-pata': { maxWidth: 1280, crf: 27 },
+  'onca-na-arvore-lambendo-a-pata': { maxWidth: 1280, crf: 27, mobileWidth: 720 },
 }
+const MOBILE_CRF = 28
 const scale = (maxWidth) => `scale='min(${maxWidth},iw)':-2`
 
 const slug = (s) =>
@@ -51,7 +53,7 @@ for (const name of videos) {
   const base = slug(path.parse(name).name)
   const outVideo = path.join(dest, `${base}.mp4`)
   const outPoster = path.join(dest, `${base}-poster.jpg`)
-  const { maxWidth = MAX_WIDTH, crf = CRF } = OVERRIDES[base] ?? {}
+  const { maxWidth = MAX_WIDTH, crf = CRF, mobileWidth } = OVERRIDES[base] ?? {}
 
   // Vídeo: H.264, sem áudio, pronto para começar a tocar antes de baixar tudo
   execFileSync(
@@ -60,6 +62,17 @@ for (const name of videos) {
      '-preset', 'slow', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', outVideo],
     { stdio: 'inherit' },
   )
+
+  if (mobileWidth) {
+    const outMobile = path.join(dest, `${base}-mobile.mp4`)
+    execFileSync(
+      'ffmpeg',
+      ['-y', '-v', 'error', '-i', input, '-an', '-vf', `${scale(mobileWidth)},fps='min(${MAX_FPS},source_fps)'`, '-c:v', 'libx264',
+       '-crf', String(MOBILE_CRF), '-preset', 'slow', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', outMobile],
+      { stdio: 'inherit' },
+    )
+    console.log(`${base}-mobile: ${kb(outMobile)}KB`)
+  }
 
   // Poster: um quadro de 1 segundo, aparece enquanto o vídeo carrega
   execFileSync(

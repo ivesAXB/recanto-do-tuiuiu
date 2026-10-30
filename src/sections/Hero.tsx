@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SiteHeader from '../components/SiteHeader'
@@ -12,6 +12,8 @@ const base = import.meta.env.BASE_URL
 // Para trocar o vídeo da abertura, mude só este nome (arquivo em public/media/video)
 const HERO_VIDEO_NAME = 'onca-na-arvore-lambendo-a-pata'
 const HERO_VIDEO = `${base}media/video/${HERO_VIDEO_NAME}.mp4`
+// Lighter version for phones (scripts/optimize-videos.mjs, "mobileWidth"): about 1.7 MB instead of 4.4 MB
+const HERO_VIDEO_MOBILE = `${base}media/video/${HERO_VIDEO_NAME}-mobile.mp4`
 const HERO_POSTER = `${base}media/video/${HERO_VIDEO_NAME}-poster.jpg`
 
 const HEADLINE = ['O', 'Pantanal', 'começa', 'quando', 'o', 'tuiuiú', 'chega.']
@@ -20,6 +22,7 @@ const EMPHASIS_INDEX = 5 // "tuiuiú"
 export default function Hero() {
   const root = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoSrc] = useState(() => (window.matchMedia('(max-width: 767px)').matches ? HERO_VIDEO_MOBILE : HERO_VIDEO))
 
   useEffect(() => {
     // Quem pediu menos movimento no sistema vê tudo parado e sem animação
@@ -90,7 +93,7 @@ export default function Hero() {
           ref={videoRef}
           data-depth="-0.8"
           className="h-full w-full object-cover"
-          src={HERO_VIDEO}
+          src={videoSrc}
           poster={HERO_POSTER}
           autoPlay
           muted
