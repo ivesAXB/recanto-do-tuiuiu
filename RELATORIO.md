@@ -27,6 +27,30 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## P7 — Dados confirmados (endereço, telefone, horários)
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Arquivos criados:**
+  - `src/data/site.ts`: endereço, telefone, horários com fuso, link do Google Maps. É a fonte única desses dados; o rodapé (F2) vai ler daqui.
+- **Arquivos alterados:**
+  - `vite.config.ts`: o JSON-LD agora é montado no build a partir de `src/data/site.ts`, sem cópia dos dados no HTML. Novos campos: `telephone`, endereço completo, `checkinTime` e `checkoutTime` (`05:00:00-04:00` e `18:00:00-04:00`; Cuiabá é UTC-4 o ano todo).
+  - `index.html`: o bloco JSON-LD fixo virou um marcador preenchido no build.
+  - `CLAUDE.md`, seção 2: endereço, telefone e horários.
+  - `TAREFAS.md`: P7 marcada como `[x]`.
+- **Verificação:** lint e build passam. No build de teste, o JSON-LD saiu válido, com os dados exatos e sem marcadores sobrando. O aviso de "chunk grande" já existia (code-splitting ainda pendente).
+- **Não havia texto antigo** no site com endereço, telefone ou horários para trocar.
+- **Decisões do Ives (2026-10-29):**
+  - Defeso: manter o que está cadastrado, sem alterar agora.
+  - Conta de admin do tio: fica para depois.
+  - `admin_notes` visível ao hóspede caso o login do visitante seja ligado um dia: o Ives aceita esse risco. Se o login for ligado, escrever as notas internas sabendo que o hóspede pode lê-las.
+- **O que ainda falta do Ives:**
+  - Conferir se a Variable `VITE_WHATSAPP_NUMBER` do GitHub (e o `.env`) é `5565999713778`. O botão de reserva usa essa variável; o agente não lê o `.env`.
+  - Faixa de preço, redes sociais e crédito das fotos.
+  - Aprovar título, descrição e foto de compartilhamento.
+  - Decidir o code-splitting.
+
+---
+
 ## P6 — Checklist de lançamento (somente relatório, nada foi executado)
 
 - **Resultado:** checklist pronta. Nenhum comando foi rodado no banco, no GitHub nem no DNS. A fila para aqui (a tarefa pede PARAR).

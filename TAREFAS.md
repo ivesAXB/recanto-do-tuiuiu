@@ -97,7 +97,7 @@ teste em celular real, Lighthouse, troca de domínio, backup. NÃO executar nada
 
 ## Fase 7 — Conteúdo confirmado e rodapé
 
-### [ ] P7 — Dados confirmados do Ives (SEO, JSON-LD, rodapé) + push da P5
+### [x] P7 — Dados confirmados do Ives (SEO, JSON-LD, rodapé) + push da P5
 Dados confirmados pelo Ives em 2026-10-29 (usar EXATAMENTE assim):
 - Endereço: Rio Mutum com Baía Siá Mariana, Zona Rural, Barão de Melgaço - MT, 78190-000
 - Telefone/WhatsApp público: (65) 99971-3778

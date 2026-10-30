@@ -2,6 +2,15 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — P7: Dados confirmados
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| O JSON-LD é gerado no build (`vite.config.ts`) importando `src/data/site.ts`. | Manter o JSON-LD escrito no `index.html`. | A tarefa pede dado sem duplicação; assim o rodapé e o SEO leem da mesma fonte. |
+| O botão de reserva continua usando `VITE_WHATSAPP_NUMBER`. | Trocar para o telefone de `site.ts`. | Se os números forem diferentes, a troca mudaria quem recebe os pedidos sem aviso. Ficou para o Ives conferir. |
+| Textos: "Check-in a partir das 05h" e "Check-out até as 18h (… 19h em Brasília)". | Só "05h"/"18h". | Deixa claro o sentido de cada horário. O horário de Brasília do check-out é só conversão (+1h). |
+| Link "Como chegar" é uma busca do endereço no Google Maps. | Coordenadas fixas. | Coordenadas não foram confirmadas. |
+
 ## 2026-10-29 — P6: Checklist de lançamento
 
 | Decisão | Alternativa descartada | Motivo |

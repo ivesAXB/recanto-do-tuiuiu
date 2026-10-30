@@ -18,6 +18,10 @@ Domínio: `recantodotuiuiu.com.br`. Site antigo (só redireciona para o WhatsApp
 ## 2. Negócio (regras que o site precisa respeitar)
 
 - Produto principal: **pesca esportiva** (Dourado, Pintado, Pacu) + hospedagem. Ecoturismo e fotografia de fauna também.
+- Endereço: Rio Mutum com Baía Siá Mariana, Zona Rural, Barão de Melgaço - MT, 78190-000.
+- Telefone/WhatsApp público: (65) 99971-3778.
+- Check-in: 05h (horário de Cuiabá, 06h em Brasília). Check-out: 18h (horário de Cuiabá). Sempre escrever o fuso junto.
+- Esses dados ficam centralizados em `src/data/site.ts` (confirmados pelo Ives em 2026-10-29).
 - Capacidade: até 18 pessoas hospedadas.
 - Hospedagem: diária por pessoa, com café, almoço e janta inclusos.
 - Experiências exclusivas para hóspedes: **diária de pesca** (por barco, grupo de até 3) e **passeio ecológico** (por barco, grupo de até 3).
