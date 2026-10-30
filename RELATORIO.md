@@ -28,6 +28,47 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F8 — Peixes: anel + página por espécie (conteúdo genérico)
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Arquivos criados:**
+  - `src/components/PhotoRing.tsx`: o anel da F6 virou um componente reutilizável (título, itens, link, texto do botão). Quando há menos de 6 itens, ele repete os itens para preencher o anel; as cópias ficam escondidas do leitor de tela e do Tab.
+  - `src/data/fish.ts`: `nome`, `cientifico`, `foto`, `alt`, `descricao`, `iscas`, `melhorEpoca`, `dificuldade`, `pesoComum`, `observacoes`, `oficial`.
+  - `src/sections/FishRing.tsx`: anel "Os peixes da pesca esportiva.", logo depois do calendário de pesca.
+  - `src/pages/FishPage.tsx`: rotas `#/peixes` (lista) e `#/peixes/<slug>` (uma página por espécie), carregadas sob demanda.
+    - Cada página tem foto (espaço reservado), nome, nome científico, descrição, a etiqueta "Informações em revisão" e os 5 campos específicos com **"Em breve"**.
+    - **O aviso do defeso vem do banco** (`closed_periods`).
+    - Botões "Voltar ao início" e "Todos os peixes", título e descrição próprios, e mensagem "Peixe não encontrado" para um endereço errado.
+  - `src/lib/defeso.ts`: busca do próximo defeso e a mensagem, agora usadas pela seção de pesca e pela página do peixe (antes ficavam só dentro de `Fishing.tsx`).
+- **Arquivos alterados:**
+  - `src/sections/AnimalRing.tsx`: passou a usar o `PhotoRing`, sem mudança visual.
+  - `src/sections/Fishing.tsx`: usa `src/lib/defeso.ts`, sem mudança visual.
+  - `src/App.tsx`: rota `/peixes/:slug?`, com o carregamento sob demanda organizado num componente `Lazy`.
+  - `src/pages/Home.tsx`: inclui o anel de peixes.
+  - `TAREFAS.md`: F8 marcada como `[x]`.
+- **Conteúdo:**
+  - Espécies: **Dourado e Pintado** (as do `Fishing.tsx`) e **Pacu** (no CLAUDE.md).
+  - Descrições só com fatos amplamente conhecidos ("peixe de escamas" ou "de couro", a cor, as pintas).
+  - **Nenhum número, época, isca ou recorde.**
+  - Nomes científicos preenchidos porque são consagrados (*Salminus brasiliensis*, *Pseudoplatystoma corruscans*, *Piaractus mesopotamicus*), mas **devem ser confirmados** junto com o resto.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - O anel de peixes mostra 6 quadrados: os 3 peixes mais 3 cópias escondidas; só os 3 peixes e o botão recebem foco.
+  - Clicar no Pintado abre `#/peixes/pintado` com o título certo, os 5 campos "Em breve" e o aviso do defeso cadastrado ("Estamos no defeso até 31/01/2027").
+  - `#/peixes` lista 3 peixes, e `#/peixes/tilapia` mostra "Peixe não encontrado".
+  - O anel de animais continua funcionando.
+- **Pendências do Ives:**
+
+| Onde | O que falta |
+|---|---|
+| Peixes (todos) | **Validar com o tio:** iscas, melhor época, dificuldade, peso comum e observações. Depois, marcar `oficial: true` |
+| Peixes (todos) | Confirmar os nomes científicos |
+| Peixes | Fotos de cada espécie (sem pessoas, ou com autorização) |
+| Peixes | Outras espécies que o Ives quiser listar |
+| Peixes | Revisar o título "Os peixes da pesca esportiva." |
+
+---
+
 ## Ajuste: chegada do anel e troféus contínuos (pedido do Ives)
 
 - **Anel:** na primeira vez que a seção aparece, ele chega girando bem rápido (40 vezes a velocidade normal, cerca de 2 s por volta). Depois de uma volta completa, desacelera em 3 s até o giro calmo (uma volta a cada 90 s). Medido no navegador: cerca de 80° a cada meio segundo na primeira volta, caindo até 2°. A pausa com mouse, toque e teclado continua.

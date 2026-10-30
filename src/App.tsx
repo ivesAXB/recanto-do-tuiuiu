@@ -1,10 +1,25 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, type ReactNode } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 
-// The admin panel is only downloaded when someone opens "#/admin"
+// These pages are only downloaded when someone opens them ("#/admin", "#/animais", "#/peixes")
 const AdminApp = lazy(() => import('./admin/AdminApp'))
 const Animals = lazy(() => import('./pages/Animals'))
+const FishPage = lazy(() => import('./pages/FishPage'))
+
+function Lazy({ children }: { children: ReactNode }) {
+  return (
+    <Suspense
+      fallback={
+        <p role="status" className="grid min-h-screen place-items-center text-sand-300">
+          Carregando…
+        </p>
+      }
+    >
+      {children}
+    </Suspense>
+  )
+}
 
 export default function App() {
   return (
@@ -13,23 +28,25 @@ export default function App() {
         <Route
           path="/admin/*"
           element={
-            <Suspense
-              fallback={
-                <p role="status" className="grid min-h-screen place-items-center text-sand-300">
-                  Carregando…
-                </p>
-              }
-            >
+            <Lazy>
               <AdminApp />
-            </Suspense>
+            </Lazy>
           }
         />
         <Route
           path="/animais/:slug?"
           element={
-            <Suspense fallback={<p role="status" className="grid min-h-screen place-items-center text-sand-300">Carregando…</p>}>
+            <Lazy>
               <Animals />
-            </Suspense>
+            </Lazy>
+          }
+        />
+        <Route
+          path="/peixes/:slug?"
+          element={
+            <Lazy>
+              <FishPage />
+            </Lazy>
           }
         />
         {/* "*" also catches old in-page links ("#reservar" becomes "/reservar") without remounting the page */}

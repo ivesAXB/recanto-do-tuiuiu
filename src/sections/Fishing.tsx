@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { supabase } from '../lib/supabase'
+import { defesoMessage, loadNextDefeso, type Defeso } from '../lib/defeso'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -59,10 +59,6 @@ const FISH = [
   { name: 'Pintado', label: 'mai–set', from: 8, to: 12 },
 ]
 
-type Defeso = { starts_on: string; ends_on: string }
-
-const toBR = (iso: string) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-BR')
-const todayISO = () => new Date().toLocaleDateString('en-CA') // AAAA-MM-DD no fuso local
 const monthToColumn = (month: number) => ((month - 9 + 12) % 12) + 1 // out = coluna 1
 
 export default function Fishing() {
@@ -75,19 +71,10 @@ export default function Fishing() {
 
   // Aviso de defeso (opcional): se o banco não responder, a seção funciona sem ele
   useEffect(() => {
-    supabase
-      .from('closed_periods')
-      .select('starts_on, ends_on')
-      .eq('kind', 'defeso')
-      .gte('ends_on', todayISO())
-      .order('starts_on')
-      .limit(1)
-      .maybeSingle()
-      .then(({ data, error }) => {
-        if (error) console.error('Erro ao carregar defeso:', error)
-        setDefeso(data ?? null)
-        ScrollTrigger.refresh() // o aviso muda a altura da página
-      })
+    loadNextDefeso().then((data) => {
+      setDefeso(data)
+      ScrollTrigger.refresh() // o aviso muda a altura da página
+    })
   }, [])
 
   // Entrada: as épocas aparecem e, em seguida, as barras dos peixes se desenham
@@ -114,7 +101,6 @@ export default function Fishing() {
   }, [])
 
   const season = SEASONS.find((s) => s.id === active) ?? SEASONS[0]
-  const inDefeso = defeso && defeso.starts_on <= todayISO()
 
   return (
     <section ref={root} id="pesca" className="mx-auto max-w-6xl px-6 py-24 md:px-16">
@@ -126,9 +112,7 @@ export default function Fishing() {
 
       {defeso && (
         <p role="status" className="mt-8 rounded-2xl border border-gold-400/50 bg-forest-800 p-5 text-sand-100">
-          {inDefeso
-            ? `Estamos no defeso (piracema) até ${toBR(defeso.ends_on)}. A pesca está suspensa, e a pousada oferece contemplação da natureza.`
-            : `Próximo defeso: de ${toBR(defeso.starts_on)} a ${toBR(defeso.ends_on)}. Nesse período a pesca fica suspensa.`}
+          {defesoMessage(defeso)}
         </p>
       )}
 

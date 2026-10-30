@@ -220,7 +220,7 @@ autorização de imagem e nome. Peso e espécie conferidos pelo tio antes de ir 
 Pronto quando: build/lint passam; nenhum item real sem `autorizado: true`.
 NÃO pausar por falta de fotos: seguir com placeholders; fotos e autorizações reais ficam como pendência.
 
-### [ ] F8 — Peixes: anel + página por espécie (conteúdo genérico por enquanto)
+### [x] F8 — Peixes: anel + página por espécie (conteúdo genérico por enquanto)
 Escopo: anel de peixes (reaproveitar o componente do F6) e rota /peixes/:slug.
 Decisão do Ives: construir a estrutura agora com informações GENÉRICAS e deixar as oficiais como
 pendência. Dados em src/data/fish.ts: nome popular, nome científico (só se tiver certeza),

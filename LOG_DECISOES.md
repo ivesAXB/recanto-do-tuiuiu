@@ -2,6 +2,18 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F8: Peixes
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Anel extraído para `PhotoRing` e usado pelos animais e peixes. | Copiar o componente. | A tarefa pede reaproveitar; um ajuste futuro vale para os dois. |
+| Com 3 peixes, o anel repete os itens até 6, com as cópias escondidas. | Anel com 3 quadrados. | Com 3 itens o anel ficaria vazio; as cópias não confundem teclado nem leitor de tela. |
+| Nomes científicos preenchidos. | Deixar vazios como na F6. | A F8 permite "só se tiver certeza"; são nomes consagrados. Ficam na lista de validação. |
+| A "melhor época" da página do peixe fica "Em breve", mesmo com o calendário da pesca mostrando meses do site antigo. | Copiar os meses do calendário. | A tarefa manda deixar os campos específicos vazios até o tio validar. |
+| Página da lista em `#/peixes` além de `#/peixes/<slug>`. | Só as páginas por espécie. | O botão do anel precisa de um destino; tem "Todos os peixes" nas páginas. |
+| Busca do defeso movida para `src/lib/defeso.ts`. | Repetir a consulta na página nova. | Uma única fonte para o aviso. |
+| Anel de peixes logo depois do calendário de pesca. | Colado ao anel de animais. | Fica junto do assunto "pesca", e os dois anéis não aparecem seguidos. |
+
 ## 2026-10-30 — Chegada rápida do anel, troféus contínuos
 
 | Decisão | Alternativa descartada | Motivo |
