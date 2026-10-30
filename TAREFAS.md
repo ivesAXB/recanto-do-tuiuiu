@@ -74,7 +74,7 @@ WhatsApp", com botão do WhatsApp. Não expor detalhes técnicos.
 Pronto quando: build/lint passam; erro genérico continua genérico; limite mostra a mensagem nova.
 PAUSA se a função do banco não distinguir o erro de limite (precisaria de migração: gerar e parar).
 
-### [ ] P4 — Captcha (Cloudflare Turnstile) — SOMENTE PLANEJAR
+### [x] P4 — Captcha (Cloudflare Turnstile) — SOMENTE PLANEJAR
 Esta tarefa é de segurança: PARAR sempre. Entregar em RELATORIO.md um plano com: como o widget
 entra no formulário, onde o token é validado no servidor (Supabase Edge Function), o que precisa de
 conta/chaves do Ives, impacto na RLS/função create_reservation_request e riscos. Nenhum código

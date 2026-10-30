@@ -20,6 +20,86 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## P4 — Captcha (Cloudflare Turnstile): plano, sem código
+
+- **Resultado:** **pausado** de propósito. É uma tarefa de segurança, então foi entregue só o plano, sem nenhum código de produção. Para implementar, é preciso a aprovação do Ives e as contas e chaves listadas abaixo.
+
+### O problema que o captcha precisa resolver
+Hoje o pedido chega ao banco assim: o navegador chama a função `create_reservation_request`, e o banco permite que **qualquer visitante anônimo** chame essa função diretamente (`grant execute … to anon`). As proteções atuais são:
+- o campo escondido contra robôs, que só existe no formulário;
+- o limite no banco: 3 pedidos por WhatsApp e 60 no total, por hora.
+
+**Um captcha só no formulário não adianta.** Um robô pode chamar a função direto pela API, sem abrir o site. Por isso, o captcha precisa ser **conferido num servidor**, e o banco precisa **parar de aceitar a chamada direta** de visitantes.
+
+### Como ficaria (arquitetura)
+1. **No formulário (passo 4, Resumo):** o widget do Turnstile no modo "gerenciado".
+   - Na maioria das vezes ele é invisível. Só mostra um desafio quando desconfia.
+   - O script é carregado de `challenges.cloudflare.com` só quando o visitante chega ao passo 4, para não pesar no resto da página.
+   - O widget gera um **token** válido por 5 minutos e de uso único.
+   - O botão "Enviar pedido" só fica ativo depois que o token existe.
+   - Se der erro, o widget é reiniciado e o botão do WhatsApp continua como alternativa.
+2. **Uma Edge Function nova no Supabase**, `submit-reservation`, escrita em Deno e rodando no próprio Supabase:
+   1. Recebe os dados do formulário e o token.
+   2. Confere o token com a Cloudflare (`siteverify`) usando a **chave secreta** do Turnstile. Essa chave fica guardada como *secret* no Supabase e nunca vai para o site nem para o GitHub.
+   3. Confere também o domínio de origem (hostname) e a ação esperada.
+   4. Se tudo estiver certo, chama `create_reservation_request` com a credencial interna que o próprio Supabase dá às Edge Functions. As regras e o limite por hora continuam valendo dentro da função.
+   5. Responde com o id do pedido ou com um código de erro simples (`captcha`, `limite`, `dados`, `erro`), e o site traduz para mensagens amigáveis.
+   6. Ela só aceita chamadas vindas dos endereços do site (CORS): `ivesaxb.github.io`, `recantodotuiuiu.com.br`, `www.recantodotuiuiu.com.br` e `localhost`.
+3. **Uma migração nova:** `revoke execute … from anon, authenticated`. Assim, só a Edge Function pode criar pedidos.
+
+### Impacto no banco (RLS e função)
+- **As tabelas e o RLS não mudam.** A tabela continua bloqueada para visitantes.
+- **Só a permissão da função muda.** Hoje "qualquer visitante pode chamar"; depois, "só o servidor (Edge Function) pode chamar".
+- **Efeito colateral:** dentro da função, `auth.uid()` passaria a ser vazio, porque quem chama é o servidor, e não o visitante. Hoje isso **não afeta nada**, porque não existe login de visitante. Se um dia existir, a Edge Function passaria o id do visitante, conferido por ela, num parâmetro novo da função.
+- **A ordem de publicação importa:**
+  1. publicar a Edge Function;
+  2. publicar o site novo;
+  3. **só então** rodar a migração.
+  
+  Na ordem errada, o formulário para de funcionar. **Para desfazer:** uma migração com o `grant` de volta.
+
+### O que depende do Ives (contas e chaves)
+1. **Conta gratuita na Cloudflare.** Não precisa transferir o domínio.
+2. **Criar um widget Turnstile** com os domínios `ivesaxb.github.io`, `recantodotuiuiu.com.br`, `www.recantodotuiuiu.com.br` e `localhost`. Isso gera duas chaves:
+   - **Site key**, que é pública. Vai para o `.env` e para uma Repository variable no GitHub chamada `VITE_TURNSTILE_SITE_KEY`.
+   - **Secret key**, que é **secreta**. Vai **só** para o Supabase, em *Edge Functions → Secrets*, com o nome `TURNSTILE_SECRET_KEY`. Nunca no GitHub nem no `.env` do site.
+3. **Publicar a Edge Function.** Pode ser pelo editor do painel do Supabase, colando o código que o agente escrever, ou pela Supabase CLI. O agente prepara o código e o passo a passo; quem publica é o Ives.
+4. **Rodar a migração** de permissão no SQL Editor, no momento certo da ordem acima.
+
+### Custos e limites
+- **Turnstile:** gratuito.
+- **Edge Functions no plano gratuito do Supabase:** 500 mil chamadas por mês, muito acima do uso de uma pousada.
+
+### Riscos e cuidados
+- **Se a Cloudflare ou a Edge Function ficarem fora do ar:** o pedido não é salvo. Continua existindo o botão "Enviar pelo WhatsApp", que não depende disso.
+- **Bloqueadores de anúncio** às vezes bloqueiam `challenges.cloudflare.com`. A mensagem de erro precisa orientar o visitante a usar o WhatsApp.
+- **LGPD:** o Turnstile coleta sinais do aparelho para detectar robôs. Vale citar isso no texto de privacidade e no consentimento do formulário. O texto final é decisão do Ives.
+- **Segredos:** a chave secreta do Turnstile e a credencial interna do Supabase ficam só no servidor. O agente nunca lê nem grava essas chaves.
+- **Testes:** a Cloudflare tem chaves de teste que sempre aprovam e outras que sempre recusam. Elas servem para testar no `localhost` sem gastar desafios reais e sem expor as chaves verdadeiras.
+- **Manutenção nova:** a função passa a ser mais uma peça a acompanhar. Se ela falhar, os pedidos param, mas o WhatsApp continua funcionando. Isso entraria na tabela de manutenção.
+
+### Recomendação do agente
+- As proteções atuais (campo escondido + limite por hora no banco) provavelmente bastam para o lançamento de uma pousada pequena.
+- O Turnstile vale a pena **antes da troca para o domínio principal**, ou **assim que aparecer spam**. O CLAUDE.md já lista o captcha como requisito.
+- **Proposta de implementação**, em uma tarefa nova com pausas:
+  - (a) o agente escreve a Edge Function, a migração (sem rodar) e as mudanças no formulário, e testa com as chaves de teste no `localhost`;
+  - (b) o Ives cria a conta e as chaves e publica a função;
+  - (c) o site é publicado;
+  - (d) o Ives roda a migração;
+  - (e) teste em produção.
+
+- **Arquivos alterados:**
+  - `RELATORIO.md`: este plano.
+  - `TAREFAS.md`: P4 marcada como `[x]`, com o plano entregue.
+- **Verificação:** não se aplica. Nenhum código foi alterado.
+- **Commit local:** `docs: plan Turnstile captcha (no code)` (sem push).
+- **Precisa do Ives:**
+  1. Decidir **se** e **quando** implementar: antes do lançamento, antes da troca de domínio ou só se aparecer spam.
+  2. Se for implementar, criar a conta na Cloudflare e as chaves, como descrito acima.
+- **Próxima tarefa:** P5 — SEO e desempenho.
+
+---
+
 ## P3 — Mensagem de limite de envios no formulário público
 
 - **Resultado:** pronto.
