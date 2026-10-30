@@ -2,6 +2,18 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-29 — P5: SEO e desempenho
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Endereço absoluto do site (`og:url`, `og:image`, JSON-LD, sitemap) vem do `base_url` de `actions/configure-pages`, injetado no build por um pequeno plugin no `vite.config.ts`. | Fixar o endereço no `index.html`. | O WhatsApp e as redes exigem `og:image` com endereço completo; assim ele acompanha sozinho a troca de domínio. |
+| Imagem de compartilhamento: casal de tuiuiús de asas abertas (foto original), recorte 1200×630, JPEG 230 kB, em `public/og-image.jpg`. | Vista aérea da pousada. | Combina com o conceito "O tuiuiú chega" (CLAUDE.md). O Ives pode trocar. |
+| JSON-LD `LodgingBusiness` só com fatos do CLAUDE.md: nome, descrição, região MT/Brasil, capacidade 18 e comodidades (pensão completa, pesca, passeio). | Incluir endereço, telefone, coordenadas e preços. | Não estão confirmados (DECISOES.md, seção 3). Ficaram como pendências do Ives. |
+| `robots.txt` (libera tudo) e `sitemap.xml` (só a página inicial) gerados no build. | Arquivos fixos em `public/`. | Precisam do endereço absoluto. Rotas com `#` (`#/admin`) não são vistas por buscadores; o painel já tem `noindex`. Observação: robots e sitemap só valem na raiz de um domínio, ou seja, depois da troca de domínio. |
+| Textos de título e descrição montados com os fatos do CLAUDE.md, marcados como provisórios. | Esperar o texto do tio. | São fáceis de trocar; o site precisa de alguma descrição já. |
+| Vídeo do hero continua com `preload="auto"`. | `preload="metadata"` (CLAUDE.md, seção 8). | É o vídeo de abertura com autoplay, acima da dobra: o navegador baixa de qualquer forma. As imagens abaixo da dobra já usam `loading="lazy"` e `srcset`. |
+| Code-splitting **só proposto**, não aplicado. | Aplicar já. | A tarefa pede proposta; as opções mexem na forma como o Supabase é carregado e merecem aprovação. |
+
 ## 2026-10-29 — P4: Implementação do captcha (aprovada pelo Ives)
 
 | Decisão | Alternativa descartada | Motivo |

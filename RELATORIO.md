@@ -25,6 +25,55 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## P5 — SEO e desempenho
+
+- **Resultado:** pronto. A fila continua pausada, porque há conteúdos que dependem do Ives (lista abaixo).
+- **Arquivos criados:**
+  - `public/og-image.jpg`: 1200×630, 230 kB.
+- **Arquivos alterados:**
+  - `index.html`: descrição, `theme-color`, Open Graph (título, descrição, imagem, endereço, `pt_BR`), Twitter/X `summary_large_image` e JSON-LD `LodgingBusiness`.
+  - `vite.config.ts`: plugin que preenche o endereço absoluto e gera `robots.txt` e `sitemap.xml`.
+  - `.github/workflows/deploy.yml`: passa `VITE_SITE_URL`.
+  - `TAREFAS.md`: P5 marcada como `[x]`.
+- **Verificação:**
+  - `npm run build` e `npm run lint` passam.
+  - Build de teste com o endereço do github.io:
+    - `og:url` e `og:image` absolutos;
+    - JSON-LD válido (lido como JSON);
+    - `robots.txt` e `sitemap.xml` corretos.
+  - No build local, sem endereço, não sobra nenhum marcador.
+  - **Não testado:** a prévia real do link no WhatsApp, que só funciona depois do push. Dá para testar colando o link numa conversa ou no depurador de compartilhamento do Facebook.
+- **Desempenho (medido):**
+  - **Imagens:** já usam WebP, `srcset` 640/1280, `loading="lazy"` abaixo da dobra e proporção fixa (sem pulos de layout).
+  - **Painel:** já carrega sob demanda (66 kB, separado).
+  - **Arquivo principal:** 643 kB (199 kB comprimido). Composição pelo código-fonte:
+
+    | Parte | Tamanho |
+    |---|---|
+    | react-dom | ~620 kB |
+    | Supabase completo (auth, storage, realtime e postgrest) | ~810 kB |
+    | gsap | ~370 kB |
+    | react-router | ~370 kB |
+    | código do projeto | ~70 kB |
+
+- **Proposta de code-splitting (não aplicada, precisa de aprovação):**
+  1. **Separar as bibliotecas em arquivos próprios** (`react`, `gsap`, `supabase`) via `manualChunks`. Risco baixo. O tamanho total não muda, mas o navegador guarda em cache as partes que não mudam entre versões do site, e a volta do visitante fica mais rápida.
+  2. **Carregar o cliente do Supabase só quando a seção Pacotes se aproxima da tela.** Risco médio. Tira cerca de 60 a 70 kB comprimidos da primeira carga. Exige mudar como as seções importam o `supabase`.
+  3. **No site público, usar só os módulos do Supabase que ele precisa** (consultas e Edge Function, sem login, storage e realtime), deixando o cliente completo para o painel. Risco médio. É o maior ganho na página inicial, mas são dois clientes para manter.
+  - **Recomendação:** fazer o (1) agora e avaliar o (2) depois de medir no Lighthouse em celular (P6).
+- **Precisa do Ives (pendências de conteúdo; nada foi inventado):**
+  1. **Endereço** (cidade, estrada ou rio de referência) e, se quiser, coordenadas do mapa, para o JSON-LD e a futura seção "Como chegar".
+  2. **Telefone ou WhatsApp público** que pode aparecer para o Google.
+  3. **Horários de check-in e check-out.**
+  4. **Faixa de preço** para o Google (ex.: "R$ 300 por pessoa/dia"), se quiser exibir.
+  5. **Aprovar ou trocar** o título, a descrição e a foto de compartilhamento (tuiuiús de asas abertas).
+  6. **Depois da troca de domínio:** cadastrar o site no Google Search Console e enviar o `sitemap.xml`. O agente pode guiar.
+  7. **Decidir sobre o code-splitting:** o agente recomenda a opção (1).
+- **Commit local:** `feat: SEO meta, Open Graph image, JSON-LD and sitemap` (sem push).
+- **Próxima tarefa:** P6 — Checklist de lançamento (somente relatório).
+
+---
+
 ## P4 (continuação) — Captcha implementado, aguardando as etapas do Ives
 
 - **Resultado:** código pronto. **A ativação depende do Ives**: chaves, publicação da função e migração.

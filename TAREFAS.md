@@ -80,7 +80,7 @@ entra no formulário, onde o token é validado no servidor (Supabase Edge Functi
 conta/chaves do Ives, impacto na RLS/função create_reservation_request e riscos. Nenhum código
 de produção sem aprovação.
 
-### [ ] P5 — SEO e desempenho
+### [x] P5 — SEO e desempenho
 Escopo: index.html, meta tags, Open Graph, sitemap/robots, imagens, bundle.
 Requisitos: title/description em pt-BR, og:image com foto otimizada, JSON-LD LodgingBusiness
 (sem inventar dados: usar só o que está em CLAUDE.md; o que faltar, listar como pendência),
