@@ -4,6 +4,7 @@ import Home from './pages/Home'
 
 // The admin panel is only downloaded when someone opens "#/admin"
 const AdminApp = lazy(() => import('./admin/AdminApp'))
+const Animals = lazy(() => import('./pages/Animals'))
 
 export default function App() {
   return (
@@ -20,6 +21,14 @@ export default function App() {
               }
             >
               <AdminApp />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/animais/:slug?"
+          element={
+            <Suspense fallback={<p role="status" className="grid min-h-screen place-items-center text-sand-300">Carregando…</p>}>
+              <Animals />
             </Suspense>
           }
         />

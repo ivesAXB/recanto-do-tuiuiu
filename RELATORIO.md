@@ -28,6 +28,54 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F6 — Catálogo de animais (anel + página de cards que viram)
+
+- **Resultado:** pronto. **Marco visual: a fila para aqui para o Ives ver no navegador.** Há commits locais aguardando push (F6).
+- **Arquivos criados:**
+  - `src/data/animals.ts`: `slug`, `nome`, `cientifico`, `foto`, `alt`, `texto`, `habitat`, `melhorEpoca`, `curiosidade`, `credito`, `revisado`.
+  - `src/sections/AnimalRing.tsx`: seção "Fauna" na Home, depois de "A pousada".
+    - Anel de fotos que gira no **sentido horário** em velocidade fixa (uma volta a cada 80 s), sem depender da rolagem.
+    - As fotos ficam sempre em pé.
+    - **Pausa com o mouse em cima ou com o foco do teclado** dentro do anel.
+    - Cada animal leva a `#/animais/<slug>`, e o botão "Ver todos os animais" leva a `#/animais`.
+    - Com "reduzir movimento", vira uma grade parada.
+  - `src/pages/Animals.tsx`: página `#/animais`, carregada só quando aberta (4 kB).
+    - Cards com a foto na frente. Viram com o mouse (desktop) ou com o botão "Ver informações" (toque e teclado), que é um botão de verdade com `aria-pressed`.
+    - O verso mostra: nome, nome científico, texto, habitat, quando ver, curiosidade, a etiqueta "informações em revisão" e o crédito da foto.
+    - **As duas faces ficam sempre na página**, então o leitor de tela lê o verso.
+    - Botão "Voltar ao início", título e descrição próprios da página, e rodapé.
+    - Chegando por um animal do anel, a página rola até o card dele e coloca o foco no botão.
+- **Arquivos alterados:**
+  - `src/App.tsx`: rota `/animais/:slug?`.
+  - `src/pages/Home.tsx`: inclui o anel.
+  - `src/index.css`: animação do anel.
+  - `TAREFAS.md`: F6 marcada como `[x]`.
+- **Conteúdo (regra: nada de biologia inventada):**
+  - 6 animais: tuiuiú, jacaré, arara-azul, capivara, garça-branca e martim-pescador.
+  - **Fotos reais só do tuiuiú e do jacaré**; os outros 4 são espaços reservados.
+  - Cada um tem só o nome popular e **uma frase amplamente conhecida** (ex.: "O maior roedor do mundo, sempre por perto da água.").
+  - Habitat, quando ver, curiosidade e crédito mostram **"Em breve"**.
+  - **Nome científico vazio de propósito:** só entra com fonte citada. Posso preencher com uma fonte confiável (ICMBio ou IUCN) se o Ives quiser.
+  - As fotos com pessoas (`mulher-com-araras`, `rogaciano-com-arara`) **não foram usadas**, porque mostram pessoas identificáveis (LGPD); só entram com autorização.
+- **Como trocar um espaço reservado por foto real:** `npm run media:images` com a foto em `originais/fotos/animais/<animal>.jpg`, depois preencher `foto` em `src/data/animals.ts`.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - O anel gira no sentido horário (medido pelo `transform`).
+  - Clicar na capivara abre `#/animais/capivara`, rola até o card e coloca o foco no botão.
+  - O botão vira o card (`aria-pressed="true"`, "Ver foto de Capivara"), e o verso mostra "Em breve" nos campos vazios.
+  - Celular (375 px): anel e página sem rolagem lateral.
+- **Pendências do Ives:**
+
+| Onde | O que falta |
+|---|---|
+| Animais: arara-azul, capivara, garça-branca, martim-pescador | Fotos (quadradas ou verticais 3:4) e crédito |
+| Animais: tuiuiú, jacaré | Crédito das fotos |
+| Todos os animais | Nome científico, habitat, quando ver e curiosidade (validar com o tio ou com fonte citada); depois, marcar `revisado: true` |
+| Lista de animais | Confirmar quais animais mostrar (trocar ou acrescentar à vontade) |
+| Fotos com pessoas e araras | Autorização de imagem, se quiser usá-las |
+
+---
+
 ## F5 — Seção "A pousada": galeria com legenda
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).

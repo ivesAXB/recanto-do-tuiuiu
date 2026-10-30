@@ -7,6 +7,7 @@ import Cursor from '../components/Cursor'
 import Footer from '../components/Footer'
 import Loader from '../components/Loader'
 import { isIntroPlaying, shouldPlayIntro } from '../lib/intro'
+import AnimalRing from '../sections/AnimalRing'
 import Hero from '../sections/Hero'
 import DayAtRecanto from '../sections/DayAtRecanto'
 import Packages from '../sections/Packages'
@@ -105,6 +106,7 @@ export default function Home() {
         <Hero />
         <DayAtRecanto />
         <Pousada />
+        <AnimalRing />
         <Fishing />
         <Packages />
         <Reserve />

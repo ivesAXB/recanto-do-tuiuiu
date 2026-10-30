@@ -186,7 +186,7 @@ hóspede decide com base no que vê). Se faltarem fotos, criar a estrutura com p
 claramente marcados e listar em RELATORIO.md o que falta (quartos, refeições, varanda, noite).
 Pronto quando: build/lint passam; imagens com srcset e loading="lazy" abaixo da dobra.
 
-### [ ] F6 — Catálogo de animais (anel + página de cards que viram)
+### [x] F6 — Catálogo de animais (anel + página de cards que viram)
 Escopo: src/sections/AnimalRing.tsx (na Home) e rota /animais (src/pages/Animals.tsx).
 Requisitos:
 - Home: anel de fotos de animais girando no sentido horário em rotação fixa (CSS/GSAP,

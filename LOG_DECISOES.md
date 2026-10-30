@@ -2,6 +2,18 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F6: Catálogo de animais
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Nome científico vazio ("Em breve"). | Preencher de memória. | A tarefa exige fonte citada; preencho com fonte se o Ives pedir. |
+| Âncora do animal como rota `#/animais/<slug>`. | `#/animais#tuiuiu`. | Com HashRouter não existe um segundo `#`; a rota permite rolar até o card e focar o botão. |
+| Anel em CSS (`@keyframes`), não GSAP. | GSAP. | Rotação contínua simples; o CSS pausa com `:hover`/`:focus-within` sem JavaScript. |
+| Botão "Ver informações" abaixo do card. | Card inteiro clicável. | Um botão real com `aria-pressed` é a forma acessível pedida, e o alvo de toque fica com 44 px. |
+| Fotos com pessoas não usadas. | Usar as fotos com araras. | LGPD: pessoa identificável só com autorização. |
+| 6 animais (os citados no site + comuns no Pantanal). | Só os 3 citados. | Um anel com 3 fotos ficaria vazio; frases genéricas e seguras, marcadas como em revisão. |
+| Página `/animais` com carregamento sob demanda. | Junto com a Home. | Não pesa na página inicial. |
+
 ## 2026-10-30 — F5: Galeria "A pousada"
 
 | Decisão | Alternativa descartada | Motivo |
