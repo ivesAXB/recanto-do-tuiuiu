@@ -14,6 +14,7 @@ import Packages from '../sections/Packages'
 import Pousada from '../sections/Pousada'
 import Fishing from '../sections/Fishing'
 import Reserve from '../sections/Reserve'
+import Trophies from '../sections/Trophies'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -109,6 +110,7 @@ export default function Home() {
         <AnimalRing />
         <Fishing />
         <Packages />
+        <Trophies />
         <Reserve />
       </main>
       <Footer />

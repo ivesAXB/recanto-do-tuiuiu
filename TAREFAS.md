@@ -206,7 +206,7 @@ Pronto quando: build/lint passam; navegação por teclado completa; funciona em 
 NÃO pausar por falta de fotos ou dados: usar placeholders e texto genérico (regra geral) e listar
 o que falta. Fim: marco visual.
 
-### [ ] F7 — Troféus de pesca (faixa horizontal, direita para a esquerda)
+### [x] F7 — Troféus de pesca (faixa horizontal, direita para a esquerda)
 Escopo: seção antes do rodapé, uma faixa (marquee) com rotação horizontal contínua da direita
 para a esquerda, em velocidade fixa, sem depender da rolagem. Cada item = foto do pescador com o
 peixe, espécie e peso.

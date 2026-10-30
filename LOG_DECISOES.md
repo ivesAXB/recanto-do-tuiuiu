@@ -2,6 +2,16 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — F7: Troféus
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| A seção entra entre Pacotes e Reserva. | Logo antes do rodapé. | A ordem final da F11 manda assim; evita mudar de novo. |
+| Itens focáveis pelo Tab (`tabIndex=0`) só na primeira cópia. | Nenhum item focável. | A tarefa pede pausar ao focar um item; a cópia duplicada não confunde o teclado nem o leitor de tela. |
+| Foto sem `autorizado: true` nunca aparece (trava no componente). | Confiar só no preenchimento correto dos dados. | LGPD: um erro de digitação não expõe ninguém. |
+| Animação em CSS. | GSAP. | Movimento contínuo simples, com pausa por `:hover` e `:focus-within`. |
+| 5 exemplos com as espécies do CLAUDE.md (Pintado, Dourado, Pacu). | Espécies variadas. | São os peixes confirmados do negócio. |
+
 ## 2026-10-30 — F6: Catálogo de animais
 
 | Decisão | Alternativa descartada | Motivo |

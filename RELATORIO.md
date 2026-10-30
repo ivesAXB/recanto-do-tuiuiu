@@ -28,6 +28,39 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## F7 — Troféus de pesca (faixa horizontal)
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Arquivos criados:**
+  - `src/data/trophies.ts`: `foto`, `especie`, `pesoKg`, `ano`, `pescador`, `autorizado`, `legenda`, `provisorio`.
+  - `src/sections/Trophies.tsx`: seção "Troféus" (`id="trofeus"`).
+    - Faixa que anda **da direita para a esquerda** em velocidade fixa (uma volta a cada 45 s), sem depender da rolagem.
+    - Loop sem emenda: a lista está duplicada, e a segunda cópia fica escondida do leitor de tela e do Tab.
+    - **Pausa com o mouse em cima e ao focar um item com o Tab.**
+    - Com "reduzir movimento", a faixa fica parada e rola para o lado com o dedo ou o mouse.
+- **Arquivos alterados:**
+  - `src/index.css`: animação da faixa.
+  - `src/pages/Home.tsx`: a seção entra **depois de Pacotes e antes da Reserva**. A F7 dizia "antes do rodapé", mas a ordem final da F11 coloca Troféus antes de Pequenos e Reserva. Segui a F11.
+  - `TAREFAS.md`: F7 marcada como `[x]`.
+- **Conteúdo:**
+  - 5 espaços reservados com legendas **claramente fictícias** ("Exemplo: 1º lugar, categoria Pintado", Dourado, Pacu…), sem nome de pessoa, peso ou recorde.
+  - **Trava de LGPD no código:** uma foto só aparece se `autorizado: true`; sem isso, o item mostra o espaço reservado mesmo que a foto esteja preenchida.
+- **Correção junto (F6):** a página `#/animais` gerava um erro no console ao abrir sem um animal escolhido. O efeito devolvia o resultado de `window.scrollTo`, que neste navegador não vem vazio. Corrigido; navegar entre a Home e `#/animais` ficou sem erros.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - A faixa anda para a esquerda (medido pelo `transform`) e tem 10 itens, 5 deles escondidos (a cópia).
+  - Os 5 itens visíveis recebem foco pelo Tab, e o foco pausa a faixa.
+- **Pendências do Ives:**
+
+| Onde | O que falta |
+|---|---|
+| Troféus | Trocar os 5 exemplos por troféus reais: foto do pescador com o peixe, espécie, peso (kg), ano e nome ou apelido |
+| Troféus | **Autorização de imagem e nome** de cada pescador antes de marcar `autorizado: true` |
+| Troféus | Espécie e peso conferidos pelo tio |
+| Troféus | Revisar o título "Peixes que contam história." |
+
+---
+
 ## F6 (ajustes pedidos pelo Ives)
 
 - **Anel:** as fotos ficaram maiores, em círculos que se encostam (com 6 animais, o diâmetro é igual ao raio do anel). Cada círculo tem até 210 px no desktop (antes eram cerca de 120 px) e cerca de 30% da largura no celular.

@@ -100,7 +100,10 @@ export default function Animals() {
   // Coming from the ring: bring that animal's card into view and put the focus on its button
   useEffect(() => {
     const card = slug ? document.getElementById(slug) : null
-    if (!card) return window.scrollTo({ top: 0 })
+    if (!card) {
+      window.scrollTo({ top: 0 })
+      return
+    }
     card.scrollIntoView({ block: 'start' })
     card.querySelector('button')?.focus({ preventScroll: true })
   }, [slug])
