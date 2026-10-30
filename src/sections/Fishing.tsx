@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { defesoMessage, loadNextDefeso, type Defeso } from '../lib/defeso'
@@ -181,6 +182,13 @@ export default function Fishing() {
           </h3>
           <p className="mt-3 max-w-2xl text-lg text-sand-300">{season.text}</p>
         </div>
+
+        <Link
+          to="/peixes"
+          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full border border-sand-100/70 px-8 font-medium transition hover:bg-sand-100/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sand-100"
+        >
+          Conheça os peixes <span aria-hidden="true">→</span>
+        </Link>
       </div>
     </section>
   )

@@ -1,4 +1,4 @@
-// Fish species: ring on the home page (src/sections/FishRing.tsx) and the /peixes pages.
+// Fish species: flip cards on the /peixes page (linked from the fishing section).
 // Ives's decision: build the structure now with GENERIC information. Only broadly known facts
 // (e.g. "peixe de couro" / "de escamas"); no numbers, seasons, baits or records.
 // Specific fields stay empty with oficial: false and show "Em breve" until checked with the owner.

@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 const base = import.meta.env.BASE_URL
 
 // Para trocar o vídeo da abertura, mude só este nome (arquivo em public/media/video)
-const HERO_VIDEO_NAME = 'video-baixo-para-cima-ate-horizonte-drone-alto-pantanal'
+const HERO_VIDEO_NAME = 'onca-na-arvore-lambendo-a-pata'
 const HERO_VIDEO = `${base}media/video/${HERO_VIDEO_NAME}.mp4`
 const HERO_POSTER = `${base}media/video/${HERO_VIDEO_NAME}-poster.jpg`
 

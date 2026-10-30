@@ -13,7 +13,6 @@ import Hero from '../sections/Hero'
 import DayAtRecanto from '../sections/DayAtRecanto'
 import Packages from '../sections/Packages'
 import Pousada from '../sections/Pousada'
-import FishRing from '../sections/FishRing'
 import Fishing from '../sections/Fishing'
 import Reserve from '../sections/Reserve'
 import Trophies from '../sections/Trophies'
@@ -112,7 +111,6 @@ export default function Home() {
         <Pousada />
         <AnimalRing />
         <Fishing />
-        <FishRing />
         <Packages />
         <Trophies />
         <Reserve />

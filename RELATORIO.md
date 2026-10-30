@@ -28,6 +28,36 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## Ajuste da F8 + vídeo novo de abertura (pedido do Ives)
+
+- **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
+- **Peixes sem anel na Home:** o anel de peixes saiu. O pedido era só a faixa de troféus andando sem parar, o que já estava feito.
+- **`#/peixes` com cartões que viram**, iguais aos de `#/animais`.
+  - O verso mostra nome, nome científico, descrição, iscas, melhor época, dificuldade, peso comum, observações (por enquanto "Em breve") e "informações em revisão".
+  - O aviso do defeso, vindo do banco, aparece no topo da página.
+  - `#/peixes/<slug>` rola até o cartão do peixe.
+  - A seção de pesca ganhou o botão **"Conheça os peixes →"**, que leva à página.
+- **Cartão reutilizável:** o cartão que vira saiu de `Animals.tsx` para `src/components/FlipCard.tsx`, usado pelas duas páginas. `SOON` ("Em breve") e `useScrollToCard` foram para `src/lib/cards.ts`.
+- **Vídeo de abertura trocado** para `onca-na-arvore-lambendo-a-pata`:
+  - Original: 1920×1080, 50 quadros/s, 22,5 s, **197 MB**.
+  - Pelo padrão do script sairia com 13,3 MB, pesado demais para o primeiro vídeo do site.
+  - Versão publicada: **1280×720, 30 quadros/s, 4,4 MB**, mais o poster de 115 kB. O vídeo antigo tinha 848×480 e 2 MB.
+  - `scripts/optimize-videos.mjs`: passou a **limitar todo vídeo a 30 quadros/s** e ganhou a lista `OVERRIDES` com ajustes por vídeo (o da onça: 1280 px e CRF 27). Assim, rodar `npm run media:videos` de novo gera a mesma versão leve.
+  - O original ficou em `originais/videos/` (fora do Git). O vídeo antigo continua em `public/media/video`, sem uso no momento.
+- **Arquivos:**
+  - novos: `src/components/FlipCard.tsx`, `src/lib/cards.ts`, `public/media/video/onca-na-arvore-lambendo-a-pata.mp4` e `-poster.jpg`;
+  - alterados: `src/pages/FishPage.tsx` (reescrita), `src/pages/Animals.tsx`, `src/pages/Home.tsx`, `src/sections/Fishing.tsx`, `src/sections/Hero.tsx`, `src/data/fish.ts` e `scripts/optimize-videos.mjs`;
+  - removido: `src/sections/FishRing.tsx`.
+- **Verificação:**
+  - Lint e build passam, sem erros no console.
+  - O vídeo novo carrega e toca (1280 px).
+  - A Home não tem mais o anel de peixes, e o botão da pesca abre `#/peixes`, com 3 cartões e o aviso do defeso.
+  - O cartão do Pintado vira, com os 5 campos "Em breve".
+  - `#/animais/capivara` continua funcionando (6 cartões, foco no botão da capivara).
+- **Observação:** o título do Hero ("O Pantanal começa quando o tuiuiú chega.") continua igual, agora sobre o vídeo da onça. O Ives pode querer revisar a combinação.
+
+---
+
 ## F8 — Peixes: anel + página por espécie (conteúdo genérico)
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
