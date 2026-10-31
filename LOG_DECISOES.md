@@ -2,6 +2,17 @@
 
 Decisões tomadas pelo agente sem perguntar (DECISOES.md, seção 2). Mais recentes no topo.
 
+## 2026-10-30 — Roda de fotos (Works Wheel adaptado)
+
+| Decisão | Alternativa descartada | Motivo |
+|---|---|---|
+| Portar a lógica do prompt para Tailwind, com as cores e fontes do site. | Copiar o arquivo com `<style>` via `dangerouslySetInnerHTML` e fonte do sistema. | Regra do projeto contra `dangerouslySetInnerHTML`; a roda precisa parecer do site. |
+| A roda só segura o scroll com 80% dela na tela e para a propagação (o Lenis não vê). | Segurar sempre que o mouse passa por cima. | Quem só está rolando a página não fica preso numa roda meio visível; sem isso, o Lenis rolaria a página junto. |
+| No toque, giro com o dedo na horizontal; na vertical a página rola. | Dedo na vertical gira (como no prompt). | A roda ocupa quase a tela do celular; prender o dedo ali travaria a Home. |
+| Celular: foto a 80% da largura, nome embaixo, lista abaixo da roda. | Foto a 34% da largura, como no prompt. | A 34%, a foto teria ~130 px num celular. |
+| Gira sozinha (autoPlay), pausa com o mouse em cima. | Parada até alguém rolar. | O anel antigo também girava; mostra os animais a quem só passa pela seção. |
+| Apagar `PhotoRing.tsx` e `lib/loop.ts`. | Manter sem uso. | Ninguém mais usa; o Git guarda o histórico se quisermos voltar. |
+
 ## 2026-10-30 — Fotos novas: animais com várias fotos e faixas
 
 | Decisão | Alternativa descartada | Motivo |

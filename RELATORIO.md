@@ -28,6 +28,15 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## Roda de fotos no lugar do anel dos animais (2026-10-30)
+
+- **O quê:** a seção "Quem mora por aqui." da Home virou uma roda (adaptada do prompt "Works Wheel" do Ives). Parada, é um anel com os 6 animais em destaque em volta do título. O primeiro giro do scroll abre um tambor vertical: a foto da frente fica reta e grande, com o nome ao lado, e as vizinhas giram para longe em perspectiva. Cada giro traz o próximo animal; a lista no alto à direita leva direto a cada um; um clique na foto da frente abre a página do animal.
+- **Arquivos:** `src/components/PhotoWheel.tsx` (novo), `src/sections/AnimalRing.tsx` (usa a roda). Saíram `PhotoRing.tsx` e `lib/loop.ts`, que só o anel antigo usava.
+- **Adaptações ao projeto:** sem dependências novas; Tailwind, fontes e cores do site no lugar do CSS embutido do prompt (que usava `dangerouslySetInnerHTML`); as fotos são as do site, não do Unsplash; a roda só segura o scroll quando está quase inteira na tela e nunca junto com o Lenis; nas pontas (anel subindo, último animal descendo) a página volta a rolar.
+- **Celular:** foto maior (80% da largura), nome embaixo dela, lista abaixo da roda. O dedo **na horizontal** gira a roda e **na vertical** rola a página (no prompt, o dedo na vertical prendia a página).
+- **Movimento:** gira sozinha enquanto está na tela (pausa com o mouse em cima; para de vez quando alguém mexe). Com "reduzir movimento", troca sem deslizar e não gira sozinha.
+- **Teclado:** Tab foca a roda; ↑ ↓ giram; Home volta ao anel; End vai ao último; Enter abre.
+
 ## Guia de fauna (versão 2) + correção do Instagram
 
 - **Resultado:** pronto. Commit local, **sem push** (aguardando o Ives).
