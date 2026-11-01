@@ -68,7 +68,7 @@ export default function Pousada() {
   return (
     <section ref={root} id="pousada" className="mx-auto max-w-6xl px-6 py-24 md:px-16">
       <p className="text-sm font-bold tracking-[0.14em] text-gold-400">A POUSADA</p>
-      <h2 className="mt-3 font-display text-4xl md:text-5xl">Uma casa no meio do Pantanal.</h2>
+      <h2 className="mt-3 font-display text-4xl md:text-5xl">Um recanto de paz no meio do Pantanal.</h2>
 
       <ul className="mt-12 grid gap-x-6 gap-y-12 md:grid-cols-3">
         {pousadaItems.map((item, i) => (

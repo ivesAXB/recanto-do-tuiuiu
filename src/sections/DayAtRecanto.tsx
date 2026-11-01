@@ -15,7 +15,7 @@ const PANELS = [
   {
     id: 'amanhecer',
     title: 'Amanhecer',
-    text: 'Os tuiuiús chegam do ninho em busca de peixe fresco.',
+    text: 'O sol nasce na grande planície pantaneira.',
     image: 'casal-de-tuiuius-comendo-horizontal',
     alt: 'Casal de tuiuiús se alimentando',
     bg: '#3b2a24', // tom quente da manhã
@@ -31,7 +31,7 @@ const PANELS = [
   {
     id: 'entardecer',
     title: 'Fim de tarde',
-    text: 'Passeio ecológico com roteiro fotográfico.',
+    text: 'Passeio ecológico pela belíssima fauna e flora pantaneira.',
     image: 'casal-de-tuiuiu-voando-no-por-do-sol',
     alt: 'Dois tuiuiús voando no céu alaranjado do pôr do sol',
     bg: '#3a2620', // tom do entardecer
@@ -39,7 +39,7 @@ const PANELS = [
   {
     id: 'fauna',
     title: 'Pantanal vivo',
-    text: 'Jacarés, capivaras, araras e tuiuiús: a fauna do Pantanal faz parte da paisagem.',
+    text: 'Jacarés, capivaras, araras e tuiuiús: a fauna do Pantanal faz parte da experiência imersiva no coração do Brasil.',
     image: 'foto-linda-jacare-e-capivara',
     alt: 'Jacaré na água e uma capivara na margem, logo atrás',
     bg: '#0f1d18',

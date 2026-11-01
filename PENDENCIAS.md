@@ -33,7 +33,7 @@ Estado atual: site publicado em https://ivesaxb.github.io/recanto-do-tuiuiu/ com
 
 ### A pousada (galeria)
 - [ ] 🧑 **3 fotos:** quarto, refeição servida, varanda ao fim do dia (de preferência verticais e de boa qualidade; as fotos de celular verticais da fachada ficaram abaixo das atuais).
-- [ ] 🧑 Revisar o título "Uma casa no meio do Pantanal." e as legendas.
+- [x] 🧑 Título da pousada e legendas revisados pelo Ives (2026-11-01): "Um recanto de paz no meio do Pantanal."
 
 ### Troféus
 - [ ] 🧑 Trocar os 5 exemplos por **troféus reais**: foto do pescador com o peixe, espécie, peso (kg), ano, nome ou apelido.
@@ -51,7 +51,7 @@ Estado atual: site publicado em https://ivesaxb.github.io/recanto-do-tuiuiu/ com
 - [ ] 🧑 Revisar o **texto de privacidade** (rascunho).
 
 ### Textos para revisar (escritos pelo agente)
-- [ ] 🧑 Hero: "O Pantanal começa quando o tuiuiú chega." (agora sobre o vídeo da onça: combina?).
+- [x] 🧑 Hero trocado pelo Ives (2026-11-01): "A sua experiência no Pantanal começa aqui."
 - [ ] 🧑 "Um dia no Recanto": as 4 cenas.
 - [ ] 🧑 Legendas das faixas de foto: "Araras-azuis no céu do Pantanal.", "A onça-pintada na beira do rio.", "Fim de tarde no Pantanal."
 - [ ] 🧑 Foto final: "Ficou alguma dúvida? A gente responde pelo WhatsApp."

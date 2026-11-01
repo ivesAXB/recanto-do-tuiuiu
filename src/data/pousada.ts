@@ -13,13 +13,13 @@ export type PousadaItem = {
 export const pousadaItems: PousadaItem[] = [
   {
     foto: 'imagem-muito-alto-mostrando-casa-lago-barcos-vegetacao-pantaneira',
-    legenda: 'A casa entre a baía e a mata, vista do alto.',
+    legenda: 'Entre as águas da baía e as matas virgens se encontra o nosso recanto.',
     alt: 'Vista aérea da pousada, cercada de mata pantaneira, com barcos na água em frente',
     provisorio: false,
   },
   {
     foto: 'pousada-externa-ampliada-horizontal',
-    legenda: 'Chegando de barco, a pousada aparece no gramado.',
+    legenda: 'O céu azul refletido nas margens da baía.',
     alt: 'A pousada ao fundo de um gramado, vista da água, com um píer de madeira',
     provisorio: false,
   },

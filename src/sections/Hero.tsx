@@ -16,8 +16,8 @@ const HERO_VIDEO = `${base}media/video/${HERO_VIDEO_NAME}.mp4`
 const HERO_VIDEO_MOBILE = `${base}media/video/${HERO_VIDEO_NAME}-mobile.mp4`
 const HERO_POSTER = `${base}media/video/${HERO_VIDEO_NAME}-poster.jpg`
 
-const HEADLINE = ['O', 'Pantanal', 'começa', 'quando', 'o', 'tuiuiú', 'chega.']
-const EMPHASIS_INDEX = 5 // "tuiuiú"
+const HEADLINE = ['A', 'sua', 'experiência', 'no', 'Pantanal', 'começa', 'aqui.']
+const EMPHASIS_INDEX = 4 // "Pantanal"
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null)
