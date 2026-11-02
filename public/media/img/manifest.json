@@ -2466,5 +2466,36 @@
         "kb": 158
       }
     ]
+  },
+  "noite": {
+    "width": 1920,
+    "height": 1280,
+    "tema": "pousada",
+    "legenda": "",
+    "credito": "",
+    "original": {
+      "width": 7008,
+      "height": 4672
+    },
+    "files": [
+      {
+        "file": "noite-640.webp",
+        "width": 640,
+        "height": 427,
+        "kb": 4
+      },
+      {
+        "file": "noite-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "kb": 10
+      },
+      {
+        "file": "noite-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "kb": 19
+      }
+    ]
   }
 }

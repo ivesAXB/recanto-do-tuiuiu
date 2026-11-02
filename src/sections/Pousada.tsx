@@ -11,6 +11,8 @@ gsap.registerPlugin(ScrollTrigger)
 // 3 per row on desktop, 1 on phones
 const SIZES = '(min-width: 768px) 33vw, 100vw'
 const ASPECT = '4 / 5'
+// Night sky behind the cards (originais/fotos/pousada/noite)
+const background = imageSources('noite')
 
 function Photo({ item }: { item: PousadaItem }) {
   const sources = item.foto ? imageSources(item.foto) : null
@@ -46,7 +48,11 @@ export default function Pousada() {
         start: 'top 85%',
         once: true,
         onEnter: (items) =>
-          gsap.fromTo(items, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 }),
+          gsap.fromTo(
+            items,
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 },
+          ),
       })
 
       // Light parallax: the photo drifts inside its frame while the page scrolls
@@ -66,23 +72,45 @@ export default function Pousada() {
   }, [])
 
   return (
-    <section ref={root} id="pousada" className="mx-auto max-w-6xl px-6 py-24 md:px-16">
-      <p className="text-sm font-bold tracking-[0.14em] text-gold-400">A POUSADA</p>
-      <h2 className="mt-3 font-display text-4xl md:text-5xl">Um recanto de paz no meio do Pantanal.</h2>
+    <section ref={root} id="pousada" className="relative isolate">
+      {background && (
+        // The photo sticks to the screen while the section scrolls by: the moon keeps its size even on tall phones
+        <div aria-hidden="true" className="absolute inset-0 -z-10">
+          <div className="sticky top-0 h-svh overflow-hidden">
+            <img
+              src={background.src}
+              srcSet={background.srcSet}
+              sizes="100vw"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-forest-950/30" />
+          </div>
+          {/* Fades into the page color above and below */}
+          <div className="absolute inset-0 bg-gradient-to-b from-forest-900 via-transparent via-20% to-forest-900" />
+        </div>
+      )}
 
-      <ul className="mt-12 grid gap-x-6 gap-y-12 md:grid-cols-3">
-        {pousadaItems.map((item, i) => (
-          // Middle column sits lower on desktop: editorial rhythm
-          <li key={item.foto ?? `reservado-${i}`} data-pousada-item className={i % 3 === 1 ? 'md:mt-16' : ''}>
-            <figure>
-              <div className="overflow-hidden rounded-3xl">
-                <Photo item={item} />
-              </div>
-              <figcaption className="mt-4 text-sand-300">{item.legenda}</figcaption>
-            </figure>
-          </li>
-        ))}
-      </ul>
+      <div className="mx-auto max-w-6xl px-6 py-24 md:px-16">
+        <p className="text-sm font-bold tracking-[0.14em] text-gold-400">A POUSADA</p>
+        <h2 className="mt-3 font-display text-4xl md:text-5xl">Um recanto de paz no meio do Pantanal.</h2>
+
+        <ul className="mt-12 grid gap-x-6 gap-y-12 md:grid-cols-3">
+          {pousadaItems.map((item, i) => (
+            // Middle column sits lower on desktop: editorial rhythm
+            <li key={item.foto ?? `reservado-${i}`} data-pousada-item className={i % 3 === 1 ? 'md:mt-16' : ''}>
+              <figure>
+                <div className="overflow-hidden rounded-3xl">
+                  <Photo item={item} />
+                </div>
+                <figcaption className="mt-4 text-sand-300">{item.legenda}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

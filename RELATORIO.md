@@ -28,6 +28,12 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 
 ---
 
+## Lua no fundo da seção "A pousada" (2026-11-01)
+
+- **O quê:** a foto `originais/fotos/pousada/noite` (lua cheia no céu escuro) fica atrás dos 6 cards da pousada. Ela fica parada na tela enquanto a seção rola (no celular a seção é longa; se a foto esticasse, a lua ficaria gigante) e se mistura com a cor da página em cima e embaixo.
+- **Arquivo:** o `noite.ARW` era na verdade um JPEG com a extensão trocada. Foi copiado como `noite.jpg` (o script não lê `.ARW`) e otimizado: 4 a 19 KB por versão.
+- **Arquivos:** `src/sections/Pousada.tsx`, `public/media/img/noite-*.webp`, `manifest.json`.
+
 ## Roda de fotos no lugar do anel dos animais (2026-10-30)
 
 - **O quê:** a seção "Quem mora por aqui." da Home virou uma roda (adaptada do prompt "Works Wheel" do Ives). Parada, é um anel com os 6 animais em destaque em volta do título. O primeiro giro do scroll abre um tambor vertical: a foto da frente fica reta e grande, com o nome ao lado, e as vizinhas giram para longe em perspectiva. Cada giro traz o próximo animal; a lista no alto à direita leva direto a cada um; um clique na foto da frente abre a página do animal.
