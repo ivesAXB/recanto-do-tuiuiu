@@ -15,6 +15,7 @@ export default function AnimalRing() {
       items={wheelItems}
       basePath="/animais"
       ctaText="Ver os animais"
+      background="jacare-em-grupo"
       autoPlay
     />
   )

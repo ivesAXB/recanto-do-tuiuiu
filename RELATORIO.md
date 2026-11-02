@@ -36,6 +36,7 @@ O que o Ives precisa fazer para o projeto continuar estável depois do lançamen
 - **Celular:** foto maior (80% da largura), nome embaixo dela, lista abaixo da roda. O dedo **na horizontal** gira a roda e **na vertical** rola a página (no prompt, o dedo na vertical prendia a página).
 - **Movimento:** gira sozinha enquanto está na tela (pausa com o mouse em cima; para de vez quando alguém mexe). Com "reduzir movimento", troca sem deslizar e não gira sozinha.
 - **Teclado:** Tab foca a roda; ↑ ↓ giram; Home volta ao anel; End vai ao último; Enter abre.
+- **Fundo e sombra (2026-11-01):** a pedido do Ives, a foto "jacare-em-grupo" fica atrás da seção inteira, escurecida (verde 65%) e sumindo na cor da página em cima e embaixo. Os cards ganharam sombra dupla para se descolar do fundo. A roda aceita outra foto pela opção `background`.
 
 ## Guia de fauna (versão 2) + correção do Instagram
 

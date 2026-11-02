@@ -32,6 +32,7 @@ type Props = {
   actionText?: string // hover tag on the front card
   autoPlay?: boolean
   interval?: number // ms on each stop while auto-playing (1.5x on the ring)
+  background?: string // photo name (manifest) shown behind the whole section, darkened
 }
 
 /* Geometry. The card is measured from the wheel; everything else from the card, so a narrow wheel shrinks as a whole.
@@ -90,6 +91,7 @@ export default function PhotoWheel({
   actionText = 'Conhecer',
   autoPlay = false,
   interval = 2600,
+  background,
 }: Props) {
   const uid = useId()
   const stageRef = useRef<HTMLDivElement>(null)
@@ -321,8 +323,26 @@ export default function PhotoWheel({
     </ol>
   )
 
+  const bg = background ? imageSources(background) : null
+
   return (
-    <section id={id} aria-label={title} className="py-10 md:py-16">
+    <section id={id} aria-label={title} className="relative isolate overflow-hidden py-10 md:py-16">
+      {bg && (
+        <>
+          <img
+            src={bg.src}
+            srcSet={bg.srcSet}
+            sizes="100vw"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 -z-10 h-full w-full object-cover"
+          />
+          {/* Darkens the photo so the cards and text stand out, and fades into the page color at the edges */}
+          <div className="absolute inset-0 -z-10 bg-forest-950/65" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-forest-900 via-transparent to-forest-900" />
+        </>
+      )}
       <div className="relative mx-auto h-[min(68svh,540px)] min-h-[440px] overflow-hidden select-none md:h-[min(100svh,900px)] md:min-h-[600px]">
         <div
           ref={stageRef}
@@ -433,7 +453,7 @@ export default function PhotoWheel({
                     to(i + 1)
                   }}
                 >
-                  <span className="relative block h-full w-full overflow-hidden rounded-md bg-sage-200 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.6)]">
+                  <span className="relative block h-full w-full overflow-hidden rounded-md bg-sage-200 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),0_10px_20px_-10px_rgba(0,0,0,0.6)]">
                     {sources && (
                       <img
                         src={sources.src}
